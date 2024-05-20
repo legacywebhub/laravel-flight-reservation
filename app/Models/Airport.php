@@ -9,6 +9,9 @@ class Airport extends Model
 {
     use HasFactory;
 
+    // Disable timestamps
+    public $timestamps = false;
+
     protected $fillable = [
         'name',
         'country',

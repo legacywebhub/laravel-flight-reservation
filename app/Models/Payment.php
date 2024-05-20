@@ -9,6 +9,9 @@ class Payment extends Model
 {
     use HasFactory;
 
+    // Disable timestamps
+    public $timestamps = false;
+
     // Define relationship for payment
     public function booking() {
         return $this->belongsTo(Booking::class, 'booking_id');

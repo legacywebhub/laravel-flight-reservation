@@ -10,8 +10,12 @@ class Airline extends Model
 {
     use HasFactory;
 
+    // Disable timestamps
+    public $timestamps = false;
+
     protected $fillable = [
         'name',
+        'number_of_seats'
     ];
 
     // Define the relationship for flights

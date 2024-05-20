@@ -10,6 +10,9 @@ class Seat extends Model
 {
     use HasFactory;
 
+    // Disable timestamps
+    public $timestamps = false;
+
     // Define the relationship for flight
     public function flight()
     {

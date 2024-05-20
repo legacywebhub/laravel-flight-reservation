@@ -11,6 +11,9 @@ class SeatBooking extends Model
 {
     use HasFactory;
 
+    // Disable timestamps
+    public $timestamps = false;
+
     // Define the relationship for booking
     public function booking()
     {

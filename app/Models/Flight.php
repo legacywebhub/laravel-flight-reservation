@@ -13,6 +13,9 @@ class Flight extends Model
 {
     use HasFactory;
 
+    // Disable timestamps
+    public $timestamps = false;
+
     // Define the relationship for the airline
     public function airline()
     {
