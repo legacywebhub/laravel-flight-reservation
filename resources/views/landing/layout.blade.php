@@ -37,8 +37,12 @@
                   <div class="row align-items-center">
                       <div class="col-lg-6 col-sm-6 col-6 header-top-left">
                           <ul>
-                              <li><a href="#">Visit Us</a></li>
-                              <li><a href="#">Buy Tickets</a></li>
+                            @auth
+                            <li>Welcome <span class="text-uppercase">{{auth()->user->name}}</span></li>
+                            @else
+                            <li><a href="#">Visit Us</a></li>
+                            <li><a href="#">Buy Tickets</a></li>
+                            @endauth
                           </ul>			
                       </div>
                       <div class="col-lg-6 col-sm-6 col-6 header-top-right">
@@ -55,30 +59,17 @@
             <div class="container main-menu">
                 <div class="row align-items-center justify-content-between d-flex">
                   <div id="logo">
-                    <a href="index.html"><img src="{{ asset('landing/img/logo.png') }}" alt="" title="" /></a>
+                    <a href="{{ url('/') }}"><img src="{{ asset('landing/img/logo.png') }}" alt="" title="" /></a>
                   </div>
                   <nav id="nav-menu-container">
                     <ul class="nav-menu">
                       <li><a href="{{ url('/') }}">Home</a></li>
                       <li><a href="{{ url('/about') }}">About</a></li>
-                      <li><a href="packages.html">Packages</a></li>
-                      <li><a href="hotels.html">Hotels</a></li>
-                      <li><a href="insurance.html">Insurence</a></li>
-                      <li class="menu-has-children"><a href="">Blog</a>
+                      <li><a href="{{ url('/flights') }}">Flights</a></li>
+                      <li class="menu-has-children"><a href="">Booking & Reservations</a>
                         <ul>
-                          <li><a href="blog-home.html">Blog Home</a></li>
-                          <li><a href="blog-single.html">Blog Single</a></li>
-                        </ul>
-                      </li>	
-                      <li class="menu-has-children"><a href="">Pages</a>
-                        <ul>
-                              <li><a href="elements.html">Elements</a></li>
-                              <li class="menu-has-children"><a href="">Level 2 </a>
-                                <ul>
-                                  <li><a href="#">Item One</a></li>
-                                  <li><a href="#">Item Two</a></li>
-                                </ul>
-                              </li>					                		
+                          <li><a href="{{ url('/login') }}">Login</a></li>
+                          <li><a href="{{ url('/register') }}">Register</a></li>
                         </ul>
                       </li>					          					          		          
                       <li><a href="{{ url('/contact') }}">Contact</a></li>

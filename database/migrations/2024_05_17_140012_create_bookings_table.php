@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('RESTRICT');
-            $table->foreignId('flight_id')->constrained()->onDelete('RESTRICT');
             $table->unsignedSmallInteger('number_of_seats');
             $table->enum('status', ['reserved', 'purchased', 'cancelled'])->default('reserved');
             $table->timestamp('date');

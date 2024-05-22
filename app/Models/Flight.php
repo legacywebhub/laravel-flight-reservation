@@ -16,33 +16,27 @@ class Flight extends Model
     // Disable timestamps
     public $timestamps = false;
 
-    // Define the relationship for the airline
+    // Define the relationship to the airline
     public function airline()
     {
         return $this->belongsTo(Airline::class, 'airline_id');
     }
 
-    // Define the relationship for the origin airport
+    // Define the relationship to the origin airport
     public function origin()
     {
         return $this->belongsTo(Airport::class, 'origin_id');
     }
 
-    // Define the relationship for the destination airport
+    // Define the relationship to the destination airport
     public function destination()
     {
         return $this->belongsTo(Airport::class, 'destination_id');
     }
 
-    // Define the relationship for flight seats
+    // Define the relationship to flight seats
     public function seats()
     {
         return $this->hasMany(Seat::class, 'flight_id');
-    }
-
-    // Define the relationship for flight bookings
-    public function bookings()
-    {
-        return $this->hasMany(Booking::class, 'flight_id');
     }
 }

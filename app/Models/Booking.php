@@ -21,12 +21,6 @@ class Booking extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    // Define relationship for booking flight
-    public function flight()
-    {
-        return $this->belongsTo(Flight::class, 'flight_id');
-    }
-
     // Define relationship for booking payment
     public function payment()
     {

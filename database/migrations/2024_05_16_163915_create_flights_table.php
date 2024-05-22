@@ -20,6 +20,13 @@ return new class extends Migration
             $table->timestamp('arrival_time');
             $table->decimal('price', 10, 2);
             $table->unsignedInteger('available_seats')->default(100);
+            $table->enum('status', [
+                'available',
+                'booked',
+                'taken_off',
+                'landed',
+                'cancelled'
+            ])->default('available');
         });
     }
 

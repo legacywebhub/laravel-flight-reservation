@@ -18,31 +18,27 @@
 				</p>
 				<a href="#" class="primary-btn text-uppercase">Get Started</a>
 			</div>
-			<div class="col-lg-4 col-md-6 banner-right">
+			<div class="col-lg-4 col-md-6 banner-right mt-4">
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
 					<li class="nav-item">
-					<a class="nav-link active" id="flight-tab" data-toggle="tab" href="#flight" role="tab" aria-controls="flight" aria-selected="true">Flights</a>
+					<a class="nav-link active" id="flight-tab" data-toggle="tab" href="#flight" role="tab" aria-controls="flight" aria-selected="true">Search Flights</a>
 					</li>
-					<li class="nav-item">
+					{{-- <li class="nav-item">
 					<a class="nav-link" id="hotel-tab" data-toggle="tab" href="#hotel" role="tab" aria-controls="hotel" aria-selected="false">Hotels</a>
-					</li>
-					<li class="nav-item">
-					<a class="nav-link" id="holiday-tab" data-toggle="tab" href="#holiday" role="tab" aria-controls="holiday" aria-selected="false">Holidays</a>
-					</li>
+					</li> --}}
 				</ul>
 				<div class="tab-content" id="myTabContent">
 					<div class="tab-pane fade show active" id="flight" role="tabpanel" aria-labelledby="flight-tab">
-					<form class="form-wrap">
-						<input type="text" class="form-control" name="name" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
-						<input type="text" class="form-control" name="to" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
-						<input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
-						<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
-						<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adults '">
-						<input type="number" min="1" max="20" class="form-control" name="child" placeholder="Child " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Child '">							
-						<a href="#" class="primary-btn text-uppercase">Search flights</a>									
+					<form class="form-wrap" method="POST">
+						@csrf
+						<input type="text" class="form-control" name="origin" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
+						<input type="text" class="form-control" name="destination" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
+						<input type="text" class="form-control date-picker" name="departure_date" placeholder="Departure Time " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
+						<input type="text" class="form-control date-picker" name="arrival_date" placeholder="Arrival Time" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">							
+						<button class="primary-btn text-uppercase">Search</button>									
 					</form>
 					</div>
-					<div class="tab-pane fade" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
+					{{-- <div class="tab-pane fade" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
 					<form class="form-wrap">
 						<input type="text" class="form-control" name="name" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
 						<input type="text" class="form-control" name="to" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
@@ -52,24 +48,64 @@
 						<input type="number" min="1" max="20" class="form-control" name="child" placeholder="Child " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Child '">						
 						<a href="#" class="primary-btn text-uppercase">Search Hotels</a>									
 					</form>							  	
-					</div>
-					<div class="tab-pane fade" id="holiday" role="tabpanel" aria-labelledby="holiday-tab">
-					<form class="form-wrap">
-						<input type="text" class="form-control" name="name" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
-						<input type="text" class="form-control" name="to" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
-						<input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
-						<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
-						<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adults '">
-						<input type="number" min="1" max="20" class="form-control" name="child" placeholder="Child " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Child '">							
-						<a href="#" class="primary-btn text-uppercase">Search Holidays</a>									
-					</form>							  	
-					</div>
+					</div> --}}
 				</div>
 			</div>
 		</div>
 	</div>					
 </section>
 <!-- End banner Area -->
+
+<!-- Start other-issue Area -->
+<section class="other-issue-area section-gap">
+	<div class="container">
+		<div class="row d-flex justify-content-center">
+			<div class="menu-content pb-70 col-lg-9">
+				<div class="title text-center">
+					<h1 class="mb-10">Most Recent Flight</h1>
+					<p>We all live in an age that belongs to the young at heart. Life that is.</p>
+				</div>
+			</div>
+		</div>					
+		<div class="row">
+			<div class="col-12">
+				<div class="progress-table-wrap">
+					<div class="progress-table">
+						<div class="table-head">
+							<div class="visit">Flight ID</div>
+							<div class="visit">From</div>
+							<div class="visit">To</div>
+							<div class="visit">Departure Time</div>
+							<div class="visit">Arrival Time</div>
+						</div>
+						@if(count($latest_flights) > 0)
+							@foreach($latest_flights as $flight)
+							<div class="table-row">
+								<div class="serial">01</div>
+								<div class="country"> <img src="img/elements/f1.jpg" alt="flag">Canada</div>
+								<div class="visit">645032</div>
+								<div class="percentage">
+									<div class="progress">
+										<div class="progress-bar color-1" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+									</div>
+								</div>
+							</div>
+							<div class="text-center mt-3">
+								<a href="{{url('/flights')}}" class="primary-btn text-uppercase">Search</a>
+							</div>
+							@endforeach
+						@else
+							<div class="table-row">
+								<div class="visit">No Flights</div>
+							</div>
+						@endif
+					</div>
+				</div>
+			</div>																	
+		</div>
+	</div>	
+</section>
+<!-- End other-issue Area -->
 
 <!-- Start popular-destination Area -->
 <section class="popular-destination-area section-gap">

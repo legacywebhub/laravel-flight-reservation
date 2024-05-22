@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('flight_id')->constrained()->onDelete('CASCADE');
             $table->unsignedSmallInteger('seat_number');
             $table->enum('seat_class', ['economy', 'premium economy', 'business', 'first class'])->default('economy');
-            $table->boolean('available')->default(true);
+            $table->enum('status', ['available', 'reserved', 'booked'])->default('available');
         });
     }
 
