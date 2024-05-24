@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('booking_id')->unique()->constrained()->onDelete('CASCADE');
+            $table->foreignId('booking_id')->unique()->onDelete('CASCADE');
+            $table->string('reference_id');
             $table->decimal('amount', 10, 2);
             $table->timestamp('payment_date');
             $table->enum('payment_method', ['card', 'cash', 'transfer', 'cryptocurrency'])->default('card');

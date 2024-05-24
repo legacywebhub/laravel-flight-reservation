@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Booking;
 use App\Models\Message;
+use App\Models\Notification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,10 +20,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'profile_image',
         'name',
         'email',
         'phone',
         'address',
+        'timezone',
         'age',
         'gender',
         'password',
@@ -52,15 +55,21 @@ class User extends Authenticatable
         ];
     }
 
-    // Define relationship for user bookings
+    // Define relationship to bookings
     public function bookings()
     {
         return $this->hasMany(Booking::class, 'user_id');
     }
 
-    // Define relationship for messages
+    // Define relationship to messages
     public function messages()
     {
         return $this->hasMany(Message::class, 'user_id');
+    }
+
+    // Define relationship to notifications
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'user_id');
     }
 }

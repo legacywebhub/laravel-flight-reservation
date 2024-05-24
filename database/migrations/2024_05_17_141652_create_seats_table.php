@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('seats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('flight_id')->constrained()->onDelete('CASCADE');
-            $table->unsignedSmallInteger('seat_number');
+            $table->foreignId('flight_id')->onDelete('CASCADE');
+            $table->string('seat_number');
             $table->enum('seat_class', ['economy', 'premium economy', 'business', 'first class'])->default('economy');
+            $table->decimal('price', 10, 2);
             $table->enum('status', ['available', 'reserved', 'booked'])->default('available');
         });
     }

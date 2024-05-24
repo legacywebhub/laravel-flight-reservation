@@ -10,15 +10,19 @@ class Airline extends Model
 {
     use HasFactory;
 
+    // Connected table
+    protected $table = 'airlines';
+
     // Disable timestamps
     public $timestamps = false;
 
+    // Mass fillable fields
     protected $fillable = [
         'name',
         'number_of_seats'
     ];
 
-    // Define the relationship for flights
+    // Define the relationship to flights
     public function flights()
     {
         return $this->hasMany(Flight::class, 'airline_id');

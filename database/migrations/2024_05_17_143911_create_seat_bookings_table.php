@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('seat_bookings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('booking_id')->constrained()->onDelete('RESTRICT');
-            $table->foreignId('seat_id')->constrained()->onDelete('CASCADE');
-            $table->timestamp('date')->autoNow();
+            $table->foreignId('booking_id')->onDelete('RESTRICT');
+            $table->foreignId('seat_id')->onDelete('CASCADE');
+            $table->timestamp('date')->useCurrent();
         });
     }
 

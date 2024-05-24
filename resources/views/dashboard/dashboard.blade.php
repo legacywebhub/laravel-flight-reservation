@@ -5,426 +5,336 @@
 @endsection
 
 @section('content')
+<style>
+    .board {
+      width: 100%;
+      height: 60vh;
+      border-radius: 30px;
+      background-image: url("{{ asset('dashboard/images/people.svg') }}");
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+    }
+    .board img {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    .weather-info {
+      position: absolute;
+      top: 30px;
+      right: 25px;
+    }
+</style>
+    
+
 <div class="row">
-  <div class="col-md-12 grid-margin">
-    <div class="row">
-      <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-        <h3 class="font-weight-bold">Welcome <span class="text-capitalize">{{ Auth::user()->name }}</span></h3>
-        <h6 class="font-weight-normal mb-0">All systems are running smoothly! You have <span class="text-primary">3 unread alerts!</span></h6>
-      </div>
-      <div class="col-12 col-xl-4">
-       <div class="justify-content-end d-flex">
-        <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
-          <button class="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-           <i class="mdi mdi-calendar"></i> Today (10 Jan 2021)
-          </button>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuDate2">
-            <a class="dropdown-item" href="#">January - March</a>
-            <a class="dropdown-item" href="#">March - June</a>
-            <a class="dropdown-item" href="#">June - August</a>
-            <a class="dropdown-item" href="#">August - November</a>
-          </div>
-        </div>
-       </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-6 grid-margin stretch-card">
-    <div class="card tale-bg">
-      <div class="card-people mt-auto">
-        <img src="{{ asset('dashboard/images/dashboard/people.svg') }}" alt="people">
-        <div class="weather-info">
-          <div class="d-flex">
-            <div>
-              <h2 class="mb-0 font-weight-normal"><i class="icon-sun mr-2"></i>31<sup>C</sup></h2>
-            </div>
-            <div class="ml-2">
-              <h4 class="location font-weight-normal">Bangalore</h4>
-              <h6 class="font-weight-normal">India</h6>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6 grid-margin transparent">
-    <div class="row">
-      <div class="col-md-6 mb-4 stretch-card transparent">
-        <div class="card card-tale">
-          <div class="card-body">
-            <p class="mb-4">Today’s Bookings</p>
-            <p class="fs-30 mb-2">4006</p>
-            <p>10.00% (30 days)</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 mb-4 stretch-card transparent">
-        <div class="card card-dark-blue">
-          <div class="card-body">
-            <p class="mb-4">Total Bookings</p>
-            <p class="fs-30 mb-2">61344</p>
-            <p>22.00% (30 days)</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
-        <div class="card card-light-blue">
-          <div class="card-body">
-            <p class="mb-4">Number of Meetings</p>
-            <p class="fs-30 mb-2">34040</p>
-            <p>2.00% (30 days)</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 stretch-card transparent">
-        <div class="card card-light-danger">
-          <div class="card-body">
-            <p class="mb-4">Number of Clients</p>
-            <p class="fs-30 mb-2">47033</p>
-            <p>0.22% (30 days)</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-7 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <p class="card-title mb-0">Top Products</p>
-        <div class="table-responsive">
-          <table class="table table-striped table-borderless">
-            <thead>
-              <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Date</th>
-                <th>Status</th>
-              </tr>  
-            </thead>
-            <tbody>
-              <tr>
-                <td>Search Engine Marketing</td>
-                <td class="font-weight-bold">$362</td>
-                <td>21 Sep 2018</td>
-                <td class="font-weight-medium"><div class="badge badge-success">Completed</div></td>
-              </tr>
-              <tr>
-                <td>Search Engine Optimization</td>
-                <td class="font-weight-bold">$116</td>
-                <td>13 Jun 2018</td>
-                <td class="font-weight-medium"><div class="badge badge-success">Completed</div></td>
-              </tr>
-              <tr>
-                <td>Display Advertising</td>
-                <td class="font-weight-bold">$551</td>
-                <td>28 Sep 2018</td>
-                <td class="font-weight-medium"><div class="badge badge-warning">Pending</div></td>
-              </tr>
-              <tr>
-                <td>Pay Per Click Advertising</td>
-                <td class="font-weight-bold">$523</td>
-                <td>30 Jun 2018</td>
-                <td class="font-weight-medium"><div class="badge badge-warning">Pending</div></td>
-              </tr>
-              <tr>
-                <td>E-Mail Marketing</td>
-                <td class="font-weight-bold">$781</td>
-                <td>01 Nov 2018</td>
-                <td class="font-weight-medium"><div class="badge badge-danger">Cancelled</div></td>
-              </tr>
-              <tr>
-                <td>Referral Marketing</td>
-                <td class="font-weight-bold">$283</td>
-                <td>20 Mar 2018</td>
-                <td class="font-weight-medium"><div class="badge badge-warning">Pending</div></td>
-              </tr>
-              <tr>
-                <td>Social media marketing</td>
-                <td class="font-weight-bold">$897</td>
-                <td>26 Oct 2018</td>
-                <td class="font-weight-medium"><div class="badge badge-success">Completed</div></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-5 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">To Do Lists</h4>
-        <div class="list-wrapper pt-2">
-          <ul class="d-flex flex-column-reverse todo-list todo-list-custom">
-            <li>
-              <div class="form-check form-check-flat">
-                <label class="form-check-label">
-                  <input class="checkbox" type="checkbox">
-                  Meeting with Urban Team
-                </label>
-              </div>
-              <i class="remove ti-close"></i>
-            </li>
-            <li class="completed">
-              <div class="form-check form-check-flat">
-                <label class="form-check-label">
-                  <input class="checkbox" type="checkbox" checked>
-                  Duplicate a project for new customer
-                </label>
-              </div>
-              <i class="remove ti-close"></i>
-            </li>
-            <li>
-              <div class="form-check form-check-flat">
-                <label class="form-check-label">
-                  <input class="checkbox" type="checkbox">
-                  Project meeting with CEO
-                </label>
-              </div>
-              <i class="remove ti-close"></i>
-            </li>
-            <li class="completed">
-              <div class="form-check form-check-flat">
-                <label class="form-check-label">
-                  <input class="checkbox" type="checkbox" checked>
-                  Follow up of team zilla
-                </label>
-              </div>
-              <i class="remove ti-close"></i>
-            </li>
-            <li>
-              <div class="form-check form-check-flat">
-                <label class="form-check-label">
-                  <input class="checkbox" type="checkbox">
-                  Level up for Antony
-                </label>
-              </div>
-              <i class="remove ti-close"></i>
-            </li>
-          </ul>
-        </div>
-        <div class="add-items d-flex mb-0 mt-2">
-          <input type="text" class="form-control todo-list-input"  placeholder="Add new task">
-          <button class="add btn btn-icon text-primary todo-list-add-btn bg-transparent"><i class="icon-circle-plus"></i></button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-4 stretch-card grid-margin">
-    <div class="card">
-      <div class="card-body">
-        <p class="card-title mb-0">Projects</p>
-        <div class="table-responsive">
-          <table class="table table-borderless">
-            <thead>
-              <tr>
-                <th class="pl-0  pb-2 border-bottom">Places</th>
-                <th class="border-bottom pb-2">Orders</th>
-                <th class="border-bottom pb-2">Users</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="pl-0">Kentucky</td>
-                <td><p class="mb-0"><span class="font-weight-bold mr-2">65</span>(2.15%)</p></td>
-                <td class="text-muted">65</td>
-              </tr>
-              <tr>
-                <td class="pl-0">Ohio</td>
-                <td><p class="mb-0"><span class="font-weight-bold mr-2">54</span>(3.25%)</p></td>
-                <td class="text-muted">51</td>
-              </tr>
-              <tr>
-                <td class="pl-0">Nevada</td>
-                <td><p class="mb-0"><span class="font-weight-bold mr-2">22</span>(2.22%)</p></td>
-                <td class="text-muted">32</td>
-              </tr>
-              <tr>
-                <td class="pl-0">North Carolina</td>
-                <td><p class="mb-0"><span class="font-weight-bold mr-2">46</span>(3.27%)</p></td>
-                <td class="text-muted">15</td>
-              </tr>
-              <tr>
-                <td class="pl-0">Montana</td>
-                <td><p class="mb-0"><span class="font-weight-bold mr-2">17</span>(1.25%)</p></td>
-                <td class="text-muted">25</td>
-              </tr>
-              <tr>
-                <td class="pl-0">Nevada</td>
-                <td><p class="mb-0"><span class="font-weight-bold mr-2">52</span>(3.11%)</p></td>
-                <td class="text-muted">71</td>
-              </tr>
-              <tr>
-                <td class="pl-0 pb-0">Louisiana</td>
-                <td class="pb-0"><p class="mb-0"><span class="font-weight-bold mr-2">25</span>(1.32%)</p></td>
-                <td class="pb-0">14</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4 stretch-card grid-margin">
-    <div class="row">
-      <div class="col-md-12 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-title">Charts</p>
-            <div class="charts-data">
-              <div class="mt-3">
-                <p class="mb-0">Data 1</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="progress progress-md flex-grow-1 mr-4">
-                    <div class="progress-bar bg-inf0" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mb-0">5k</p>
+    <div class="col-12 grid-margin stretch-card">
+        <div class="board">
+            <div class="weather-info">
+                <div class="d-flex justify-content-around">
+                    <div class="mr-3">
+                        <h2 class="mb-0 font-weight-normal"><i class="mdi mdi-brightness-6"></i>31<sup>C</sup></h2>
+                    </div>
+                    <div class="ml-2">
+                        <h4 class="location font-weight-normal">Bangalore</h4>
+                        <h6 class="font-weight-normal">India</h6>
+                    </div>
                 </div>
-              </div>
-              <div class="mt-3">
-                <p class="mb-0">Data 2</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="progress progress-md flex-grow-1 mr-4">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mb-0">1k</p>
-                </div>
-              </div>
-              <div class="mt-3">
-                <p class="mb-0">Data 3</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="progress progress-md flex-grow-1 mr-4">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 48%" aria-valuenow="48" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mb-0">992</p>
-                </div>
-              </div>
-              <div class="mt-3">
-                <p class="mb-0">Data 4</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="progress progress-md flex-grow-1 mr-4">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mb-0">687</p>
-                </div>
-              </div>
-            </div>  
-          </div>
+            </div>
         </div>
-      </div>
-      <div class="col-md-12 stretch-card grid-margin grid-margin-md-0">
-        <div class="card data-icon-card-primary">
-          <div class="card-body">
-            <p class="card-title text-white">Number of Meetings</p>                      
-            <div class="row">
-              <div class="col-8 text-white">
-                <h3>34040</h3>
-                <p class="text-white font-weight-500 mb-0">The total number of sessions within the date range.It is calculated as the sum . </p>
-              </div>
-              <div class="col-4 background-icon">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
-  <div class="col-md-4 stretch-card grid-margin">
-    <div class="card">
-      <div class="card-body">
-        <p class="card-title">Notifications</p>
-        <ul class="icon-data-list">
-          <li>
-            <div class="d-flex">
-              <img src="images/faces/face1.jpg" alt="user">
-              <div>
-                <p class="text-info mb-1">Isabella Becker</p>
-                <p class="mb-0">Sales dashboard have been created</p>
-                <small>9:30 am</small>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="d-flex">
-              <img src="images/faces/face2.jpg" alt="user">
-              <div>
-                <p class="text-info mb-1">Adam Warren</p>
-                <p class="mb-0">You have done a great job #TW111</p>
-                <small>10:30 am</small>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="d-flex">
-            <img src="images/faces/face3.jpg" alt="user">
-           <div>
-            <p class="text-info mb-1">Leonard Thornton</p>
-            <p class="mb-0">Sales dashboard have been created</p>
-            <small>11:30 am</small>
-           </div>
-            </div>
-          </li>
-          <li>
-            <div class="d-flex">
-              <img src="images/faces/face4.jpg" alt="user">
-              <div>
-                <p class="text-info mb-1">George Morrison</p>
-                <p class="mb-0">Sales dashboard have been created</p>
-                <small>8:50 am</small>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="d-flex">
-              <img src="images/faces/face5.jpg" alt="user">
-              <div>
-              <p class="text-info mb-1">Ryan Cortez</p>
-              <p class="mb-0">Herbs are fun and easy to grow.</p>
-              <small>9:00 am</small>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <p class="card-title">Advanced Table</p>
+    <div class="col-12 grid-margin transparent">
         <div class="row">
-          <div class="col-12">
+        <div class="col-12 col-md-6 col-lg-6 mb-4 stretch-card transparent">
+            <div class="card card-tale">
+            <div class="card-body">
+                <h2 class="mb-4">Total Reservations</h2>
+                <h4 class="fs-30 mb-2">4006</h4>
+                <p>10.00% (30 days)</p>
+            </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 mb-4 stretch-card transparent">
+            <div class="card card-dark-blue">
+            <div class="card-body">
+                <h2 class="mb-4">Total Bookings</h2>
+                <h4 class="fs-30 mb-2">61344</h4>
+                <p>22.00% (30 days)</p>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-12 col-md-6 col-lg-6 mb-4 mb-lg-0 stretch-card transparent">
+            <div class="card card-light-blue">
+            <div class="card-body">
+                <h2 class="mb-4">Number of Meetings</h2>
+                <h4 class="fs-30 mb-2">34040</h4>
+                <p>2.00% (30 days)</p>
+            </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 stretch-card transparent">
+            <div class="card card-light-danger">
+            <div class="card-body">
+                <h2 class="mb-4">Number of Clients</h2>
+                <h4 class="fs-30 mb-2">47033</h4>
+                <p>0.22% (30 days)</p>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+{{-- <div class="row">
+    <div class="col-12 col-xl-6 grid-margin stretch-card">
+        <div class="row w-100 flex-grow">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <p class="card-title">Website Audience Metrics</p>
+                <p class="text-muted">25% more traffic than previous week</p>
+                <div class="row mb-3">
+                <div class="col-md-7">
+                    <div class="d-flex justify-content-between traffic-status">
+                    <div class="item">
+                        <p class="mb-">Users</p>
+                        <h5 class="font-weight-bold mb-0">93,956</h5>
+                        <div class="color-border"></div>
+                    </div>
+                    <div class="item">
+                        <p class="mb-">Bounce Rate</p>
+                        <h5 class="font-weight-bold mb-0">58,605</h5>
+                        <div class="color-border"></div>
+                    </div>
+                    <div class="item">
+                        <p class="mb-">Page Views</p>
+                        <h5 class="font-weight-bold mb-0">78,254</h5>
+                        <div class="color-border"></div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <ul class="nav nav-pills nav-pills-custom justify-content-md-end" id="pills-tab-custom"
+                    role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-home-tab-custom" data-toggle="pill"
+                        href="#pills-health" role="tab" aria-controls="pills-home" aria-selected="true">
+                        Day
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-profile-tab-custom" data-toggle="pill" href="#pills-career"
+                        role="tab" aria-controls="pills-profile" aria-selected="false">
+                        Week
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-contact-tab-custom" data-toggle="pill" href="#pills-music"
+                        role="tab" aria-controls="pills-contact" aria-selected="false">
+                        Month
+                        </a>
+                    </li>
+                    </ul>
+                </div>
+                </div>
+                <canvas id="audience-chart"></canvas>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-6 stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                <p class="card-title">Weekly Balance</p>
+                <p class="text-success font-weight-medium">20.15 %</p>
+                </div>
+                <div class="d-flex align-items-center flex-wrap mb-3">
+                <h5 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3">$22.736</h5>
+                <p class="text-muted mb-0">Avg Sessions</p>
+                </div>
+                <canvas id="balance-chart" height="130"></canvas>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-6 stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                <p class="card-title">Today Task</p>
+                <p class="text-success font-weight-medium">45.39 %</p>
+                </div>
+                <div class="d-flex align-items-center flex-wrap mb-3">
+                <h5 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3">17.247</h5>
+                <p class="text-muted mb-0">Avg Sessions</p>
+                </div>
+                <canvas id="task-chart" height="130"></canvas>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="col-12 col-xl-6 grid-margin stretch-card">
+        <div class="row w-100 flex-grow">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <p class="card-title">Regional Load</p>
+                <p class="text-muted">Last update: 2 Hours ago</p>
+                <div class="regional-chart-legend d-flex align-items-center flex-wrap mb-1"
+                id="regional-chart-legend"></div>
+                <canvas height="280" id="regional-chart"></canvas>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body pb-0">
+                <div class="d-flex align-items-center mb-4">
+                <p class="card-title mb-0 me-1">Today activity</p>
+                <div class="badge badge-info badge-pill">2</div>
+                </div>
+                <div class="d-flex flex-wrap pt-2">
+                <div class="me-4 mb-lg-2 mb-xl-0">
+                    <p>Time On Site</p>
+                    <h4 class="font-weight-bold mb-0">77.15 %</h4>
+                </div>
+                <div>
+                    <p>Page Views</p>
+                    <h4 class="font-weight-bold mb-0">14.15 %</h4>
+                </div>
+                </div>
+            </div>
+            <canvas height="150" id="activity-chart"></canvas>
+            </div>
+        </div>
+        <div class="col-md-12 stretch-card">
+            <div class="card">
+            <div class="card-body pb-0">
+                <p class="card-title">Server Status 247</p>
+                <div class="d-flex justify-content-between flex-wrap">
+                <p class="text-muted">Last update: 2 Hours ago</p>
+                <div class="d-flex align-items-center flex-wrap server-status-legend mt-3 mb-3 mb-md-0">
+                    <div class="item me-3">
+                    <div class="d-flex align-items-center">
+                        <div class="color-bullet"></div>
+                        <h5 class="font-weight-bold mb-0">128GB</h5>
+                    </div>
+                    <p class="mb-">Total Usage</p>
+                    </div>
+                    <div class="item me-3">
+                    <div class="d-flex align-items-center">
+                        <div class="color-bullet"></div>
+                        <h5 class="font-weight-bold mb-0">92%</h5>
+                    </div>
+                    <p class="mb-">Memory Usage</p>
+                    </div>
+                    <div class="item me-3">
+                    <div class="d-flex align-items-center">
+                        <div class="color-bullet"></div>
+                        <h5 class="font-weight-bold mb-0">16%</h5>
+                    </div>
+                    <p class="mb-">Disk Usage</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <canvas height="170" id="status-chart"></canvas>
+            </div>
+        </div>
+        </div>
+    </div>
+</div> --}}
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">This week's Flight</h4>
             <div class="table-responsive">
-              <table id="example" class="display expandable-table" style="width:100%">
+            <table class="table table-striped">
                 <thead>
-                  <tr>
-                    <th>Quote#</th>
-                    <th>Product</th>
-                    <th>Business type</th>
-                    <th>Policy holder</th>
-                    <th>Premium</th>
-                    <th>Status</th>
-                    <th>Updated at</th>
-                    <th></th>
-                  </tr>
+                    <tr>
+                        <th>Flight ID</th>
+                        <th>Departure Date</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Actions</th>
+                    </tr>
                 </thead>
+                <tbody>
+                    @if($flights)
+                        @foreach($flights as $flight)
+                        <tr>
+                            <td>{{$flight->id}}</td>
+                            <td>{{Date('d M, Y H:i A', strtotime($flight->departure_time)) }}</td>
+                            <td>{{$flight->origin->city.'/'.$flight->origin->country}}</td>
+                            <td>{{$flight->destination->city.'/'.$flight->destination->country}}</td>
+                            <td class="d-flex">
+                                <a href="">View</a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td>No Flights</td>
+                        </tr>
+                    @endif
+                </tbody>
             </table>
             </div>
-          </div>
         </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
+<!-- row end -->
+<div class="row">
+    <div class="col-md-4 grid-margin stretch-card">
+        <div class="card bg-facebook d-flex align-items-center">
+        <div class="card-body py-5">
+            <div
+            class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">
+            <i class="mdi mdi-facebook text-white icon-lg"></i>
+            <div class="ms-3 ml-md-0 ml-xl-3">
+                <h5 class="text-white font-weight-bold">2.62 Subscribers</h5>
+                <p class="mt-2 text-white card-text">You main list growing</p>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="col-md-4 grid-margin stretch-card">
+        <div class="card bg-google d-flex align-items-center">
+        <div class="card-body py-5">
+            <div
+            class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">
+            <i class="mdi mdi-google-plus text-white icon-lg"></i>
+            <div class="ms-3 ml-md-0 ml-xl-3">
+                <h5 class="text-white font-weight-bold">3.4k Followers</h5>
+                <p class="mt-2 text-white card-text">You main list growing</p>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="col-md-4 grid-margin stretch-card">
+        <div class="card bg-twitter d-flex align-items-center">
+        <div class="card-body py-5">
+            <div
+            class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">
+            <i class="mdi mdi-twitter text-white icon-lg"></i>
+            <div class="ms-3 ml-md-0 ml-xl-3">
+                <h5 class="text-white font-weight-bold">3k followers</h5>
+                <p class="mt-2 text-white card-text">You main list growing</p>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- row end -->
 @endsection

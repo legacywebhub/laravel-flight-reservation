@@ -13,8 +13,27 @@ class Flight extends Model
 {
     use HasFactory;
 
+    // Connected table
+    protected $table = 'flights';
+
     // Disable timestamps
     public $timestamps = false;
+
+    // Mass fillable fields
+    protected $fillable = [
+        'flight_id',
+        'airline_id',
+        'origin_id',
+        'destination_id',
+        'departure_time',
+        'arrival_time',
+        'economy_price',
+        'premium_economy_price',
+        'business_price',
+        'first_class_price',
+        'available_seats',
+        'status',
+    ];
 
     // Define the relationship to the airline
     public function airline()
@@ -34,9 +53,53 @@ class Flight extends Model
         return $this->belongsTo(Airport::class, 'destination_id');
     }
 
-    // Define the relationship to flight seats
+    // Define the relationship to seats
     public function seats()
     {
         return $this->hasMany(Seat::class, 'flight_id');
+    }
+
+    // Flight model event listener
+    protected static function booted()
+    {
+        static::created(function ($flight) {
+            $flight->createSeats();
+        });
+    }
+
+    // Function to create flight seats
+    public function createSeats()
+    {
+        // Define the seat classes and the number of seats in each class
+        $seatClasses = [
+            'economy' => floor(0.70 * $this->available_seat),
+            'premium economy' => floor(0.10 * $this->available_seat),
+            'business' => floor(0.15 * $this->available_seat),
+            'first class' => floor(0.05 * $this->available_seat),
+        ];
+
+        foreach ($seatClasses as $class => $count) {
+            // Determining seat price based on price
+            if ($class == 'economy') {
+                $price = $this->economy_price;
+            } else if ($class == 'premium economy') {
+                $price = $this->premium_economy_price;
+            } else if ($class == 'business economy') {
+                $price = $this->business_price;
+            } else {
+                $price = $this->first_class_price;
+            }
+
+            // Loop to create class seats
+            for ($i = 1; $i <= $count; $i++) {
+                Seat::create([
+                    'flight_id' => $this->id,
+                    'seat_number' => strtoupper(substr($class, 0, 1)) . $i, // Example: E1, E2, ..., B1, B2, ...
+                    'seat_class' => $class,
+                    'price' => $price,
+                    'status' => 'available'
+                ]);
+            }
+        }
     }
 }

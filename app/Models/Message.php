@@ -10,9 +10,13 @@ class Message extends Model
 {
     use HasFactory;
 
+    // Connected table
+    protected $table = 'messages';
+
     // Disable timestamps
     public $timestamps = false;
 
+    // Mass fillable field
     protected $fillable = [
         'name',
         'email',
@@ -21,7 +25,7 @@ class Message extends Model
         'message',
     ];
 
-    // Define relationship for user
+    // Define relationship to user
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
     }

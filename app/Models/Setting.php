@@ -9,9 +9,13 @@ class Setting extends Model
 {
     use HasFactory;
 
+    // Connected table
+    protected $table = 'settings';
+
     // Disable timestamps
     public $timestamps = false;
 
+    // Mass filable field
     protected $fillable = [
         'name',
         'email',

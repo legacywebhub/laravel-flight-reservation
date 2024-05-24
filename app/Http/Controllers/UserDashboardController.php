@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Seat;
 use App\Models\Flight;
 use App\Models\Booking;
 use App\Models\Setting;
@@ -21,20 +23,36 @@ class UserDashboardController extends Controller
         return redirect('/')->with('message', 'You have been logged out!');
     }
 
+    // User notifications
+    public function notifications()
+    {
+        return back();
+    }
+
     // User dashboard
     public function dashboard()
     {
         return view('dashboard.dashboard', [
-            'company'=> Setting::latest()->first()
+            'company'=> Setting::latest()->first(),
+            'flights'=> Flight::where('departure_time', '<=', Carbon::now()->addWeek())
+                        ->where('status', 'available')->get()
         ]);
     }
 
     // Show flights
-    public function flights()
+    public function flights(Request $request)
     {
+        if ($request->range) {
+            $timeframe = Carbon::now()->addDays($request->range);
+            $flights = Flight::where('departure_time', '<=', $timeframe)
+                               ->where('status', 'available');
+        } else {
+            $flights = Flight::where('status', 'available');
+        }
+
         return view('dashboard.flights', [
             'company'=> Setting::latest()->first(),
-            'flights'=> Flight::where('status', 'available')->paginate(2)
+            'flights'=> $flights->paginate(20)
         ]);
     }
 
@@ -72,12 +90,31 @@ class UserDashboardController extends Controller
         ]);
     }
 
-    // Bookings
+    // Flight page
+    public function flight(Flight $flight) 
+    {
+        return view('dashboard.flight', [
+            'company'=> Setting::latest()->first(),
+            'flight'=> $flight,
+            'seats' => $flight->seats->where('status', 'available')
+        ]);
+    }
+
+    // Bookings for user page 
     public function bookings()
     {
         return view('dashboard.flights', [
             'company'=> Setting::latest()->first(),
             'bookings'=> Auth::user()->bookings->paginate(2)
+        ]);
+    }
+
+    // Book a flight seat 
+    public function bookFlight(Seat $seat)
+    {
+        return view('dashboard.book-flight', [
+            'company'=> Setting::latest()->first(),
+            'seat'=> $seat
         ]);
     }
 

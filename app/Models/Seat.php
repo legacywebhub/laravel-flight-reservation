@@ -10,16 +10,28 @@ class Seat extends Model
 {
     use HasFactory;
 
+    // Connected table
+    protected $table = 'seats';
+
     // Disable timestamps
     public $timestamps = false;
 
-    // Define the relationship for flight
+    // Mass fillable fields
+    protected $fillable = [
+        'flight_id',
+        'seat_number',
+        'seat_class',
+        'price',
+        'status',
+    ];
+
+    // Define the relationship to flight
     public function flight()
     {
         return $this->belongsTo(Flight::class, 'flight_id');
     }
 
-    // Define the relationship for seat bookings
+    // Define the relationship to seat bookings
     public function seatbookings()
     {
         return $this->hasMany(SeatBooking::class, 'seat_id');

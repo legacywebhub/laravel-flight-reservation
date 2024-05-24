@@ -95,9 +95,11 @@
                     <p class="alert-msg text-danger" style="text-align: left;">{{ $message }}</p>
                     @enderror
                 </div>
+
                 @if(session()->has('message'))
                 <div class="alert-msg" style="text-align: center;">{{ session('message') }}</div>
                 @endif
+                
                 <button class="genric-btn primary d-block">Submit</button>
 
                 <div class="mt-5">Already have an account? Sign in <a href="{{ url('/login') }}">here</a></div>

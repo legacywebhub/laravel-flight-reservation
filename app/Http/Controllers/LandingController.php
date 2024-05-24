@@ -8,6 +8,7 @@ use App\Models\Booking;
 use App\Models\Message;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -110,12 +111,12 @@ class LandingController extends Controller
         // Validating form fields
         $formFields = $request->validate([
             'name'=> ['required', 'min:5', 'max:100'],
-            'email'=> ['required', 'email', 'max:100'],
+            'email'=> ['required', 'email', 'max:100', Rule::unique('users', 'email')],
             'phone'=> ['required', 'max:30'],
             'address'=> ['required', 'min:7', 'max:160'],
             'age'=> ['required', 'max:3'],
             'gender'=> 'required',
-            'password'=> 'required'
+            'password'=> 'required|min:5'
         ]);
 
         // Hashing user password

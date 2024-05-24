@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Flight;
 use App\Models\Airline;
 use App\Models\Airport;
 use App\Models\Setting;
@@ -17,9 +18,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        User::factory(10)->create();
+        /*
         Airline::factory(5)->create();
         Airport::factory(10)->create();
+        Flight::factory(20)->create();
         
         User::create([
             'name' => 'Admin Admin',
@@ -37,5 +40,6 @@ class DatabaseSeeder extends Seeder
             'phone' => "+234 916 075 5152",
             'address' => "30 Laravel-Fly Road, Awka, Nigeria"
         ]);
+        */
     }
 }

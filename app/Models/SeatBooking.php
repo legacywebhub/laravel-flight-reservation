@@ -11,16 +11,26 @@ class SeatBooking extends Model
 {
     use HasFactory;
 
+    // Connected table
+    protected $table = 'seatbookings';
+
     // Disable timestamps
     public $timestamps = false;
 
-    // Define the relationship for booking
+    // Mass fillable fields
+    protected $fillable = [
+        'booking_id',
+        'seat_id',
+        'date'
+    ];
+
+    // Define the relationship to booking
     public function booking()
     {
         return $this->belongsTo(Booking::class, 'booking_id');
     }
 
-    // Define the relationship for seat
+    // Define the relationship to seat
     public function seat()
     {
         return $this->belongsTo(Seat::class, 'seat_id');
