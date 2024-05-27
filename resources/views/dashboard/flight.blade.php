@@ -60,6 +60,7 @@
                       <th>#</th>
                       <th>Seat Number</th>
                       <th>Class</th>
+                      <th>Price</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -70,7 +71,8 @@
                             <td>{{ $seat->index() }}</td>
                             <td class="text-uppercase">{{ $seat->seat_number }}</td>
                             <td class="text-capitalize">{{ $seat->seat_class }}</td>
-                            <td><a href="{{ url('user/book/').$seat->id }}" class="btn btn-outline-success btn-fw">Book/Reserve</a></td>
+                            <td>${{ $seat->price }}</td>
+                            <td><a href="{{ url('user/book/').$seat->id }}" class="btn btn-outline-success btn-fw">Book</a></td>
                         </tr>
                         @endforeach
                     @else

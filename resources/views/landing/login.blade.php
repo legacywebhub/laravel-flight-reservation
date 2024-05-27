@@ -36,16 +36,22 @@
             <form action="{{ url('/login') }}" method="POST">
                 @csrf
                 @if(session()->has('message'))
-                <div class="alert-msg" style="text-align: center;">{{ session('message') }}</div>
+                	<div class="alert-msg" style="text-align: center;">{{ session('message') }}</div>
                 @endif
                 <div class="form-group">
                     <label for="email">Email address <span class="text-danger">*</span></label>
                     <input type="email" name="email" class="form-control" maxlength="100" id="email" required>
-                </div>
+					@error('email')
+                    <p class="alert-msg text-danger" style="text-align: left;">{{ $message }}</p>
+                    @enderror
+				</div>
                 <div class="form-group">
                     <label for="password">Password <span class="text-danger">*</span></label>
                     <input type="password" name="password" class="form-control" id="password" maxlength="100" required>
-                </div>
+					@error('password')
+                    <p class="alert-msg text-danger" style="text-align: left;">{{ $message }}</p>
+                    @enderror
+				</div>
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" id="remember">
                     <label class="form-check-label" for="remember">Remember me</label>

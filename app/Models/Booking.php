@@ -22,6 +22,10 @@ class Booking extends Model
     protected $fillable = [
         'booking_id',
         'user_id',
+        //'is_anonymous',
+        'name',
+        'email',
+        'phone',
         'amount',
         'status',
         'date'

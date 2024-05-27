@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Seat;
 use App\Models\User;
 use App\Models\Flight;
 use App\Models\Booking;
 use App\Models\Message;
 use App\Models\Setting;
+use App\Custom\Functions;
+use App\Models\SeatBooking;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -20,16 +23,16 @@ class LandingController extends Controller
     {
         return view('landing.home', [
             'company'=> Setting::latest()->first(),
-            'latest_flights'=> Flight::latest()->get()
+            'upcoming_flights'=> Flight::where('status', 'available')->latest()->limit(10)->get()
         ]);
     }
 
     // Show available flights
     public function flights()
     {
-        return view('landing.about', [
+        return view('landing.flights', [
             'company'=> Setting::latest()->first(),
-            'flights'=> Flight::where('status', 'available')
+            'flights'=> Flight::where('status', 'available')->latest()->get()
         ]);
     }
 
@@ -65,6 +68,82 @@ class LandingController extends Controller
         return view('landing.flights', [
             'company'=> Setting::latest()->first(), 'flights' => $flights
         ]);
+    }
+
+    // Flight page
+    public function flight($id) 
+    {
+        $flight = Flight::find($id);
+        $seats = $flight->seats->where('status', 'available');
+
+        return view('landing.flight', [
+            'company'=> Setting::latest()->first(),
+            'flight'=> $flight, 'seats' => $seats
+        ]);
+    }
+
+    // Show seat booking
+    public function bookFlight($id)
+    {
+        $seat = Seat::find($id);
+
+        return view('landing.book-flight', [
+            'company'=> Setting::latest()->first(),
+            'seat'=> $seat,
+        ]);
+    }
+
+    // Save booking information
+    public function saveBooking(Request $request)
+    {
+        return response()->json($request);
+
+        $data = $request->validate([
+            'flight_id' => 'required|exists:flights,id',
+            'seat_id' => 'required|exists:seats,id',
+            'amount' => 'required',
+            'name' => 'required_if:is_anonymous,true|string|max:100',
+            'email' => 'required_if:is_anonymous,true|email|max:100',
+            'phone' => 'required_if:is_anonymous,true|string|max:30',
+            'address' => 'required_if:is_anonymous,true|string|max:160',
+            'gender' => 'required_if:is_anonymous,true',
+            'age' => 'required_if:is_anonymous,true|max:3'
+        ]);
+
+        // Saving booking
+        $booking = new Booking;
+        $booking->flight_id = $data['flight_id'];
+        $booking->booking_id = Functions::generateBookingID();
+        $booking->amount = $data['amount'];
+        $booking->status = 'reserved';
+
+        if (auth()->check()) {
+            $booking->user_id = auth()->id();
+        } else {
+            $booking->name = $data['name'];
+            $booking->email = $data['email'];
+            $booking->phone = $data['phone'];
+            $booking->address = $data['address'];
+            $booking->gender = $data['gender'];
+            $booking->age = $data['age'];
+        }
+
+        $booking->save();
+
+        // Saving in pivot table
+        $seat_booking = new SeatBooking;
+        $seat_booking->booking_id = $booking->booking_id;
+        $seat_booking->seat_id = $data['seat_id'];
+        $seat_booking->save();
+
+        // Updating seat status
+        $seat = $seat_booking->seat; // $seat = Seat::find($data['seat_id']);
+        $seat->status = 'booked';
+        $seat->save();
+
+        // Redirecting to checkout page
+        return redirect()->route('checkout', ['booking_id' => $booking->booking_id])
+                         ->with('message', 'Proceed to complete booking process');
     }
 
     // About page

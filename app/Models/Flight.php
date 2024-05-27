@@ -68,7 +68,7 @@ class Flight extends Model
     }
 
     // Function to create flight seats
-    public function createSeats()
+    protected function createSeats()
     {
         // Define the seat classes and the number of seats in each class
         $seatClasses = [

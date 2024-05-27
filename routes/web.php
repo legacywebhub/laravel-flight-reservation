@@ -23,6 +23,18 @@ Route::get('/flights', [LandingController::class, 'flights'])
 Route::post('/flights', [LandingController::class, 'searchFlight'])
     ->middleware('guest')
     ->name('flights');
+Route::get('flight/{id}', [LandingController::class, 'flight'])
+    ->middleware('guest')
+    ->name('flight');
+Route::get('flight/book/{id}', [LandingController::class, 'bookFlight']) // id here stands for seat id
+    ->middleware('guest')
+    ->name('book_flight');
+Route::post('flight/book/{id}', [LandingController::class, 'saveBooking']) // id here stands for seat id
+    ->middleware('guest')
+    ->name('book_flight');
+Route::get('/booking/checkout/{booking_id}', [LandingController::class, 'checkout'])
+    ->middleware('guest')  # booking_id here here stands for unique generated booking ID
+    ->name('checkout');
 Route::get('/register', [LandingController::class, 'register'])
     ->middleware('guest')
     ->name('register');
@@ -40,37 +52,37 @@ Route::post('/login', [LandingController::class, 'authenticateUser'])
 // Auth routes
 Route::post('/user/logout', [UserDashboardController::class, 'logout'])
     ->middleware('auth')
-    ->name('logout');
+    ->name('dashboard.logout');
 Route::get('/user/profile', [UserDashboardController::class, 'profile'])
     ->middleware('auth')
-    ->name('user-profile');
+    ->name('dashboard.profile');
 Route::get('/user/profile/edit', [UserDashboardController::class, 'editProfile'])
     ->middleware('auth')
-    ->name('edit-profile');
+    ->name('dashboard.edit_profile');
 Route::get('/user/notifications', [UserDashboardController::class, 'notifications'])
     ->middleware('auth')
-    ->name('user-notifications');
+    ->name('dashboard.notifications');
 Route::get('user/dashboard', [UserDashboardController::class, 'dashboard'])
     ->middleware('auth')
     ->name('dashboard');
 Route::get('user/flights', [UserDashboardController::class, 'flights'])
     ->middleware('auth')
-    ->name('user-flights');
+    ->name('dashboard.flights');
 Route::post('user/flights', [UserDashboardController::class, 'searchFight'])
     ->middleware('auth')
-    ->name('search-flight');
+    ->name('dashboard.search_flight');
 Route::get('user/flight/{flight}', [UserDashboardController::class, 'flight'])
     ->middleware('auth')
-    ->name('flight');
+    ->name('dashboard.flight');
 Route::get('user/bookings', [UserDashboardController::class, 'bookings'])
     ->middleware('auth')
-    ->name('user-bookings');
-Route::get('/user/book/{flight}', [UserDashboardController::class, 'book'])
+    ->name('dashboard.bookings');
+Route::get('/user/flight/book/{id}', [UserDashboardController::class, 'bookFlight'])
     ->middleware('auth')
-    ->name('book');
-Route::post('/user/book/{flight}', [UserDashboardController::class, 'bookFlight'])
+    ->name('dashboard.book_flight');
+Route::post('/user/flight/book/{id}', [UserDashboardController::class, 'saveBooking'])
     ->middleware('auth')
-    ->name('book-flight');
-Route::get('/user/checkout/{booking}', [UserDashboardController::class, 'checkout'])
+    ->name('dashboard.book_flight');
+Route::get('/user/booking/checkout/{booking_id}', [UserDashboardController::class, 'checkout'])
     ->middleware('auth')
-    ->name('checkout');
+    ->name('dashboard.checkout');

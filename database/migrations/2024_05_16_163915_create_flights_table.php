@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('flights', function (Blueprint $table) {
             $table->id();
-            $table->string('flight_id');
+            $table->string('flight_id')->unique();
             $table->foreignId('airline_id')->onDelete('RESTRICT');
             $table->foreignId('origin_id')->onDelete('RESTRICT');
             $table->foreignId('destination_id')->onDelete('RESTRICT');

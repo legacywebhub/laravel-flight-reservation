@@ -28,6 +28,7 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->phoneNumber(),
             'address' => fake()->address(),
+            'timezone' => fake()->timezone(),
             'age' => rand(20, 60),
             'gender' => 'male',
             'password' => static::$password ??= Hash::make('password'),

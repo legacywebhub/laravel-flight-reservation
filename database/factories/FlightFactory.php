@@ -32,9 +32,9 @@ class FlightFactory extends Factory
             'departure_time' => Carbon::now()->addDays($dateAddition)->format('Y-m-d H:i:s'), // Departure at least today or in the next 7 days
             'arrival_time' => fake()->dateTimeBetween(Carbon::now()->addDays($dateAddition), Carbon::now()->addDays($dateAddition + 3)), // Arrival sometime between departure date and 3 days after
             'economy_price' => $base_price, // Price between 100.00 and 1000.00
-            'premium_economy_price' => $base_price + 500,
-            'business_price' => $base_price + 1000,
-            'first_class_price' => $base_price + 3000,
+            'premium_economy_price' => $base_price + 500, // Price dependent on the economy/base price
+            'business_price' => $base_price + 1000, // Price dependent on the economy/base price
+            'first_class_price' => $base_price + 3000, // Price dependent on the economy/base price
             'available_seats' => rand(150, 300)
         ];
     }

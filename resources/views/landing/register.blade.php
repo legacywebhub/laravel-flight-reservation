@@ -33,8 +33,9 @@
 			</div>
 		</div>	
 		<div class="row d-flex justify-content-center">
-            <form action="{{ url('/register') }}" method="POST">
+            <form name="reg-form" action="{{ url('/register') }}" method="POST">
                 @csrf
+                <input type="hidden" name="timezone" class="form-control">
                 <div class="form-group">
                     <label>Full Name <span class="text-danger">*</span></label>
                     <input type="text" name="name" class="form-control" maxlength="100" value="{{ old('name') }}" required>
@@ -97,7 +98,7 @@
                 </div>
 
                 @if(session()->has('message'))
-                <div class="alert-msg" style="text-align: center;">{{ session('message') }}</div>
+                    <div class="alert-msg" style="text-align: center;">{{ session('message') }}</div>
                 @endif
                 
                 <button class="genric-btn primary d-block">Submit</button>
@@ -108,4 +109,11 @@
 	</div>	
 </section>
 <!-- End login-page Area -->
+
+<script>
+    let regForm = document.forms["reg-form"];
+
+    // Inserting timezone of user
+    regForm["timezone"].value = Intl.DateTimeFormat().resolvedOptions().timeZone
+  </script>
 @endsection

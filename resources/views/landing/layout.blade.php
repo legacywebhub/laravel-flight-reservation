@@ -179,8 +179,62 @@
         <script src="{{ asset('landing/js/jquery.ajaxchimp.min.js') }}"></script>
         <script src="{{ asset('landing/js/jquery.magnific-popup.min.js') }}"></script>						
         <script src="{{ asset('landing/js/jquery.nice-select.min.js') }}"></script>					
-        <script src="{{ asset('landing/js/owl.carousel.min.js') }}"></script>							
+        <script src="{{ asset('landing/js/owl.carousel.min.js') }}"></script>
+        <script src="{{ asset('landing/js/sweetalert.min.js') }}"></script>						
         <script src="{{ asset('landing/js/mail-script.js') }}"></script>	
-        <script src="{{ asset('landing/js/main.js') }}"></script>	
+        <script src="{{ asset('landing/js/main.js') }}"></script>
+
+        <!-- Security js-->
+        <script>
+            if (window.history.replaceState){
+                window.history.replaceState(null, null, window.location.href);
+            }
+        </script>
+        <!-- Copy texts js -->
+        <script>
+            function copyText(arg) {
+                console.log('clicked a button');
+                // Get the input or text field
+                //var copyText = document.getElementById("myInput");
+
+                // Select the text field
+                arg.select();
+                arg.setSelectionRange(0, 99999); // For mobile devices
+
+                // Copy the text inside the text field
+                navigator.clipboard.writeText(arg.value).then(()=>{
+                    // Alert the copied text
+                    swal("Copied", {icon: 'success'});
+                }).catch(()=>{
+                    // Alert the copied text
+                    swal("Something went wrong", {icon: 'error'});
+                });
+            }
+        </script>
+        <!-- Return only number keystrokes -->
+        <script>
+            // This functions only allows input fields to accept numbers
+            function onlyNumberKey(evt) {
+                // Only ASCII character in that range allowed
+                var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+                if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                    return false; 
+                return true;
+                // use onkeypress="return onlyNumberKey(event)" on the input field
+            }
+        </script>
+        <script>
+            // This functions enforce input fields to only accept alphabet keystrokes
+            function onlyAlphabeticalKey(evt) {
+                // Only ASCII character in that range allowed
+                var ASCIICode = (evt.which) ? evt.which : evt.keyCode;
+                if ((ASCIICode >= 65 && ASCIICode <= 90) || (ASCIICode >= 97 && ASCIICode <= 122)) {
+                    return true; // Allow alphabetical characters
+                } else {
+                    return false; // Block other characters
+                }
+                // Use onkeypress="return onlyAlphabeticalKey(event)" on the input field
+            }
+        </script>
     </body>
 </html>

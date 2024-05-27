@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('phone', 30);
             $table->text('address', 160);
             $table->text('timezone', 60)->nullable();
-            $table->string('age', 3)->nullable();
+            $table->unsignedInteger('age')->nullable();
             $table->enum('gender', ['male', 'female'])->default('male');
             $table->string('password');
             $table->boolean('is_staff')->default(false);

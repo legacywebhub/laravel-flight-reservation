@@ -13,8 +13,15 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->string('booking_id');
-            $table->foreignId('user_id')->onDelete('RESTRICT');
+            $table->string('booking_id')->unique();
+            $table->foreignId('user_id')->onDelete('RESTRICT')->nullable();
+            //$table->boolean('is_anonymous')->default(false);
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->unsignedInteger('age')->nullable();
+            $table->string('gender')->nullable();
             $table->decimal('amount', 10, 2);
             $table->enum('status', ['reserved', 'purchased', 'cancelled'])->default('reserved');
             $table->timestamp('date');

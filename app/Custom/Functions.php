@@ -9,8 +9,18 @@ use DateTimeZone;
     Class to offer and populate miscellanous functions in our application
 */
 class Functions {
+    
+    // Function to generate number string
+    static public function generate_number_string(int $length) {
+        $num = '';
+        for ($x = 0; $x < $length; $x++) {
+            $i = strval(rand(0, 9));
+            $num .= $i;
+        }
+        return $num;
+    }
 
-    // 
+    // Function to generate ID using current datetime
     static public function generateDateTimeID() {
         // Get the current date and time components
         $year = date('Y'); // 4-digit year
@@ -79,4 +89,18 @@ class Functions {
 
         return $datetime;
     }
+
+    // Function to randomly select string from a list
+    static public function randomString(array $string_list): string
+    {
+        // Get the length of the list
+        $list_length = count($string_list);
+
+        // Generate a random index within the list bounds
+        $random_index = rand(0, $list_length - 1);
+
+        // Return the element at the random index
+        return $string_list[$random_index];
+    }
+
 }

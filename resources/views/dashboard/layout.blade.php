@@ -272,6 +272,7 @@
   <!-- plugin js for this page -->
     <script src="{{ asset('dashboard/js/jquery.cookie.js') }}" type="text/javascript"></script>
   <!-- End plugin js for this page -->
+  <script src="{{ asset('dashboard/vendors/sweetalert/sweetalert.min.js') }}"></script>
   <!-- Custom js for this page-->
   <script src="{{ asset('dashboard/js/dashboard.js') }}"></script>
   <!-- End custom js for this page-->

@@ -1,7 +1,7 @@
 @extends('landing.layout')
 
 @section('title')
-    {{ $company->name }} | Home Page
+    {{ $company->name }} | Home
 @endsection
 
 @section('content')
@@ -29,7 +29,7 @@
 				</ul>
 				<div class="tab-content" id="myTabContent">
 					<div class="tab-pane fade show active" id="flight" role="tabpanel" aria-labelledby="flight-tab">
-					<form class="form-wrap" method="POST">
+					<form class="form-wrap" action="{{ route('flights') }}" method="POST">
 						@csrf
 						<input type="text" class="form-control" name="origin" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
 						<input type="text" class="form-control" name="destination" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
@@ -56,14 +56,13 @@
 </section>
 <!-- End banner Area -->
 
-<!-- Start other-issue Area -->
+<!-- Start flights Area -->
 <section class="other-issue-area section-gap">
 	<div class="container">
 		<div class="row d-flex justify-content-center">
 			<div class="menu-content pb-70 col-lg-9">
 				<div class="title text-center">
-					<h1 class="mb-10">Most Recent Flight</h1>
-					<p>We all live in an age that belongs to the young at heart. Life that is.</p>
+					<h1 class="mb-10">Upcoming Flight</h1>
 				</div>
 			</div>
 		</div>					
@@ -77,23 +76,22 @@
 							<div class="visit">To</div>
 							<div class="visit">Departure Time</div>
 							<div class="visit">Arrival Time</div>
+							<div class="visit">Actions</div>
 						</div>
-						@if(count($latest_flights) > 0)
-							@foreach($latest_flights as $flight)
+						@if(count($upcoming_flights) > 0)
+							@foreach($upcoming_flights as $flight)
 							<div class="table-row">
-								<div class="serial">01</div>
-								<div class="country"> <img src="img/elements/f1.jpg" alt="flag">Canada</div>
-								<div class="visit">645032</div>
-								<div class="percentage">
-									<div class="progress">
-										<div class="progress-bar color-1" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-								</div>
-							</div>
-							<div class="text-center mt-3">
-								<a href="{{url('/flights')}}" class="primary-btn text-uppercase">Search</a>
+								<div class="visit">{{ $flight->flight_id }}</div>
+								<div class="visit">{{ $flight->origin->city.'/'.$flight->origin->country }}</div>
+								<div class="visit">{{ $flight->destination->city.'/'.$flight->destination->country }}</div>
+								<div class="visit">{{ Date('d M, Y H:i A', strtotime($flight->departure_time)) }}</div>
+								<div class="visit">{{ Date('d M, Y H:i A', strtotime($flight->arrival_time)) }}</div>
+								<div class="visit"><a href="{{ route('flight', ['id' => $flight->id]) }}" class="primary-btn text-uppercase">View Flight</a></div>
 							</div>
 							@endforeach
+							<div class="text-center mt-3">
+								<a href="{{ route('flights') }}" class="primary-btn text-uppercase">See More</a>
+							</div>
 						@else
 							<div class="table-row">
 								<div class="visit">No Flights</div>
@@ -105,7 +103,7 @@
 		</div>
 	</div>	
 </section>
-<!-- End other-issue Area -->
+<!-- End flights Area -->
 
 <!-- Start popular-destination Area -->
 <section class="popular-destination-area section-gap">
