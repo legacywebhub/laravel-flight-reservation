@@ -17,6 +17,7 @@ class FlightSeeder extends Seeder
         // Creating large record of flights using factories
         $flights = Flight::factory(10)->create();
 
+        // for each flight create seats
         foreach ($flights as $flight) {
             $this->createSeats($flight);
         }

@@ -5,6 +5,15 @@
 @endsection
 
 @section('content')
+<style>
+	#payment-btns {
+		display: none;
+	}
+</style>
+
+<!-- Paypal Inline CDN -->
+<script src="https://www.paypal.com/sdk/js?client-id=AaM8VGk3wYozIz74DljGW2nwh-fa8foCVGGC-rcmNApRDQB8esB1heimnLEc3KVatPTot6fEe5iO7xTe&currency=USD&disable-funding=credit"></script>
+
 <!-- start banner Area -->
 <section class="relative about-banner">	
 	<div class="overlay overlay-bg"></div>
@@ -119,6 +128,7 @@
 					<input type="hidden" name="seat_id" class="single-input" value="{{ $seat->id }}">
 					<div class="text-center mt-50">
 						<button class="btn btn-warning text-light"><span class="btn-text">Proceed</span></button>
+						<div id="payment-btns"></div>
 					</div>
 				</form>
 			</div>																	
@@ -129,60 +139,107 @@
 <script>
 	let bookingForm = document.forms['booking-form'],
 		bookingBtn = bookingForm.querySelector('.btn-warning'),
-		btnText = bookingBtn.querySelector('.btn-text');
+		paymentBtns = bookingForm.querySelector('#payment-btns'),
+		amount = parseInt({{ $seat->price }}),
+		formData = null;
 	
 	
 	bookingForm.addEventListener('submit', (e)=>{
 		e.preventDefault();
+
+		// Extracting form info
+		formData = {
+			'_token': '{{ csrf_token() }}',
+			'name': bookingForm['name'].value,
+			'email': bookingForm['email'].value,
+			'phone': bookingForm['phone'].value,
+			'address': bookingForm['address'].value,
+			'age': parseInt(bookingForm['age'].value),
+			'gender': bookingForm['gender'].value,
+			'flight_id': parseInt(bookingForm['flight_id'].value),
+			'seat_id': parseInt(bookingForm['seat_id'].value),
+			'amount': parseFloat(bookingForm['amount'].value),
+		}
 	
-		// Loading animation
-		btnText.innerHTML = `Submitting data...<img width='20' src="{{ asset('global/images/spinner-white.svg') }}">`;
-		bookingBtn.disabled = true;
-	
-		setTimeout(()=>{
-			fetch(window.location.href, {
-				method: "POST",
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					'_token': '{{ csrf_token() }}',
-					'name': bookingForm['name'].value,
-					'email': bookingForm['email'].value,
-					'phone': bookingForm['phone'].value,
-					'address': bookingForm['address'].value,
-					'age': parseInt(bookingForm['age'].value),
-					'gender': bookingForm['gender'].value,
-					'flight_id': parseInt(bookingForm['flight_id'].value),
-					'seat_id': parseInt(bookingForm['seat_id'].value),
-					'amount': parseFloat(bookingForm['amount'].value)
-				})
-			})
-			.then((response)=>{
-				return response.json()
-			})
-			.then((data)=>{
-				console.log(data);
-				if (data['status'] == "success") {
-					btnText.innerHTML = `Booked successfully`;
-					bookingBtn.disabled = true;
-					bookingForm.reset();
-					swal(data['message'], {icon:'success'});
-				} else {
-					btnText.innerHTML = `Proceed`;
-					bookingBtn.disabled = false;
-					swal(data['message'], {icon: 'error'});
-				}
-			})
-			.catch((err)=>{
-				console.log(err);
-				btnText.innerHTML = `Proceed`;
-				bookingBtn.disabled = false;
-				swal('Unknown error occured', {icon:'error'});
-			})
-		}, 2000);
-	
+		// Hide submit button and show paypal buttons
+		bookingBtn.style.display = "none";
+		paymentBtns.style.display = "contents";
 	})
+</script>
+
+<script>
+	function submitFormData(transactionID) {
+
+		// Appending transaction/reference ID to formData
+		formData.reference_id = transactionID;
+		console.log(formData);
+	
+		fetch(window.location.href, {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(formData)
+		})
+		.then((response)=>{
+			return response.json()
+		})
+		.then((data)=>{
+			console.log(data);
+			if (data['status'] == "success") {
+				paymentBtns.innerHTML = `<h4>Booking successful!</h4>`;
+				swal(data['message'], {icon:'success'});
+				setTimeout(()=>{
+				 	window.location.href = data['invoice_url'];
+				}, 3000)
+			} else {
+				swal(data['message'], {icon: 'error'});
+			}
+		})
+		.catch((err)=>{
+			console.log(err);
+			swal('Unknown error occured', {icon:'error'});
+		})
+
+	}
+</script>
+
+<script>
+	// Paypal function
+	// Render the PayPal button into #paypal-button-container
+	paypal.Buttons({
+	
+	// Set up the transaction
+	createOrder: function(data, actions) {
+		return actions.order.create({
+			purchase_units: [{
+				amount: {
+					value: amount
+				}
+			}]
+		});
+	},
+
+	// Finalize the transaction
+	onApprove: function(data, actions) {
+		return actions.order.capture().then(function(orderData) {
+			// Successful capture! For demo purposes:
+			//console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+			var transaction = orderData.purchase_units[0].payments.captures[0];
+			submitFormData(transaction.id);
+
+			// Replace the above to show a success message within this page, e.g.
+			// const element = document.getElementById('paypal-button-container');
+			// element.innerHTML = '';
+			// element.innerHTML = '<h3>Thank you for your payment!</h3>';
+			// Or go to another URL:  actions.redirect('thank_you.html');
+		});
+	}
+
+	// Note that that no DOM element should bear an ID of paypal else this won't work
+
+}).render('#payment-btns');
+
 </script>
 <!-- End flights Area -->
 @endsection

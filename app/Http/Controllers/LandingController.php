@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Seat;
 use App\Models\User;
 use App\Models\Flight;
 use App\Models\Booking;
 use App\Models\Message;
+use App\Models\Payment;
 use App\Models\Setting;
 use App\Custom\Functions;
 use App\Models\SeatBooking;
@@ -85,40 +87,52 @@ class LandingController extends Controller
     // Show seat booking
     public function bookFlight($id)
     {
+        // Fetching seat
         $seat = Seat::find($id);
+
+        // Redirecting if seat has already been booked
+        if ($seat->status == 'booked') {
+            return redirect()->route('flights');
+        }
 
         return view('landing.book-flight', [
             'company'=> Setting::latest()->first(),
-            'seat'=> $seat,
+            'seat'=> $seat
         ]);
     }
 
     // Save booking information
     public function saveBooking(Request $request)
     {
-        return response()->json($request);
-
+        // Validating post request
         $data = $request->validate([
             'flight_id' => 'required|exists:flights,id',
             'seat_id' => 'required|exists:seats,id',
+            'reference_id' => 'required|string',        
             'amount' => 'required',
             'name' => 'required_if:is_anonymous,true|string|max:100',
             'email' => 'required_if:is_anonymous,true|email|max:100',
             'phone' => 'required_if:is_anonymous,true|string|max:30',
             'address' => 'required_if:is_anonymous,true|string|max:160',
             'gender' => 'required_if:is_anonymous,true',
-            'age' => 'required_if:is_anonymous,true|max:3'
+            'age' => 'required_if:is_anonymous,true'
         ]);
 
-        // Saving booking
+        // Booking
         $booking = new Booking;
-        $booking->flight_id = $data['flight_id'];
         $booking->booking_id = Functions::generateBookingID();
         $booking->amount = $data['amount'];
-        $booking->status = 'reserved';
-
+        $booking->status = 'purchased';
+        $booking->date = Carbon::now()->format('Y-m-d H:i:s');
+        // Checking if authenticated user
         if (auth()->check()) {
             $booking->user_id = auth()->id();
+            $booking->name = auth()->name;
+            $booking->email = auth()->email;
+            $booking->phone = auth()->phone;
+            $booking->address = auth()->address;
+            $booking->gender = auth()->gender;
+            $booking->age = auth()->age;
         } else {
             $booking->name = $data['name'];
             $booking->email = $data['email'];
@@ -127,23 +141,57 @@ class LandingController extends Controller
             $booking->gender = $data['gender'];
             $booking->age = $data['age'];
         }
-
         $booking->save();
 
-        // Saving in pivot table
+        // Payment
+        $payment = new Payment;
+        $payment->booking_id = $booking->id;
+        $payment->reference_id = $data['reference_id'];
+        $payment->amount = $data['amount'];
+        $payment->payment_date = Carbon::now()->format('Y-m-d H:i:s');
+        $payment->payment_method = 'card';
+        $payment->payment_status = 'successful';
+        $payment->save();
+
+        // Seat Booking (Pivot table)
         $seat_booking = new SeatBooking;
-        $seat_booking->booking_id = $booking->booking_id;
+        $seat_booking->booking_id = $booking->id;
         $seat_booking->seat_id = $data['seat_id'];
         $seat_booking->save();
 
         // Updating seat status
-        $seat = $seat_booking->seat; // $seat = Seat::find($data['seat_id']);
+        $seat = $seat_booking->seat;
         $seat->status = 'booked';
         $seat->save();
 
-        // Redirecting to checkout page
-        return redirect()->route('checkout', ['booking_id' => $booking->booking_id])
-                         ->with('message', 'Proceed to complete booking process');
+        // Return JSON response
+        return response()->json([
+            'status' => "success", 
+            'message' => "Booking was successfully placed", 
+            'invoice_url' => route('invoice', ['booking_id' => $booking->booking_id])
+        ]);
+    }
+
+    // Invoice page
+    public function invoice($booking_id)
+    {
+        // Fetching booking
+        $booking = Booking::where('booking_id', $booking_id)->first();
+        // Fetching seat booking
+        $seat_booking = SeatBooking::where('booking_id', $booking->id)->first();
+        // Fetching seat
+        $seat = $seat_booking->seat;
+
+        // Redirecting user if seat booking not found
+        if (empty($seat_booking) || is_null($seat) || $seat->status == 'available') {
+            return redirect()->route('flights')
+                                ->with('message', "Invalid booking ID");
+        }
+
+        return view('landing.invoice', [
+            'company' => Setting::latest()->first(),
+            'seat_booking' => $seat_booking
+        ]);
     }
 
     // About page

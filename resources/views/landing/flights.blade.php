@@ -25,8 +25,9 @@
 <section class="other-issue-area section-gap">
 	<div class="container">
         <div class="row">
-            <div class="title">
-                <h1 class="mb-5">Filter Flights</h1>
+            <div class="title mb-5">
+                <h1> Filter Flights</h1>
+				<p class="mt-2">Search by origin, destination and departure date</p>
             </div>
 			<div class="col-12 mb-4">
                 <form action="{{ url('/flights') }}" method="POST">

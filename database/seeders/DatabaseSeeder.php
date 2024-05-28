@@ -19,12 +19,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Seat::factory(500)->create();
-        /*
         // Mass creating table records
         User::factory(10)->create();
         Airline::factory(5)->create();
         Airport::factory(10)->create();
+        Seat::factory(1000)->create();
         
         // Creating a user admin
         User::create([
@@ -33,7 +32,7 @@ class DatabaseSeeder extends Seeder
             'phone' => '+234 906 075 5152',
             'address' => '30 Laravel-Fly Road, Awka, Nigeria',
             'timezone' => 'Africa/Lagos',
-            'age' => '25',
+            'age' => 25,
             'password' => Hash::make('admin'),
             'is_staff' => true
         ]);
@@ -51,6 +50,5 @@ class DatabaseSeeder extends Seeder
             FlightSeeder::class,
             // Other seeders
         ]);
-        */
     }
 }

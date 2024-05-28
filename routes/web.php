@@ -26,15 +26,15 @@ Route::post('/flights', [LandingController::class, 'searchFlight'])
 Route::get('flight/{id}', [LandingController::class, 'flight'])
     ->middleware('guest')
     ->name('flight');
-Route::get('flight/book/{id}', [LandingController::class, 'bookFlight']) // id here stands for seat id
-    ->middleware('guest')
+Route::get('flight/book/{id}', [LandingController::class, 'bookFlight'])
+    ->middleware('guest')   // id here stands for seat id
     ->name('book_flight');
-Route::post('flight/book/{id}', [LandingController::class, 'saveBooking']) // id here stands for seat id
-    ->middleware('guest')
+Route::post('flight/book/{id}', [LandingController::class, 'saveBooking'])
+    ->middleware('guest')   // id here stands for seat id
     ->name('book_flight');
-Route::get('/booking/checkout/{booking_id}', [LandingController::class, 'checkout'])
-    ->middleware('guest')  # booking_id here here stands for unique generated booking ID
-    ->name('checkout');
+Route::get('/booking/invoice/{booking_id}', [LandingController::class, 'invoice'])
+    ->middleware('guest')  // booking_id here here stands for unique generated booking ID
+    ->name('invoice');
 Route::get('/register', [LandingController::class, 'register'])
     ->middleware('guest')
     ->name('register');

@@ -12,7 +12,7 @@ class SeatBooking extends Model
     use HasFactory;
 
     // Connected table
-    protected $table = 'seatbookings';
+    protected $table = 'seat_bookings';
 
     // Disable timestamps
     public $timestamps = false;
