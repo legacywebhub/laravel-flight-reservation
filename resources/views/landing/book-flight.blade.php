@@ -1,7 +1,7 @@
 @extends('landing.layout') 
 
 @section('title')
-{{ $company->name }} | Flight
+{{ $company->name }} | Book Flight
 @endsection
 
 @section('content')
@@ -14,131 +14,201 @@
 <!-- Paypal Inline CDN -->
 <script src="https://www.paypal.com/sdk/js?client-id=AaM8VGk3wYozIz74DljGW2nwh-fa8foCVGGC-rcmNApRDQB8esB1heimnLEc3KVatPTot6fEe5iO7xTe&currency=USD&disable-funding=credit"></script>
 
-<!-- start banner Area -->
-<section class="relative about-banner">	
-	<div class="overlay overlay-bg"></div>
-	<div class="container">				
-		<div class="row d-flex align-items-center justify-content-center">
-			<div class="about-content col-lg-12">
-				<h1 class="text-white">
-					Book Flight
-				</h1>	
-				<p class="text-white link-nav"><a href="{{ route('home') }}">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="javascript:void(0);"> Book Flight</a></p>
-			</div>	
-		</div>
-	</div>
-</section>
-<!-- End banner Area -->				  
+<!-- ====================== Page Title ================= -->	
+<x-landing-title title="Flight Booking" current_page="Book Flight"/>
+<!-- ====================== Page Title ================= -->
+<div class="clearfix"></div>				  
 
 <!-- Start flights Area -->
 <section class="testimonial-area section-gap">
 	<div class="container">
-		<div class="row d-flex justify-content-center">
-			<div class="menu-content pb-70 col-lg-9">
-				<div class="title text-center">
-					<h3 class="mb-10">
-                        Provide Your Information
-                    </h3>
+		<!-- row -->
+		<div class="row">
+			<div class="col-md-9">
+				<div class="tr-single-box">
+					<div class="tr-single-header">
+						<h4><i class="ti-write"></i>Billing Information</h4>
+					</div>
+					<div class="tr-single-body">
+						<form name="booking-form" method="POST">
+							@csrf
+							<h5>Personal Information</h5><hr>
+							<div class="row">
+								<div class="col-sm-6">
+									<label>Name</label>
+									<input type="text" class="form-control" name="name" maxlength="100" required>
+								</div>
+								<div class="col-sm-6">
+									<label>Email</label>
+									<input type="email" class="form-control" name="email" maxlength="100" required>
+								</div>
+								<div class="col-sm-6">
+									<label>Phone</label>
+									<input type="text" class="form-control" name="phone" maxlength="20" required>
+								</div>
+								<div class="col-sm-6">
+									<label>Address</label>
+									<input type="text" class="form-control" name="address" minlength="5" maxlength="160" required>
+								</div>
+								<div class="col-sm-6">
+									<label>Age</label>
+									<input type="text" class="form-control" name="age" maxlength="3" onkeypress="return onlyNumberKey(event)" required>
+								</div>
+								<div class="col-sm-6">
+									<label>Gender</label>
+									<select class="wide form-control br-1" name="gender" required>
+										<option value=""></option>
+										<option value="male">Male</option>
+										<option value="female">Female</option>
+									</select>
+								</div>
+							</div>	
+							<h5>Flight Information</h5><hr>
+							<div class="row">
+								<div class="col-sm-6">
+									<label>Flight</label>
+									<input type="text" class="form-control" name="flight" value="{{ $seat->flight->flight_id }}" readonly required>
+								</div>
+								<div class="col-sm-6">
+									<label>Seat Number</label>
+									<input type="email" class="form-control" name="seat_number" value="{{ $seat->seat_number }}" readonly required>
+								</div>
+								<div class="col-sm-6">
+									<label>Seat Class</label>
+									<input type="text" class="form-control" name="seat_class" value="{{ $seat->seat_class }}" readonly required>
+								</div>
+								<div class="col-sm-6">
+									<label>Amount($)</label>
+									<input type="text" class="form-control" name="amount"  value="{{ $seat->price }}" readonly required>
+								</div>
+							</div>
+							<input type="hidden" name="flight_id" class="single-input" value="{{ $seat->flight->id }}">
+							<input type="hidden" name="seat_id" class="single-input" value="{{ $seat->id }}">
+							<div class="text-center" style="margin-top:30px;">
+								<button class="btn theme-btn cl-white seub-btn"><span class="btn-text">Proceed</span></button>
+								<div id="payment-btns"></div>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
-		</div>					
-		<div class="row d-flex justify-content-center">
-			<div class="col-sm-12 col-md-9 col-lg-6">
-				<form name="booking-form" method="POST"><!-- {{ route('book_flight', ['id' => $seat->id]) }} -->
-					@csrf
-					<h5>Personal Information</h5><hr>
-					<div class="mt-10">
-						<label class="ml-10 font-weight-bold">Full Name:</label>
-						<input type="text" name="name" class="single-input-primary" value="{{ old('name') }}" maxlength="100" required>
-						@error('name')
-						<p class="alert-msg text-danger" style="text-align: left;">{{ $message }}</p>
-						@enderror
+			
+			<div class="col-md-3">
+				<div class="tr-single-box">
+					<div class="tr-single-header">
+						<h4><i class="ti-credit-card"></i>Payment Methode</h4>
 					</div>
-					<div class="mt-10">
-						<label class="ml-10 font-weight-bold">Email:</label>
-						<input type="email" name="email" class="single-input-primary" value="{{ old('email') }}" maxlength="100" required>
-						@error('email')
-						<p class="alert-msg text-danger" style="text-align: left;">{{ $message }}</p>
-						@enderror
-					</div>
-					<div class="mt-10">
-						<label class="ml-10 font-weight-bold">Phone:</label>
-						<input type="text" name="phone" class="single-input-primary" value="{{ old('phone') }}" maxlength="30" required>
-						@error('phone')
-						<p class="alert-msg text-danger" style="text-align: left;">{{ $message }}</p>
-						@enderror
-					</div>
-					<div class="mt-10">
-						<label class="ml-10 font-weight-bold">Address:</label>
-						<input type="text" name="address" class="single-input-primary" value="{{ old('address') }}" maxlength="160" required>
-						@error('address')
-						<p class="alert-msg text-danger" style="text-align: left;">{{ $message }}</p>
-						@enderror
-					</div>
-					<div class="mt-10">
-						<label class="ml-10 font-weight-bold">Age:</label>
-						<input type="text" name="age" class="single-input-primary" value="{{ old('age') }}" maxlength="3" onkeypress="return onlyNumberKey(event)" required>
-						@error('age')
-						<p class="alert-msg text-danger" style="text-align: left;">{{ $message }}</p>
-						@enderror
-					</div>
-					<div class="mt-10">
-						<label class="ml-10 font-weight-bold">Gender:</label>
-						<div class="form-select" id="default-select">
-							<select name="gender" required>
-								<option value=""></option>
-								<option value="male">Male</option>
-								<option value="female">Female</option>
-							</select>
+					<div class="tr-single-body">
+						<!-- Paypal Option -->
+						<div class="payment-card">
+							<header class="payment-card-header cursor-pointer" data-toggle="collapse" data-target="#paypal" aria-expanded="true">
+								<div class="payment-card-title flexbox">
+									<h4>PayPal</h4>
+								</div>
+								<div class="pull-right">
+									<img src="{{ asset('assets/img/paypal.png') }}" class="img-responsive" alt=""> 
+								</div>
+							</header>
+							{{-- <div class="collapse" id="paypal" aria-expanded="false">
+								<div class="payment-card-body">
+									<div class="row mrg-bot-20">
+										<div class="col-sm-6">
+											<span class="custom-checkbox d-block font-12">
+												<input type="checkbox" id="privacy">
+												<label for="privacy"></label>
+												Have a promo code?
+											</span>
+											<input type="text" class="form-control">
+										</div>
+										<div class="col-sm-6 padd-top-10 text-right">
+											<label>Total Order</label>
+											<h2 class="mrg-0"><span class="theme-cl">$</span>1170</h2>
+										</div>
+										<div class="col-sm-12 bt-1 padd-top-15">
+											<span class="custom-checkbox d-block font-12">
+												<input type="checkbox" id="privacy">
+												<label for="privacy"></label>
+												By ordering you are agreeing to our <a href="#" class="theme-cl">Privacy policy</a>.
+											</span>
+											<button type="submit" class="btn btn-m btn-success">Checkout</button>
+										</div>
+									</div>
+								</div>
+							</div> --}}
 						</div>
-						@error('gender')
-						<p class="alert-msg text-danger" style="text-align: left;">{{ $message }}</p>
-						@enderror
-					</div>
-					<h5 class="mt-40">Flight Information</h5><hr>
-					<div class="mt-10">
-						<label class="ml-10 font-weight-bold">Flight ID:</label>
-						<div class="input-group-icon">
-							<div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>
-							<input type="text" name="flight" class="single-input" value="{{ $seat->flight->flight_id }}" readonly required>
+						
+						<!-- Debit card option -->
+						<div class="payment-card">
+							<header class="payment-card-header cursor-pointer" data-toggle="collapse" data-target="#debit-credit" aria-expanded="true">
+								<div class="payment-card-title flexbox">
+									<h4>Credit / Debit Card</h4>
+								</div>
+								<div class="pull-right">
+									<img src="{{ asset('assets/img/credit.png') }}" class="img-responsive" alt=""> 
+								</div>
+							</header>
+							{{-- <div class="collapse" id="debit-credit" aria-expanded="false">
+								<div class="payment-card-body">
+									<div class="row mrg-bot-20">
+										<div class="col-sm-6">
+											<label>Card Holder Name</label>
+											<input type="text" class="form-control" placeholder="Daniel Singh">
+										</div>
+										<div class="col-sm-6">
+											<label>Card No.</label>
+											<input type="email" class="form-control" placeholder="1235 4785 4758 1458">
+										</div>
+									</div>
+									<div class="row mrg-bot-20">
+										<div class="col-sm-4 col-md-4">
+											<label>Expire Month</label>
+											<input type="text" class="form-control" placeholder="07">
+										</div>
+										<div class="col-sm-4 col-md-4">
+											<label>Expire Year</label>
+											<input type="email" class="form-control" placeholder="2020">
+										</div>
+										<div class="col-sm-4 col-md-4">
+											<label>CCV Code</label>
+											<input type="email" class="form-control" placeholder="258">
+										</div>
+									</div>
+									<div class="row mrg-bot-20">
+										<div class="col-sm-7">
+											<span class="custom-checkbox d-block font-12">
+												<input type="checkbox" id="privacy">
+												<label for="privacy"></label>
+												Have a promo code?
+											</span>
+											<input type="text" class="form-control">
+										</div>
+										<div class="col-sm-5 padd-top-10 text-right">
+											<label>Total Order</label>
+											<h2 class="mrg-0"><span class="theme-cl">$</span>1170</h2>
+										</div>
+										<div class="col-sm-12 bt-1 padd-top-15">
+											<span class="custom-checkbox d-block font-12">
+												<input type="checkbox" id="privacy">
+												<label for="privacy"></label>
+												By ordering you are agreeing to our <a href="#" class="theme-cl">Privacy policy</a>.
+											</span>
+											<button type="submit" class="btn btn-m btn-success">Checkout</button>
+										</div>
+									</div>
+								</div>
+							</div> --}}
 						</div>
+						
 					</div>
-					<div class="mt-10">
-						<label class="ml-10 font-weight-bold">Seat Number:</label>
-						<div class="input-group-icon">
-							<div class="icon"><i class="fa fa-file" aria-hidden="true"></i></div>
-							<input type="text" name="seat_number" class="single-input" value="{{ $seat->seat_number }}" readonly required>
-						</div>
-					</div>
-					<div class="mt-10">
-						<label class="ml-10 font-weight-bold">Seat Class:</label>
-						<div class="input-group-icon">
-							<div class="icon"><i class="fa fa-thumb-tack" aria-hidden="true"></i></div>
-							<input type="text" name="seat_class" class="single-input text-capitalize" value="{{ $seat->seat_class }}" readonly required>
-						</div>
-					</div>
-					<div class="mt-10">
-						<label class="ml-10 font-weight-bold">Amount:</label>
-						<div class="input-group-icon">
-							<div class="icon"><i class="fa fa-dollar" aria-hidden="true"></i></div>
-							<input type="number" name="amount" class="single-input" value="{{ $seat->price }}" readonly required>
-						</div>
-					</div>
-					<input type="hidden" name="flight_id" class="single-input" value="{{ $seat->flight->id }}">
-					<input type="hidden" name="seat_id" class="single-input" value="{{ $seat->id }}">
-					<div class="text-center mt-50">
-						<button class="btn btn-warning text-light"><span class="btn-text">Proceed</span></button>
-						<div id="payment-btns"></div>
-					</div>
-				</form>
-			</div>																	
-		</div>
+				</div>
+			</div>
+		</div>			
     </div>
 </section>
 
 <script>
 	let bookingForm = document.forms['booking-form'],
-		bookingBtn = bookingForm.querySelector('.btn-warning'),
+		bookingBtn = bookingForm.querySelector('.theme-btn'),
 		paymentBtns = bookingForm.querySelector('#payment-btns'),
 		amount = parseInt({{ $seat->price }}),
 		formData = null;

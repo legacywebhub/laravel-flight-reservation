@@ -1,648 +1,1200 @@
 @extends('landing.layout')
 
 @section('title')
-    {{ $company->name }} | Home
+{{ $company->name }} | Home
 @endsection
 
 @section('content')
-<!-- start banner Area -->
-<section class="banner-area relative">
-	<div class="overlay overlay-bg"></div>				
-	<div class="container">
-		<div class="row fullscreen align-items-center justify-content-between">
-			<div class="col-lg-6 col-md-6 banner-left">
-				<h6 class="text-white">Away from monotonous life</h6>
-				<h1 class="text-white">{{$company->name}}</h1>
-				<p class="text-white">
-					If you are looking at blank cassettes on the web, you may be very confused at the difference in price. You may see some for as low as $.17 each.
-				</p>
-				<a href="#" class="primary-btn text-uppercase">Get Started</a>
-			</div>
-			<div class="col-lg-4 col-md-6 banner-right mt-4">
-				<ul class="nav nav-tabs" id="myTab" role="tablist">
-					<li class="nav-item">
-					<a class="nav-link active" id="flight-tab" data-toggle="tab" href="#flight" role="tab" aria-controls="flight" aria-selected="true">Search Flights</a>
-					</li>
-					{{-- <li class="nav-item">
-					<a class="nav-link" id="hotel-tab" data-toggle="tab" href="#hotel" role="tab" aria-controls="hotel" aria-selected="false">Hotels</a>
-					</li> --}}
-				</ul>
-				<div class="tab-content" id="myTabContent">
-					<div class="tab-pane fade show active" id="flight" role="tabpanel" aria-labelledby="flight-tab">
-					<form class="form-wrap" action="{{ route('flights') }}" method="POST">
-						@csrf
-						<input type="text" class="form-control" name="origin" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
-						<input type="text" class="form-control" name="destination" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
-						<input type="text" class="form-control date-picker" name="departure_date" placeholder="Departure Time " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
-						<input type="text" class="form-control date-picker" name="arrival_date" placeholder="Arrival Time" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">							
-						<button class="primary-btn text-uppercase">Search</button>									
-					</form>
+<!-- ======================= Slide Multiple Booking Start Banner ===================== -->
+<section class="main-banner scroll-con-sec hero-section" data-scrollax-parent="true" id="sec1">
+	<div class="slideshow-container">
+		<!-- slideshow-item -->	
+		<div class="slideshow-item">
+			<div class="bg"  data-bg="assets/img/banner-6.jpg"></div>
+		</div>
+		<!--  slideshow-item end  -->	
+		<!-- slideshow-item -->	
+		<div class="slideshow-item">
+			<div class="bg"  data-bg="assets/img/banner-7.jpg"></div>
+		</div>
+		<!--  slideshow-item end  -->	
+		<!-- slideshow-item -->	
+		<div class="slideshow-item">
+			<div class="bg"  data-bg="assets/img/banner-8.jpg"></div>
+		</div>
+		<!--  slideshow-item end  -->	                        
+	</div>
+	<div class="overlay"></div>
+	<div class="hero-section-wrap fl-wrap multi-option-booking">
+		<div class="container">
+			<div class="intro-item fl-wrap">
+				
+				<div class="padd-15">
+					<h1>Make Your Trip</h1>
+					<div class="tab" role="tabpanel">
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="active"><a href="#Tour" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-globe"></i>Tour</a></li>
+							<li role="presentation"><a href="#Hotel" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-hotel"></i>Hotel</a></li>
+							<li role="presentation"><a href="#Flight" aria-controls="messages" role="tab" data-toggle="tab"><i class="fa fa-fighter-jet"></i>Flight</a></li>
+							<li role="presentation"><a href="#Restaurant" aria-controls="messages" role="tab" data-toggle="tab"><i class="fa fa-coffee"></i>Restaurent</a></li>
+						</ul>
+						<!-- Tab panes -->
 					</div>
-					{{-- <div class="tab-pane fade" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
-					<form class="form-wrap">
-						<input type="text" class="form-control" name="name" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
-						<input type="text" class="form-control" name="to" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
-						<input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
-						<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
-						<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adults '">
-						<input type="number" min="1" max="20" class="form-control" name="child" placeholder="Child " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Child '">						
-						<a href="#" class="primary-btn text-uppercase">Search Hotels</a>									
-					</form>							  	
-					</div> --}}
 				</div>
+				<div class="tab-content tabs">
+
+					<!-- Tour Book Form -->
+					<div role="tabpanel" class="tab-pane fade in active" id="Tour">
+						<form>
+							<fieldset class="home-form-1">
+							
+								<div class="col-md-3 col-sm-3 padd-0">
+									<input type="text" class="form-control br-1" placeholder="City, Country">
+								</div>
+								
+								<div class="col-md-3 col-sm-3 padd-0">
+									<input type="text" name="book-date" id="book-date" class="form-control br-1" value="When...">
+								</div>
+									
+								<div class="col-md-2 col-sm-2 padd-0">
+									<div class="sl-box">
+										<select class="wide form-control br-1">
+											<option data-display="Adults">Adults</option>
+											<option value="1">01</option>
+											<option value="2">02</option>
+											<option value="3">03</option>
+											<option value="4">04</option>
+										</select>
+									</div>
+								</div>
+									
+								<div class="col-md-2 col-sm-2 padd-0">
+									<div class="sl-box">
+										<select class="wide form-control br-1">
+											<option data-display="Children">Children</option>
+											<option value="1">01</option>
+											<option value="2">02</option>
+											<option value="3">03</option>
+											<option value="4">04</option>
+										</select>
+									</div>
+								</div>
+								
+									
+								<div class="col-md-2 col-sm-2 padd-0">
+									<button type="submit" class="btn theme-btn cl-white seub-btn">FIND JOB</button>
+								</div>
+									
+							</fieldset>
+						</form>
+					</div>
+					
+					<!-- Hotel Book Form -->
+					<div role="tabpanel" class="tab-pane fade in" id="Hotel">
+						<form>
+							<fieldset class="home-form-1">
+							
+								<div class="col-md-3 col-sm-3 padd-0">
+									<input type="text" class="form-control br-1" placeholder="City, Country">
+								</div>
+								
+								<div class="col-md-2 col-sm-2 padd-0">
+									<select class="wide form-control br-1">
+										<option data-display="Person">Person</option>
+										<option value="1">01</option>
+										<option value="2">02</option>
+										<option value="3">03</option>
+										<option value="4">04</option>
+									</select>
+								</div>
+								
+								<div class="col-md-2 col-sm-2 padd-0">
+									<div class="sl-box">
+										<select class="wide form-control br-1">
+											<option data-display="Children">Children</option>
+											<option value="1">01</option>
+											<option value="2">02</option>
+											<option value="3">03</option>
+											<option value="4">04</option>
+										</select>
+									</div>
+								</div>
+									
+								<div class="col-md-3 col-sm-3 padd-0">
+									<input type="text" name="check-in-out" class="form-control br-1" value="Check In & Out">
+								</div>
+									
+								<div class="col-md-2 col-sm-2 padd-0">
+									<button type="submit" class="btn theme-btn cl-white seub-btn">FIND Hotel</button>
+								</div>
+									
+							</fieldset>
+						</form>
+					</div>
+					
+					<!-- Flight Book Form -->
+					<div role="tabpanel" class="tab-pane fade in" id="Flight">
+						<form>
+							<fieldset class="home-form-1">
+							
+								<div class="col-md-2 col-sm-2 padd-0">
+									<input type="text" class="form-control br-1" placeholder="Leaving From..">
+								</div>
+								
+								<div class="col-md-2 col-sm-2 padd-0">
+									<input type="text" class="form-control br-1" value="Going To..">
+								</div>
+								
+								<div class="col-md-2 col-sm-2 padd-0">
+									<input type="text" name="flight-book" id="flight-book" class="form-control br-1" value="When..">
+								</div>
+									
+								<div class="col-md-2 col-sm-2 padd-0">
+									<div class="sl-box">
+										<select class="wide form-control br-1">
+											<option data-display="Adults">Adults</option>
+											<option value="1">01</option>
+											<option value="2">02</option>
+											<option value="3">03</option>
+											<option value="4">04</option>
+										</select>
+									</div>
+								</div>
+									
+								<div class="col-md-2 col-sm-2 padd-0">
+									<div class="sl-box">
+										<select class="wide form-control br-1">
+											<option data-display="Children">Children</option>
+											<option value="1">01</option>
+											<option value="2">02</option>
+											<option value="3">03</option>
+											<option value="4">04</option>
+										</select>
+									</div>
+								</div>
+								
+									
+								<div class="col-md-2 col-sm-2 padd-0">
+									<button type="submit" class="btn theme-btn cl-white seub-btn">FIND JOB</button>
+								</div>
+									
+							</fieldset>
+						</form>
+					</div>
+					
+					<!-- Restaurant Book Form -->
+					<div role="tabpanel" class="tab-pane fade in" id="Restaurant">
+						<form>
+							<fieldset class="home-form-1">
+							
+								<div class="col-md-3 col-sm-3 padd-0">
+									<input type="text" class="form-control br-1" placeholder="City, Country">
+								</div>
+								
+								<div class="col-md-2 col-sm-2 padd-0">
+									<div class="sl-box">
+										<select class="wide form-control br-1">
+											<option data-display="Person">Person</option>
+											<option value="1">01</option>
+											<option value="2">02</option>
+											<option value="3">03</option>
+											<option value="4">04</option>
+										</select>
+									</div>
+								</div>
+								
+								<div class="col-md-2 col-sm-2 padd-0">
+									<div class="sl-box">
+										<select class="wide form-control br-1">
+											<option data-display="Children">Children</option>
+											<option value="1">01</option>
+											<option value="2">02</option>
+											<option value="3">03</option>
+											<option value="4">04</option>
+										</select>
+									</div>
+								</div>
+									
+								<div class="col-md-3 col-sm-3 padd-0">
+									<input type="text" name="check-in-out" class="form-control br-1" value="Check In & Out">
+								</div>
+									
+								<div class="col-md-2 col-sm-2 padd-0">
+									<button type="submit" class="btn theme-btn cl-white seub-btn">FIND Hotel</button>
+								</div>
+									
+							</fieldset>
+						</form>
+					</div>
+					
+				</div>
+				
 			</div>
 		</div>
-	</div>					
+	</div>
 </section>
-<!-- End banner Area -->
+<!-- ======================= Slide Multiple Booking End Banner ===================== -->
+<div class="clearfix"></div>
 
 <!-- Start flights Area -->
-<section class="other-issue-area section-gap">
+<section>
 	<div class="container">
-		<div class="row d-flex justify-content-center">
-			<div class="menu-content pb-70 col-lg-9">
-				<div class="title text-center">
-					<h1 class="mb-10">Upcoming Flight</h1>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="heading">
+					<span class="theme-cl">Top Destinations</span>
+					<h1>Upcoming Flights</h1>
 				</div>
 			</div>
 		</div>					
 		<div class="row">
 			<div class="col-12">
-				<div class="progress-table-wrap">
-					<div class="progress-table">
-						<div class="table-head">
-							<div class="visit">Flight ID</div>
-							<div class="visit">From</div>
-							<div class="visit">To</div>
-							<div class="visit">Departure Time</div>
-							<div class="visit">Arrival Time</div>
-							<div class="visit">Actions</div>
-						</div>
-						@if(count($upcoming_flights) > 0)
-							@foreach($upcoming_flights as $flight)
-							<div class="table-row">
-								<div class="visit">{{ $flight->flight_id }}</div>
-								<div class="visit">{{ $flight->origin->city.'/'.$flight->origin->country }}</div>
-								<div class="visit">{{ $flight->destination->city.'/'.$flight->destination->country }}</div>
-								<div class="visit">{{ Date('d M, Y H:i A', strtotime($flight->departure_time)) }}</div>
-								<div class="visit">{{ Date('d M, Y H:i A', strtotime($flight->arrival_time)) }}</div>
-								<div class="visit"><a href="{{ route('flight', ['id' => $flight->id]) }}" class="primary-btn text-uppercase">View Flight</a></div>
-							</div>
-							@endforeach
-							<div class="text-center mt-3">
-								<a href="{{ route('flights') }}" class="primary-btn text-uppercase">See More</a>
-							</div>
-						@else
-							<div class="table-row">
-								<div class="visit">No Flights</div>
-							</div>
-						@endif
-					</div>
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+						  <tr>
+							<th scopre="col">Flight ID</th>
+							<th scopre="col">From</th>
+							<th scopre="col">To</th>
+							<th scopre="col">Departure Time</th>
+							<th scopre="col">Arrival Time</th>
+							<th scopre="col">Actions</th>
+						  </tr>
+						</thead>
+						<tbody>
+							@if(count($upcoming_flights) > 0)
+								@foreach($upcoming_flights as $flight)
+									<tr>
+										<td>{{ $flight->flight_id }}</td>
+										<td>{{ $flight->origin->city.'/'.$flight->origin->country }}</td>
+										<td>{{ $flight->destination->city.'/'.$flight->destination->country }}</td>
+										<td>{{ Date('d M, Y H:i A', strtotime($flight->departure_time)) }}</td>
+										<td>{{ Date('d M, Y H:i A', strtotime($flight->arrival_time)) }}</td>
+										<td><a href="{{ route('flight', ['id' => $flight->id]) }}" class="btn theme-btn cl-white seub-btn">View Flight</a></td>
+									</tr>
+								@endforeach
+							@else
+								<tr>
+									<td>No Flights</td>
+								</tr>
+							@endif
+						</tbody>
+					</table>
 				</div>
+				@if(count($upcoming_flights) > 0)
+					<div class="text-center mt-5">
+						<a href="{{ route('flights') }}" class="btn theme-btn cl-white seub-btn">See More</a>
+					</div>
+				@endif
 			</div>																	
 		</div>
 	</div>	
 </section>
 <!-- End flights Area -->
 
-<!-- Start popular-destination Area -->
-<section class="popular-destination-area section-gap">
+<!-- ====================== Popular Destinations ================= -->
+<section>
 	<div class="container">
-		<div class="row d-flex justify-content-center">
-			<div class="menu-content pb-70 col-lg-8">
-				<div class="title text-center">
-					<h1 class="mb-10">Popular Destinations</h1>
-					<p>We all live in an age that belongs to the young at heart. Life that is becoming extremely fast, day.</p>
-				</div>
-			</div>
-		</div>						
 		<div class="row">
-			<div class="col-lg-4">
-				<div class="single-destination relative">
-					<div class="thumb relative">
-						<div class="overlay overlay-bg"></div>
-						<img class="img-fluid" src="{{ asset('landing/img/d1.jpg') }}" alt="">
-					</div>
-					<div class="desc">	
-						<a href="#" class="price-btn">$150</a>			
-						<h4>Mountain River</h4>
-						<p>Paraguay</p>			
-					</div>
+			<div class="col-md-12">
+				<div class="heading">
+					<span class="theme-cl">Top Destinations</span>
+					<h1>Popular Destinations</h1>
 				</div>
 			</div>
-			<div class="col-lg-4">
-				<div class="single-destination relative">
-					<div class="thumb relative">
-						<div class="overlay overlay-bg"></div>
-						<img class="img-fluid" src="{{ asset('landing/img/d2.jpg') }}" alt="">
-					</div>
-					<div class="desc">	
-						<a href="#" class="price-btn">$250</a>			
-						<h4>Dream City</h4>
-						<p>Paris</p>			
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="single-destination relative">
-					<div class="thumb relative">
-						<div class="overlay overlay-bg"></div>
-						<img class="img-fluid" src="{{ asset('landing/img/d3.jpg') }}" alt="">
-					</div>
-					<div class="desc">	
-						<a href="#" class="price-btn">$350</a>			
-						<h4>Cloud Mountain</h4>
-						<p>Sri Lanka</p>			
-					</div>
-				</div>
-			</div>												
 		</div>
-	</div>	
-</section>
-<!-- End popular-destination Area -->
-
-
-<!-- Start price Area -->
-<section class="price-area section-gap">
-	<div class="container">
-		<div class="row d-flex justify-content-center">
-			<div class="menu-content pb-70 col-lg-8">
-				<div class="title text-center">
-					<h1 class="mb-10">We Provide Affordable Prices</h1>
-					<p>Well educated, intellectual people, especially scientists at all times demonstrate considerably.</p>
-				</div>
-			</div>
-		</div>						
+		
 		<div class="row">
-			<div class="col-lg-4">
-				<div class="single-price">
-					<h4>Cheap Packages</h4>
-					<ul class="price-list">
-						<li class="d-flex justify-content-between align-items-center">
-							<span>New York</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>
-						<li class="d-flex justify-content-between align-items-center">
-							<span>Maldives</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>
-						<li class="d-flex justify-content-between align-items-center">
-							<span>Sri Lanka</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>
-						<li class="d-flex justify-content-between align-items-center">
-							<span>Nepal</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>
-						<li class="d-flex justify-content-between align-items-center">
-							<span>Thiland</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>	
-						<li class="d-flex justify-content-between align-items-center">
-							<span>Singapore</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>														
-					</ul>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="single-price">
-					<h4>Luxury Packages</h4>
-					<ul class="price-list">
-						<li class="d-flex justify-content-between align-items-center">
-							<span>New York</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>
-						<li class="d-flex justify-content-between align-items-center">
-							<span>Maldives</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>
-						<li class="d-flex justify-content-between align-items-center">
-							<span>Sri Lanka</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>
-						<li class="d-flex justify-content-between align-items-center">
-							<span>Nepal</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>
-						<li class="d-flex justify-content-between align-items-center">
-							<span>Thiland</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>	
-						<li class="d-flex justify-content-between align-items-center">
-							<span>Singapore</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>														
-					</ul>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="single-price">
-					<h4>Camping Packages</h4>
-					<ul class="price-list">
-						<li class="d-flex justify-content-between align-items-center">
-							<span>New York</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>
-						<li class="d-flex justify-content-between align-items-center">
-							<span>Maldives</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>
-						<li class="d-flex justify-content-between align-items-center">
-							<span>Sri Lanka</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>
-						<li class="d-flex justify-content-between align-items-center">
-							<span>Nepal</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>
-						<li class="d-flex justify-content-between align-items-center">
-							<span>Thiland</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>	
-						<li class="d-flex justify-content-between align-items-center">
-							<span>Singapore</span>
-							<a href="#" class="price-btn">$1500</a>
-						</li>														
-					</ul>
-				</div>
-			</div>												
-		</div>
-	</div>	
-</section>
-<!-- End price Area -->
+			<!-- Single Destination -->
+			<div class="col-md-4 col-md-6">
+				<article class="destination-box style-1">
 
+					<div class="destination-box-image">
+						<figure>
+							<a href="destination-detail.html">
+								<img src="assets/img/destination/des-6.jpg" class="img-responsive listing-box-img" alt="" />
+								<div class="list-overlay"></div>
+							</a>
+							<div class="discount-flick">-12%</div>
+							<h4 class="destination-place">
+								<a href="destination-detail.html">Halifax, Nova Scotia </a>
+							</h4>
+							<a href="#" class="list-like left"><i class="ti-heart"></i></a>
+						</figure>
+					</div>
+					
+					<div class="entry-meta">
+						<div class="meta-item meta-rating">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star-half"></i>
+						</div>
+						<div class="meta-item meta-comment fl-right">
+							<span class="text-through">$7802</span><span class="real-price padd-l-10 font-bold">$7581</span>
+						</div>
+					</div>
 
-<!-- Start other-issue Area -->
-<section class="other-issue-area section-gap">
-	<div class="container">
-		<div class="row d-flex justify-content-center">
-			<div class="menu-content pb-70 col-lg-9">
-				<div class="title text-center">
-					<h1 class="mb-10">Other issues we can help you with</h1>
-					<p>We all live in an age that belongs to the young at heart. Life that is.</p>
-				</div>
-			</div>
-		</div>					
-		<div class="row">
-			<div class="col-lg-3 col-md-6">
-				<div class="single-other-issue">
-					<div class="thumb">
-						<img class="img-fluid" src="{{ asset('landing/img/o1.jpg') }}" alt="">					
+					<div class="inner-box">
+						<div class="box-inner-ellipsis">
+							<h4 class="entry-location">
+								<a href="destination-detail.html">Singapore</a>
+							</h4>
+							<div class="price-box">
+								<div class="destination-price fl-right">
+									<a href="#"><i class="theme-cl ti-arrow-right"></i></a>
+								</div>
+							</div>
+						</div>
 					</div>
-					<a href="#">
-						<h4>Rent a Car</h4>
-					</a>
-					<p>
-						The preservation of human life is the ultimate value, a pillar of ethics and the foundation.
-					</p>
-				</div>
+					
+				</article>
 			</div>
-			<div class="col-lg-3 col-md-6">
-				<div class="single-other-issue">
-					<div class="thumb">
-						<img class="img-fluid" src="{{ asset('landing/img/o2.jpg') }}" alt="">					
-					</div>
-					<a href="#">
-						<h4>Cruise Booking</h4>
-					</a>
-					<p>
-						I was always somebody who felt quite sorry for myself, what I had not got compared.
-					</p>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6">
-				<div class="single-other-issue">
-					<div class="thumb">
-						<img class="img-fluid" src="{{ asset('landing/img/o3.jpg') }}" alt="">					
-					</div>
-					<a href="#">
-						<h4>To Do List</h4>
-					</a>
-					<p>
-						The following article covers a topic that has recently moved to center stage–at least it seems.
-					</p>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6">
-				<div class="single-other-issue">
-					<div class="thumb">
-						<img class="img-fluid" src="{{ asset('landing/img/o4.jpg') }}" alt="">					
-					</div>
-					<a href="#">
-						<h4>Food Features</h4>
-					</a>
-					<p>
-						There are many kinds of narratives and organizing principles. Science is driven by evidence.
-					</p>
-				</div>
-			</div>																		
-		</div>
-	</div>	
-</section>
-<!-- End other-issue Area -->
+			
+			<!-- Single Destination -->
+			<div class="col-md-4 col-md-6">
+				<article class="destination-box style-1">
 
+					<div class="destination-box-image">
+						<figure>
+							<a href="destination-detail.html">
+								<img src="assets/img/destination/des-5.jpg" class="img-responsive listing-box-img" alt="" />
+								<div class="list-overlay"></div>
+							</a>
+							<div class="discount-flick">-12%</div>
+							<h4 class="destination-place">
+								<a href="destination-detail.html">New York City, New York</a>
+							</h4>
+							<a href="#" class="list-like left"><i class="ti-heart"></i></a>
+						</figure>
+					</div>
+					
+					<div class="entry-meta">
+						<div class="meta-item meta-rating">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star-half"></i>
+						</div>
+						<div class="meta-item meta-comment fl-right">
+							<span class="text-through">$4525</span><span class="real-price padd-l-10 font-bold">$4258</span>
+						</div>
+					</div>
 
-<!-- Start testimonial Area -->
-<section class="testimonial-area section-gap">
-	<div class="container">
-		<div class="row d-flex justify-content-center">
-			<div class="menu-content pb-70 col-lg-8">
-				<div class="title text-center">
-					<h1 class="mb-10">Testimonial from our Clients</h1>
-					<p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from </p>
-				</div>
+					<div class="inner-box">
+						<div class="box-inner-ellipsis">
+							<h4 class="entry-location">
+								<a href="destination-detail.html">Switzerland</a>
+							</h4>
+							<div class="price-box">
+								<div class="destination-price fl-right">
+									<a href="#"><i class="theme-cl ti-arrow-right"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</article>
 			</div>
-		</div>
-		<div class="row">
-			<div class="active-testimonial">
-				<div class="single-testimonial item d-flex flex-row">
-					<div class="thumb">
-						<img class="img-fluid" src="{{ asset('landing/img/elements/user1.png') }}" alt="">
+			
+			<!-- Single Destination -->
+			<div class="col-md-4 col-md-6">
+				<article class="destination-box style-1">
+
+					<div class="destination-box-image">
+						<figure>
+							<a href="destination-detail.html">
+								<img src="assets/img/destination/des-4.jpg" class="img-responsive listing-box-img" alt="" />
+								<div class="list-overlay"></div>
+							</a>
+							<div class="discount-flick">-12%</div>
+							<h4 class="destination-place">
+								<a href="#">Marrakech, Morroco</a>
+							</h4>
+							<a href="#" class="list-like left"><i class="ti-heart"></i></a>
+						</figure>
 					</div>
-					<div class="desc">
-						<p>
-							Do you want to be even more successful? Learn to love learning and growth. The more effort you put into improving your skills, the bigger the payoff you.		     
-						</p>
-						<h4>Harriet Maxwell</h4>
-						<div class="star">
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star"></span>				
-						</div>	
+					
+					<div class="entry-meta">
+						<div class="meta-item meta-rating">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star-half"></i>
+						</div>
+						<div class="meta-item meta-comment fl-right">
+							<span class="text-through">$1856</span><span class="real-price padd-l-10 font-bold">$1750</span>
+						</div>
 					</div>
-				</div>
-				<div class="single-testimonial item d-flex flex-row">
-					<div class="thumb">
-						<img class="img-fluid" src="{{ asset('landing/img/elements/user2.png') }}" alt="">
+
+					<div class="inner-box">
+						<div class="box-inner-ellipsis">
+							<h4 class="entry-location">
+								<a href="destination-detail.html">Saudi Arabia</a>
+							</h4>
+							<div class="price-box">
+								<div class="destination-price fl-right">
+									<a href="#"><i class="theme-cl ti-arrow-right"></i></a>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="desc">
-						<p>
-							A purpose is the eternal condition for success. Every former smoker can tell you just how hard it is to stop smoking cigarettes. However.
-						</p>
-						<h4>Carolyn Craig</h4>
-						<div class="star">
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star"></span>
-							<span class="fa fa-star"></span>			
-						</div>	
-					</div>
-				</div>
-				<div class="single-testimonial item d-flex flex-row">
-					<div class="thumb">
-						<img class="img-fluid" src="{{ asset('landing/img/elements/user1.png') }}" alt="">
-					</div>
-					<div class="desc">
-						<p>
-							Do you want to be even more successful? Learn to love learning and growth. The more effort you put into improving your skills, the bigger the payoff you.		     
-						</p>
-						<h4>Harriet Maxwell</h4>
-						<div class="star">
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star"></span>				
-						</div>	
-					</div>
-				</div>
-				<div class="single-testimonial item d-flex flex-row">
-					<div class="thumb">
-						<img class="img-fluid" src="{{ asset('landing/img/elements/user2.png') }}" alt="">
-					</div>
-					<div class="desc">
-						<p>
-							A purpose is the eternal condition for success. Every former smoker can tell you just how hard it is to stop smoking cigarettes. However.
-						</p>
-						<h4>Carolyn Craig</h4>
-						<div class="star">
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star"></span>
-							<span class="fa fa-star"></span>			
-						</div>	
-					</div>
-				</div>
-				<div class="single-testimonial item d-flex flex-row">
-					<div class="thumb">
-						<img class="img-fluid" src="{{ asset('landing/img/elements/user1.png') }}" alt="">
-					</div>
-					<div class="desc">
-						<p>
-							Do you want to be even more successful? Learn to love learning and growth. The more effort you put into improving your skills, the bigger the payoff you.		     
-						</p>
-						<h4>Harriet Maxwell</h4>
-						<div class="star">
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star"></span>				
-						</div>	
-					</div>
-				</div>
-				<div class="single-testimonial item d-flex flex-row">
-					<div class="thumb">
-						<img class="img-fluid" src="{{ asset('landing/img/elements/user2.png') }}" alt="">
-					</div>
-					<div class="desc">
-						<p>
-							A purpose is the eternal condition for success. Every former smoker can tell you just how hard it is to stop smoking cigarettes. However.
-						</p>
-						<h4>Carolyn Craig</h4>
-						<div class="star">
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star"></span>
-							<span class="fa fa-star"></span>			
-						</div>	
-					</div>
-				</div>		                    		                    
+					
+				</article>
 			</div>
+			
 		</div>
+
 	</div>
 </section>
-<!-- End testimonial Area -->
+<!-- ====================== Popular Destinations ================= -->		
+<div class="clearfix"></div>
 
-<!-- Start home-about Area -->
-<section class="home-about-area">
-	<div class="container-fluid">
-		<div class="row align-items-center justify-content-end">
-			<div class="col-lg-6 col-md-12 home-about-left">
-				<h1>
-					Did not find your Package? <br>
-					Feel free to ask us. <br>
-					We‘ll make it for you
-				</h1>
-				<p>
-					inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially in the workplace. That’s why it’s crucial that, as women, our behavior on the job is beyond reproach. inappropriate behavior is often laughed.
-				</p>
-				<a href="#" class="primary-btn text-uppercase">request custom price</a>
-			</div>
-			<div class="col-lg-6 col-md-12 home-about-right no-padding">
-				<img class="img-fluid" src="{{ asset('landing/img/about-img.jpg') }}" alt="">
-			</div>
-		</div>
-	</div>	
-</section>
-<!-- End home-about Area -->
-
-
-<!-- Start blog Area -->
-<section class="recent-blog-area section-gap">
+<!-- ====================== Tour Guide ================= -->
+<section class="gray-bg">
 	<div class="container">
-		<div class="row d-flex justify-content-center">
-			<div class="menu-content pb-60 col-lg-9">
-				<div class="title text-center">
-					<h1 class="mb-10">Latest from Our Blog</h1>
-					<p>With the exception of Nietzsche, no other madman has contributed so much to human sanity as has.</p>
-				</div>
-			</div>
-		</div>							
+		
 		<div class="row">
-			<div class="active-recent-blog-carusel">
-				<div class="single-recent-blog-post item">
-					<div class="thumb">
-						<img class="img-fluid" src="{{ asset('landing/img/b1.jpg') }}" alt="">
-					</div>
-					<div class="details">
-						<div class="tags">
-							<ul>
-								<li>
-									<a href="#">Travel</a>
-								</li>
-								<li>
-									<a href="#">Life Style</a>
-								</li>											
-							</ul>
-						</div>
-						<a href="#"><h4 class="title">Low Cost Advertising</h4></a>
-						<p>
-							Acres of Diamonds… you’ve read the famous story, or at least had it related to you. A farmer.
-						</p>
-						<h6 class="date">31st January,2018</h6>
-					</div>	
+			<div class="col-md-12">
+				<div class="heading">
+					<span class="theme-cl">Select Guide</span>
+					<h1>Popular Guide</h1>
 				</div>
-				<div class="single-recent-blog-post item">
-					<div class="thumb">
-						<img class="img-fluid" src="{{ asset('landing/img/b2.jpg') }}" alt="">
-					</div>
-					<div class="details">
-						<div class="tags">
-							<ul>
-								<li>
-									<a href="#">Travel</a>
-								</li>
-								<li>
-									<a href="#">Life Style</a>
-								</li>											
-							</ul>
-						</div>
-						<a href="#"><h4 class="title">Creative Outdoor Ads</h4></a>
-						<p>
-							Acres of Diamonds… you’ve read the famous story, or at least had it related to you. A farmer.
-						</p>
-						<h6 class="date">31st January,2018</h6>
-					</div>	
-				</div>
-				<div class="single-recent-blog-post item">
-					<div class="thumb">
-						<img class="img-fluid" src="{{ asset('landing/img/b3.jpg') }}" alt="">
-					</div>
-					<div class="details">
-						<div class="tags">
-							<ul>
-								<li>
-									<a href="#">Travel</a>
-								</li>
-								<li>
-									<a href="#">Life Style</a>
-								</li>											
-							</ul>
-						</div>
-						<a href="#"><h4 class="title">It's Classified How To Utilize Free</h4></a>
-						<p>
-							Acres of Diamonds… you’ve read the famous story, or at least had it related to you. A farmer.
-						</p>
-						<h6 class="date">31st January,2018</h6>
-					</div>	
-				</div>	
-				<div class="single-recent-blog-post item">
-					<div class="thumb">
-						<img class="img-fluid" src="{{ asset('landing/img/b1.jpg') }}" alt="">
-					</div>
-					<div class="details">
-						<div class="tags">
-							<ul>
-								<li>
-									<a href="#">Travel</a>
-								</li>
-								<li>
-									<a href="#">Life Style</a>
-								</li>											
-							</ul>
-						</div>
-						<a href="#"><h4 class="title">Low Cost Advertising</h4></a>
-						<p>
-							Acres of Diamonds… you’ve read the famous story, or at least had it related to you. A farmer.
-						</p>
-						<h6 class="date">31st January,2018</h6>
-					</div>	
-				</div>
-				<div class="single-recent-blog-post item">
-					<div class="thumb">
-						<img class="img-fluid" src="{{ asset('landing/img/b2.jpg') }}" alt="">
-					</div>
-					<div class="details">
-						<div class="tags">
-							<ul>
-								<li>
-									<a href="#">Travel</a>
-								</li>
-								<li>
-									<a href="#">Life Style</a>
-								</li>											
-							</ul>
-						</div>
-						<a href="#"><h4 class="title">Creative Outdoor Ads</h4></a>
-						<p>
-							Acres of Diamonds… you’ve read the famous story, or at least had it related to you. A farmer.
-						</p>
-						<h6 class="date">31st January,2018</h6>
-					</div>	
-				</div>
-				<div class="single-recent-blog-post item">
-					<div class="thumb">
-						<img class="img-fluid" src="{{ asset('landing/img/b3.jpg') }}" alt="">
-					</div>
-					<div class="details">
-						<div class="tags">
-							<ul>
-								<li>
-									<a href="#">Travel</a>
-								</li>
-								<li>
-									<a href="#">Life Style</a>
-								</li>											
-							</ul>
-						</div>
-						<a href="#"><h4 class="title">It's Classified How To Utilize Free</h4></a>
-						<p>
-							Acres of Diamonds… you’ve read the famous story, or at least had it related to you. A farmer.
-						</p>
-						<h6 class="date">31st January,2018</h6>
-					</div>	
-				</div>														
-
 			</div>
 		</div>
-	</div>	
+		
+		<div class="row">
+			
+			<!-- Single Guide -->
+			<div class="col-md-3 col-sm-6">
+				<div class="guides-container">
+				
+					<div class="guides-box">
+						<div class="guides-img-box">
+							<img src="assets/img/user-1.jpg" class="img-responsive" alt="" />
+						</div>
+						<div class="guider-detail">
+							<h4>Suryansh Vighul</h4>
+							<h5 class="theme-cl font-bold">$42/Hour</h5>
+						</div>
+					</div>
+					<a href="guide-detail.html" class="btn theme-btn full-width">Book Now</a>
+				
+				</div>
+			</div>
+			
+			<!-- Single Guide -->
+			<div class="col-md-3 col-sm-6">
+				<div class="guides-container">
+				
+					<div class="guides-box">
+						<div class="guides-img-box">
+							<img src="assets/img/user-2.jpg" class="img-responsive" alt="" />
+						</div>
+						<div class="guider-detail">
+							<h4>Richita Setthy</h4>
+							<h5 class="theme-cl font-bold">$32/Hour</h5>
+						</div>
+					</div>
+					<a href="guide-detail.html" class="btn theme-btn full-width">Book Now</a>
+				
+				</div>
+			</div>
+			
+			<!-- Single Guide -->
+			<div class="col-md-3 col-sm-6">
+				<div class="guides-container">
+				
+					<div class="guides-box">
+						<div class="guides-img-box">
+							<img src="assets/img/user-3.jpg" class="img-responsive" alt="" />
+						</div>
+						<div class="guider-detail">
+							<h4>Adam Survinia</h4>
+							<h5 class="theme-cl font-bold">$47/Hour</h5>
+						</div>
+					</div>
+					<a href="guide-detail.html" class="btn theme-btn full-width">Book Now</a>
+				
+				</div>
+			</div>
+			
+			<!-- Single Guide -->
+			<div class="col-md-3 col-sm-6">
+				<div class="guides-container">
+				
+					<div class="guides-box">
+						<div class="guides-img-box">
+							<img src="assets/img/user-4.jpg" class="img-responsive" alt="" />
+						</div>
+						<div class="guider-detail">
+							<h4>Shilpa Suchi</h4>
+							<h5 class="theme-cl font-bold">$50/Hour</h5>
+						</div>
+					</div>
+					<a href="guide-detail.html" class="btn theme-btn full-width">Book Now</a>
+				
+				</div>
+			</div>
+			
+			<!-- Single Guide -->
+			<div class="col-md-3 col-sm-6">
+				<div class="guides-container">
+				
+					<div class="guides-box">
+						<div class="guides-img-box">
+							<img src="assets/img/user-5.jpg" class="img-responsive" alt="" />
+						</div>
+						<div class="guider-detail">
+							<h4>Moris Adam</h4>
+							<h5 class="theme-cl font-bold">$65/Hour</h5>
+						</div>
+					</div>
+					<a href="guide-detail.html" class="btn theme-btn full-width">Book Now</a>
+				
+				</div>
+			</div>
+			
+			<!-- Single Guide -->
+			<div class="col-md-3 col-sm-6">
+				<div class="guides-container">
+				
+					<div class="guides-box">
+						<div class="guides-img-box">
+							<img src="assets/img/user-6.jpg" class="img-responsive" alt="" />
+						</div>
+						<div class="guider-detail">
+							<h4>Arcita Rivani</h4>
+							<h5 class="theme-cl font-bold">$45/Hour</h5>
+						</div>
+					</div>
+					<a href="guide-detail.html" class="btn theme-btn full-width">Book Now</a>
+				
+				</div>
+			</div>
+			
+			<!-- Single Guide -->
+			<div class="col-md-3 col-sm-6">
+				<div class="guides-container">
+				
+					<div class="guides-box">
+						<div class="guides-img-box">
+							<img src="assets/img/user-7.jpg" class="img-responsive" alt="" />
+						</div>
+						<div class="guider-detail">
+							<h4>Daniel Divanchia</h4>
+							<h5 class="theme-cl font-bold">$38/Hour</h5>
+						</div>
+					</div>
+					<a href="guide-detail.html" class="btn theme-btn full-width">Book Now</a>
+				
+				</div>
+			</div>
+			
+			<!-- Single Guide -->
+			<div class="col-md-3 col-sm-6">
+				<div class="guides-container">
+				
+					<div class="guides-box">
+						<div class="guides-img-box">
+							<img src="assets/img/user-8.jpg" class="img-responsive" alt="" />
+						</div>
+						<div class="guider-detail">
+							<h4>Beauty Queen</h4>
+							<h5 class="theme-cl font-bold">$57/Hour</h5>
+						</div>
+					</div>
+					<a href="guide-detail.html" class="btn theme-btn full-width">Book Now</a>
+				
+				</div>
+			</div>
+			
+		</div>
+
+	</div>
 </section>
-<!-- End recent-blog Area -->
+<!-- ====================== Tour Guide ================= -->
+<div class="clearfix"></div>
+
+<!-- ====================== How It Work ================= -->
+<section class="how-it-works">
+	<div class="container">
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="heading">
+					<span class="theme-cl">Working Process</span>
+					<h1>How It Works?</h1>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+		
+			<div class="col-md-4 col-sm-4">
+				<div class="work-process">
+					<div class="process-img">
+						<img src="assets/img/tour-1.png" class="img-responsive" alt="" />
+						<span class="process-num">01</span>
+					</div>
+					<h4>Choose a Destination & Guide</h4>
+					<p>Post a job to tell us about your project. We'll quickly match you with the right freelancers.</p>
+				</div>
+			</div>
+			
+			<div class="col-md-4 col-sm-4">
+				<div class="work-process">
+					<div class="process-img">
+						<img src="assets/img/tour-2.png" class="img-responsive" alt="" />
+						<span class="process-num">02</span>
+					</div>
+					<h4>Choose your guide & Customize</h4>
+					<p>Post a job to tell us about your project. We'll quickly match you with the right freelancers.</p>
+				</div>
+			</div>
+			
+			<div class="col-md-4 col-sm-4">
+				<div class="work-process">
+					<div class="process-img">
+						<img src="assets/img/tour-3.png" class="img-responsive" alt="" />
+						<span class="process-num">03</span>
+					</div>
+					<h4>Book Your Guide Online</h4>
+					<p>Post a job to tell us about your project. We'll quickly match you with the right freelancers.</p>
+				</div>
+			</div>
+			
+		</div>
+
+	</div>
+</section>
+<!-- ====================== How It Work ================= -->
+<div class="clearfix"></div>
+		
+<!-- ====================== Top Tour & Activities ================= -->
+<section class="gray-bg">
+	<div class="container">
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="heading">
+					<span class="theme-cl">Select Tour</span>
+					<h1>Top Tour & Activities</h1>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="list-slider">
+			
+				<!-- Single Tour -->
+				<div class="list-slide-box">
+					<article class="tour-box style-1">
+					
+						<div class="tour-box-image">
+							<figure>
+								<a href="tour-detail.html">
+									<img src="assets/img/tour/tour-4.jpg" class="img-responsive listing-box-img" alt="" />
+									<div class="list-overlay"></div>
+									<div class="entry-bookmark">                                   
+										<a href="#"><i class="ti-bookmark"></i></a>
+									</div>
+									<div class="tour-time">
+										<i class="ti ti-car"></i><span>22h</span>
+									</div>
+									<h4 class="destination-place">
+										<a href="#">New York, Sean Pavone</a>
+									</h4>
+									<span class="featured-tour"><i class="fa fa-star"></i></span>
+									<a href="#" class="list-like left"><i class="ti-heart"></i></a>
+								</a>
+							</figure>
+						</div>
+						
+						<div class="entry-meta">
+							<div class="meta-item meta-author">
+								<div class="coauthors">
+									<span class="vcard author">
+										<span class="fn">
+											<a href="#"><img alt="" src="assets/img/user-4.jpg" class="avatar avatar-24" height="24" width="24">Lisa Scholfield</a>
+										</span>
+									</span>
+								</div>
+							</div>
+							<div class="meta-item meta-comment fl-right">
+								<i class="ti-comment-alt"></i><span>18</span>
+							</div>
+							<div class="meta-item meta-rating fl-right">
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star-half"></i>
+							</div>
+						</div>
+
+						<div class="inner-box">
+							<div class="box-inner-ellipsis">
+								<h4 class="entry-title">
+									<a href="#">New York</a>
+								</h4>
+								<div class="price-box">
+									<div class="tour-price fl-right">
+										<i class="ti ti-user"></i><span class="theme-cl f-bold">$240</span>
+									</div>
+								</div>
+							</div>
+						</div>
+	
+					</article>
+				</div>
+			
+				<!-- Single Tour -->
+				<div class="list-slide-box">
+					<article class="tour-box style-1">
+					
+						<div class="tour-box-image">
+							<figure>
+								<a href="tour-detail.html">
+									<img src="assets/img/tour/tour-5.jpg" class="img-responsive listing-box-img" alt="" />
+									<div class="list-overlay"></div>
+									<div class="entry-bookmark">                                   
+										<a href="#"><i class="ti-bookmark"></i></a>
+									</div>
+									<div class="tour-time">
+										<i class="ti ti-car"></i><span>17h</span>
+									</div>
+									<h4 class="destination-place">
+										<a href="#">Dubai, United Arab Emirates</a>
+									</h4>
+									<span class="featured-tour"><i class="fa fa-star"></i></span>
+									<a href="#" class="list-like left"><i class="ti-heart"></i></a>
+								</a>
+							</figure>
+						</div>
+						
+						<div class="entry-meta">
+							<div class="meta-item meta-author">
+								<div class="coauthors">
+									<span class="vcard author">
+										<span class="fn">
+											<a href="#"><img alt="" src="assets/img/user-5.jpg" class="avatar avatar-24" height="24" width="24">Lisa Scholfield</a>
+										</span>
+									</span>
+								</div>
+							</div>
+							<div class="meta-item meta-comment fl-right">
+								<i class="ti-comment-alt"></i><span>15</span>
+							</div>
+							<div class="meta-item meta-rating fl-right">
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star-half"></i>
+							</div>
+						</div>
+
+						<div class="inner-box">
+							<div class="box-inner-ellipsis">
+								<h4 class="entry-title">
+									<a href="#">Saudi Arabia</a>
+								</h4>
+								<div class="price-box">
+									<div class="tour-price fl-right">
+										<i class="ti ti-user"></i><span class="theme-cl f-bold">$117</span>
+									</div>
+								</div>
+							</div>
+						</div>
+	
+					</article>
+				</div>
+			
+				<!-- Single Tour -->
+				<div class="list-slide-box">
+					<article class="tour-box style-1">
+					
+						<div class="tour-box-image">
+							<figure>
+								<a href="tour-detail.html">
+									<img src="assets/img/tour/tour-6.jpg" class="img-responsive listing-box-img" alt="" />
+									<div class="list-overlay"></div>
+									<div class="entry-bookmark">                                   
+										<a href="#"><i class="ti-bookmark"></i></a>
+									</div>
+									<div class="tour-time">
+										<i class="ti ti-car"></i><span>1 day</span>
+									</div>
+									<h4 class="destination-place">
+										<a href="#">Paris, France. neirfy</a>
+									</h4>
+									<span class="featured-tour"><i class="fa fa-star"></i></span>
+									<a href="#" class="list-like left"><i class="ti-heart"></i></a>
+								</a>
+							</figure>
+						</div>
+						
+						<div class="entry-meta">
+							<div class="meta-item meta-author">
+								<div class="coauthors">
+									<span class="vcard author">
+										<span class="fn">
+											<a href="#"><img alt="" src="assets/img/user-6.jpg" class="avatar avatar-24" height="24" width="24">Lisa Scholfield</a>
+										</span>
+									</span>
+								</div>
+							</div>
+							<div class="meta-item meta-comment fl-right">
+								<i class="ti-comment-alt"></i><span>22</span>
+							</div>
+							<div class="meta-item meta-rating fl-right">
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star-half"></i>
+							</div>
+						</div>
+
+						<div class="inner-box">
+							<div class="box-inner-ellipsis">
+								<h4 class="entry-title">
+									<a href="#">Singapore</a>
+								</h4>
+								<div class="price-box">
+									<div class="tour-price fl-right">
+										<i class="ti ti-user"></i><span class="theme-cl f-bold">$310</span>
+									</div>
+								</div>
+							</div>
+						</div>
+	
+					</article>
+				</div>
+				
+				<!-- Single Tour -->
+				<div class="list-slide-box">
+					<article class="tour-box style-1">
+					
+						<div class="tour-box-image">
+							<figure>
+								<a href="tour-detail.html">
+									<img src="assets/img/tour/tour-2.jpg" class="img-responsive listing-box-img" alt="" />
+									<div class="list-overlay"></div>
+									<div class="entry-bookmark">                                   
+										<a href="#"><i class="ti-bookmark"></i></a>
+									</div>
+									<div class="tour-time">
+										<i class="ti ti-car"></i><span>70h</span>
+									</div>
+									<h4 class="destination-place">
+										<a href="#">London, England. AndreaAstes</a>
+									</h4>
+									<span class="featured-tour"><i class="fa fa-star"></i></span>
+									<a href="#" class="list-like left"><i class="ti-heart"></i></a>
+								</a>
+							</figure>
+						</div>
+						
+						<div class="entry-meta">
+							<div class="meta-item meta-author">
+								<div class="coauthors">
+									<span class="vcard author">
+										<span class="fn">
+											<a href="#"><img alt="" src="assets/img/user-7.jpg" class="avatar avatar-24" height="24" width="24">Lisa Scholfield</a>
+										</span>
+									</span>
+								</div>
+							</div>
+							<div class="meta-item meta-comment fl-right">
+								<i class="ti-comment-alt"></i><span>15</span>
+							</div>
+							<div class="meta-item meta-rating fl-right">
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star-half"></i>
+							</div>
+						</div>
+
+						<div class="inner-box">
+							<div class="box-inner-ellipsis">
+								<h4 class="entry-title">
+									<a href="#">United Kingdom</a>
+								</h4>
+								<div class="price-box">
+									<div class="tour-price fl-right">
+										<i class="ti ti-user"></i><span class="theme-cl f-bold">$217</span>
+									</div>
+								</div>
+							</div>
+						</div>
+	
+					</article>
+				</div>
+				
+				<!-- Single Tour -->
+				<div class="list-slide-box">
+					<article class="tour-box style-1">
+					
+						<div class="tour-box-image">
+							<figure>
+								<a href="tour-detail.html">
+									<img src="assets/img/tour/tour-7.jpg" class="img-responsive listing-box-img" alt="" />
+									<div class="list-overlay"></div>
+									<div class="entry-bookmark">                                   
+										<a href="#"><i class="ti-bookmark"></i></a>
+									</div>
+									<div class="tour-time">
+										<i class="ti ti-car"></i><span>2 days</span>
+									</div>
+									<h4 class="destination-place">
+										<a href="#">Bangkok, Thailand. thitivong</a>
+									</h4>
+									<span class="featured-tour"><i class="fa fa-star"></i></span>
+									<a href="#" class="list-like left"><i class="ti-heart"></i></a>
+								</a>
+							</figure>
+						</div>
+						
+						<div class="entry-meta">
+							<div class="meta-item meta-author">
+								<div class="coauthors">
+									<span class="vcard author">
+										<span class="fn">
+											<a href="#"><img alt="" src="assets/img/user-8.jpg" class="avatar avatar-24" height="24" width="24">Lisa Scholfield</a>
+										</span>
+									</span>
+								</div>
+							</div>
+							<div class="meta-item meta-comment fl-right">
+								<i class="ti-comment-alt"></i><span>20</span>
+							</div>
+							<div class="meta-item meta-rating fl-right">
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star-half"></i>
+							</div>
+						</div>
+
+						<div class="inner-box">
+							<div class="box-inner-ellipsis">
+								<h4 class="entry-title">
+									<a href="#">Hong Kong</a>
+								</h4>
+								<div class="price-box">
+									<div class="tour-price fl-right">
+										<i class="ti ti-user"></i><span class="theme-cl f-bold">$177</span>
+									</div>
+								</div>
+							</div>
+						</div>
+	
+					</article>
+				</div>
+			
+			</div>
+		</div>
+
+	</div>
+</section>
+<!-- ====================== Top Tour & Activities ================= -->
+<div class="clearfix"></div>
+
+<!-- ====================== Popular Domestic Routes From India ================= -->
+<section>
+	<div class="container">
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="heading">
+					<span class="theme-cl">Domestic Routes</span>
+					<h1>Popular Domestic Routes From India</h1>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+		
+			<!-- Single Domestic Routes -->
+			<div class="col-md-4 col-sm-6">
+				<div class="domestic-routes">
+					
+					<div class="domestic-routes-thumb">
+						<a href="#"><img src="assets/img/tour-2.png" class="img-responsive" alt="" /></a>
+					</div>
+					<div class="domestic-routes-detail">
+						<h5><a href="#">Delhi To Austrailia</a></h5>
+						<span>Flight</span>
+						<span class="domestic-offer bg-success">-15% Off</span>
+					</div>
+					<div class="domestic-price">
+						<h5><a href="#" class="theme-cl">$255</a></h5>
+					</div>
+					
+				</div>
+			</div>
+			
+			<!-- Single Domestic Routes -->
+			<div class="col-md-4 col-sm-6">
+				<div class="domestic-routes">
+					
+					<div class="domestic-routes-thumb">
+						<a href="#"><img src="assets/img/tour-2.png" class="img-responsive" alt="" /></a>
+					</div>
+					<div class="domestic-routes-detail">
+						<h5><a href="#">Chandigarh To Canada</a></h5>
+						<span>Flight</span>
+					</div>
+					<div class="domestic-price">
+						<h5><a href="#" class="theme-cl">$350</a></h5>
+					</div>
+					
+				</div>
+			</div>
+			
+			<!-- Single Domestic Routes -->
+			<div class="col-md-4 col-sm-6">
+				<div class="domestic-routes">
+					
+					<div class="domestic-routes-thumb">
+						<a href="#"><img src="assets/img/tour-2.png" class="img-responsive" alt="" /></a>
+					</div>
+					<div class="domestic-routes-detail">
+						<h5><a href="#">Delhi To United State</a></h5>
+						<span>Flight</span>
+						<span class="domestic-offer bg-success">-10% Off</span>
+					</div>
+					<div class="domestic-price">
+						<h5><a href="#" class="theme-cl">$450</a></h5>
+					</div>
+					
+				</div>
+			</div>
+			
+			<!-- Single Domestic Routes -->
+			<div class="col-md-4 col-sm-6">
+				<div class="domestic-routes">
+					
+					<div class="domestic-routes-thumb">
+						<a href="#"><img src="assets/img/tour-2.png" class="img-responsive" alt="" /></a>
+					</div>
+					<div class="domestic-routes-detail">
+						<h5><a href="#">Delhi To Switzerland</a></h5>
+						<span>Flight</span>
+					</div>
+					<div class="domestic-price">
+						<h5><a href="#" class="theme-cl">$720</a></h5>
+					</div>
+					
+				</div>
+			</div>
+			
+			<!-- Single Domestic Routes -->
+			<div class="col-md-4 col-sm-6">
+				<div class="domestic-routes">
+					
+					<div class="domestic-routes-thumb">
+						<a href="#"><img src="assets/img/tour-2.png" class="img-responsive" alt="" /></a>
+					</div>
+					<div class="domestic-routes-detail">
+						<h5><a href="#">Mumbai To Singapore</a></h5>
+						<span>Flight</span>
+						<span class="domestic-offer bg-success">-12% Off</span>
+					</div>
+					<div class="domestic-price">
+						<h5><a href="#" class="theme-cl">$370</a></h5>
+					</div>
+					
+				</div>
+			</div>
+			
+			<!-- Single Domestic Routes -->
+			<div class="col-md-4 col-sm-6">
+				<div class="domestic-routes">
+					
+					<div class="domestic-routes-thumb">
+						<a href="#"><img src="assets/img/tour-2.png" class="img-responsive" alt="" /></a>
+					</div>
+					<div class="domestic-routes-detail">
+						<h5><a href="#">Chandigarh To Hong Kong</a></h5>
+						<span>Flight</span>
+					</div>
+					<div class="domestic-price">
+						<h5><a href="#" class="theme-cl">$640</a></h5>
+					</div>
+					
+				</div>
+			</div>
+			
+			<!-- Single Domestic Routes -->
+			<div class="col-md-4 col-sm-6">
+				<div class="domestic-routes">
+					
+					<div class="domestic-routes-thumb">
+						<a href="#"><img src="assets/img/tour-2.png" class="img-responsive" alt="" /></a>
+					</div>
+					<div class="domestic-routes-detail">
+						<h5><a href="#">Delhi To Netherlands</a></h5>
+						<span>Flight</span>
+						<span class="domestic-offer bg-success">-07% Off</span>
+					</div>
+					<div class="domestic-price">
+						<h5><a href="#" class="theme-cl">$820</a></h5>
+					</div>
+					
+				</div>
+			</div>
+			
+			<!-- Single Domestic Routes -->
+			<div class="col-md-4 col-sm-6">
+				<div class="domestic-routes">
+					
+					<div class="domestic-routes-thumb">
+						<a href="#"><img src="assets/img/tour-2.png" class="img-responsive" alt="" /></a>
+					</div>
+					<div class="domestic-routes-detail">
+						<h5><a href="#">Mumbai To Qatar</a></h5>
+						<span>Flight</span>
+					</div>
+					<div class="domestic-price">
+						<h5><a href="#" class="theme-cl">$680</a></h5>
+					</div>
+					
+				</div>
+			</div>
+			
+			<!-- Single Domestic Routes -->
+			<div class="col-md-4 col-sm-6">
+				<div class="domestic-routes">
+					
+					<div class="domestic-routes-thumb">
+						<a href="#"><img src="assets/img/tour-2.png" class="img-responsive" alt="" /></a>
+					</div>
+					<div class="domestic-routes-detail">
+						<h5><a href="#">Delhi To Switzerland</a></h5>
+						<span>Flight</span>
+						<span class="domestic-offer bg-success">-22% Off</span>
+					</div>
+					<div class="domestic-price">
+						<h5><a href="#" class="theme-cl">$680</a></h5>
+					</div>
+					
+				</div>
+			</div>
+			
+		</div>
+
+	</div>
+</section>
+<!-- ====================== Domestic Routes ================= -->
+<div class="clearfix"></div>
 @endsection		

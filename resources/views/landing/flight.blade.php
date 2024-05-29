@@ -5,35 +5,18 @@
 @endsection
 
 @section('content')
-<!-- start banner Area -->
-<section class="relative about-banner">	
-	<div class="overlay overlay-bg"></div>
-	<div class="container">				
-		<div class="row d-flex align-items-center justify-content-center">
-			<div class="about-content col-lg-12">
-				<h1 class="text-white">
-					Flight
-				</h1>	
-				<p class="text-white link-nav"><a href="{{ url('/') }}">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="javascript:void(0);"> Flight</a></p>
-			</div>	
-		</div>
-	</div>
-</section>
-<!-- End banner Area -->				  
+<!-- ====================== Page Title ================= -->	
+<x-landing-title title="Flight" current_page="Flight"/>
+<!-- ====================== Page Title ================= -->
+<div class="clearfix"></div>				  
 
-<!-- Start filter flights Area -->
-<section class="other-issue-area section-gap">
+<!-- ====================== Flight Information ================= -->
+<section class="gray-bg">
 	<div class="container">
-		<div class="row d-flex justify-content-center">
-			<div class="menu-content pb-70 col-lg-9">
-				<div class="title text-center">
-					<h1 class="mb-10">Flight Information</h1>
-					<p>Full insight about a flight and available seats</p>
-				</div>
-			</div>
-		</div>	
-        <div class="row">
-			<div class="col-12">
+		
+		<!-- row -->
+		<div class="row">
+			{{-- <div class="col-12">
 				<ul>
 					<li class="mt-1">
 						<span class="lead mr-5">Flight ID:</span>
@@ -101,9 +84,81 @@
 					</div>
 				</div>
 
+			</div> --}}
+			<div class="col-md-6">
+				<div class="tr-single-box">
+					<div class="tr-single-header">
+						<h4><i class="fa fa-plane"></i>Flight Information</h4>
+					</div>
+					<div class="tr-single-body">
+						<div class="booking-price-detail side-list no-border">
+							<h5>Full insight about a flight and available seats</h5>
+							<ul>
+								<li>Flight ID:<strong class="pull-right">{{ $flight->flight_id }}</strong></li>
+								<li>Airline:<strong class="pull-right">{{ $flight->airline->name }}</strong></li>
+								<li>Origin:<strong class="pull-right">{{ $flight->origin->city.'/'.$flight->origin->country }}</strong></li>
+								<li>Destination:<strong class="pull-right">{{ $flight->destination->city.'/'.$flight->destination->country }}</strong></li>
+								<li>Departure Time:<strong class="pull-right">{{ Date('d M, Y H:i A', strtotime($flight->departure_time)) }}</strong></li>
+								<li>Calculated Arrival Time:<strong class="pull-right">{{ Date('d M, Y H:i A', strtotime($flight->arrival_time)) }}</strong></li>
+								<li>Number Of Seats/Passengers:<strong class="pull-right">{{ $flight->available_seats }}</strong></li>
+								<li>Status:<strong class="pull-right">{{ $flight->status }}</strong></li>
+							</ul>
+						</div>
+						<div class="booking-price-detail side-list no-border">
+							<h5>Features include</h5>
+							<div class="include-features">
+								<span class="features-tag">Free Parking</span>
+								<span class="features-tag">Indoor pool</span>
+								<span class="features-tag">Security cameras</span>
+								<span class="features-tag">Hot Water</span>
+								<span class="features-tag">Spa/Sauna</span>
+								<span class="features-tag">Free Wifi</span>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-        </div>
-	</div>	
+			
+			<div class="col-md-6">
+				<div class="tr-single-box">
+					<div class="tr-single-header">
+						<h4><i class="ti-wheelchair"></i>Available Seats</h4>
+					</div>
+					<div class="tr-single-body">
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+								  <tr>
+									<th scopre="col">Seat Number</th>
+									<th scopre="col">Seat Class</th>
+									<th scopre="col">Cost</th>
+									<th scopre="col">Action</th>
+								  </tr>
+								</thead>
+								<tbody>
+									@if(count($seats) > 0)
+										@foreach($seats as $seat)
+											<tr>
+												<td>{{ $seat->seat_number }}</td>
+												<td>{{ $seat->seat_class }}</td>
+												<td>${{ $seat->price }}</td>
+												<td><a href="{{ route('book_flight', ['id' => $seat->id]) }}" class="btn theme-btn cl-white seub-btn">Book</a></td>
+											</tr>
+										@endforeach
+									@else
+										<tr>
+											<td>No Available Seats</td>
+										</tr>
+									@endif
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
-<!-- End filter flights Area -->
+<!-- ====================== Flight Information ================= -->
+<div class="clearfix"></div>
 @endsection

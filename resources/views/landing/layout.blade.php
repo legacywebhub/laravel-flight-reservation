@@ -1,188 +1,407 @@
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
-<head>
-    <!-- Mobile Specific Meta -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Favicon-->
-    <link rel="shortcut icon" href="{{ asset('landing/img/fav.png') }}">
-    <!-- Author Meta -->
-    <meta name="author" content="colorlib">
-    <!-- Meta Description -->
-    <meta name="description" content="">
-    <!-- Meta Keyword -->
-    <meta name="keywords" content="">
-    <!-- meta character set -->
-    <meta charset="UTF-8">
-    <!-- Site Title -->
-    <title>@yield('title', 'My Laravel App')</title>
+<html lang="en">
+	
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
-        <!--
-        CSS
-        ============================================= -->
-        <link rel="stylesheet" href="{{ asset('landing/css/linearicons.css') }}">
-        <link rel="stylesheet" href="{{ asset('landing/css/font-awesome.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('landing/css/bootstrap.css') }}">
-        <link rel="stylesheet" href="{{ asset('landing/css/magnific-popup.css') }}">
-        <link rel="stylesheet" href="{{ asset('landing/css/jquery-ui.css') }}">				
-        <link rel="stylesheet" href="{{ asset('landing/css/nice-select.css') }}">							
-        <link rel="stylesheet" href="{{ asset('landing/css/animate.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('landing/css/owl.carousel.css') }}">				
-        <link rel="stylesheet" href="{{ asset('landing/css/main.css') }}">
-    </head>
-    <body>	
-        <header id="header">
-            <div class="header-top">
-                <div class="container">
-                  <div class="row align-items-center">
-                      <div class="col-lg-6 col-sm-6 col-6 header-top-left">
-                          <ul>
-                            @auth
-                            <li>Welcome <span class="text-uppercase">{{auth()->user->name}}</span></li>
-                            @else
-                            <li><a href="#">Visit Us</a></li>
-                            <li><a href="#">Buy Tickets</a></li>
-                            @endauth
-                          </ul>			
-                      </div>
-                      <div class="col-lg-6 col-sm-6 col-6 header-top-right">
-                        <div class="header-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-dribbble"></i></a>
-                            <a href="#"><i class="fa fa-behance"></i></a>
-                        </div>
-                      </div>
-                  </div>			  					
-                </div>
-            </div>
-            <div class="container main-menu">
-                <div class="row align-items-center justify-content-between d-flex">
-                  <div id="logo">
-                    <a href="{{ url('/') }}"><img src="{{ asset('landing/img/logo.png') }}" alt="" title="" /></a>
-                  </div>
-                  <nav id="nav-menu-container">
-                    <ul class="nav-menu">
-                      <li><a href="{{ url('/') }}">Home</a></li>
-                      <li><a href="{{ url('/about') }}">About</a></li>
-                      <li><a href="{{ url('/flights') }}">Flights</a></li>
-                      <li class="menu-has-children"><a href="">Booking & Reservations</a>
-                        <ul>
-                          <li><a href="{{ url('/login') }}">Login</a></li>
-                          <li><a href="{{ url('/register') }}">Register</a></li>
-                        </ul>
-                      </li>					          					          		          
-                      <li><a href="{{ url('/contact') }}">Contact</a></li>
-                    </ul>
-                  </nav><!-- #nav-menu-container -->					      		  
-                </div>
-            </div>
-        </header><!-- #header -->
+		<title>@yield('title')</title>
+
+		<!-- Plugins CSS -->
+		<link rel="stylesheet" href="{{ asset('assets/plugins/css/plugins.css') }}">	
+		<!-- Custom style -->
+		<link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+		<link href="{{ asset('assets/css/responsiveness.css') }}" rel="stylesheet">
+		<link id="jssDefault" rel="stylesheet" href="{{ asset('assets/css/skins/default.css') }}">
+		
+		<style>
+			.form-div {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.form-div form {
+				width: 80vw !important;
+			}
+		</style>
+	</head>
+	
+	<body>
+		
+		<!-- ======================= Start Navigation ===================== -->
+		<nav class="navbar navbar-default navbar-mobile navbar-fixed light bootsnav">
+			<div class="container">
+			
+				<!-- Start Logo Header Navigation -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+						<i class="fa fa-bars"></i>
+					</button>
+					<a class="navbar-brand" href="{{ route('home') }}">
+						<img src="{{ asset('assets/img/logo.png') }}" class="logo logo-display" alt="">
+						<img src="{{ asset('assets/img/logo.png') }}" class="logo logo-scrolled" alt="">
+					</a>
+
+				</div>
+				<!-- End Logo Header Navigation -->
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="navbar-menu">
+				
+					<ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
+					
+						<li>
+							<a href="{{ route('home') }}">Home</a>
+						</li>
+
+						<li>
+							<a href="{{ route('flights') }}">Flights</a>
+						</li>
+
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
+							<ul class="dropdown-menu animated fadeOutUp">
+								<li><a href="{{ route('about') }}">About Us</a></li>
+								<li><a href="home-2.html">Our Services</a></li>
+								<li><a href="home-3.html">Faqs</a></li>
+								<li><a href="{{ route('contact') }}">Contact Us</a></li>
+							</ul>
+						</li>
+						
+						<li>
+							<a href="hire-guider.html">Find Guide</a>
+						</li>
+						
+					</ul>
+					
+					<ul class="nav navbar-nav navbar-right">
+						<li class="br-right"><a href="javascript:void(0)"  data-toggle="modal" data-target="#signin"><i class="login-icon ti-user"></i>Login</a></li>
+						<li class="sign-up"><a class="btn-signup red-btn" href="tour-grid-sidebar.html"><span class="ti-briefcase"></span>Booking Toor</a></li> 
+					</ul>
+						
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>   
+		</nav>
+		<!-- ======================= End Navigation ===================== -->
 
         @yield('content')
 
-        <!-- start footer Area -->		
-        <footer class="footer-area section-gap">
-            <div class="container">
+		<!-- ============== Before Footer ====================== -->
+		<section class="before-footer bt-1 bb-1">
+			<div class="container-fluid padd-0 full-width">
+			
+				<div class=" col-md-2 col-sm-2 br-1 mbb-1">
+					<div class="data-flex">
+						<h4>Contact Us!</h4>
+					</div>
+				</div>
+				
+				<div class="col-md-3 col-sm-3 br-1 mbb-1">
+					<div class="data-flex text-center">
+					53 Boulevard Victor Hugo 44200 Nantes, France
+					</div>
+				</div>
+				
+				<div class="col-md-3 col-sm-3 br-1 mbb-1">
+					<div class="data-flex text-center">
+						<span class="d-block mrg-bot-0">06 52 52 20 30</span>
+						<a href="#" class="theme-cl"><strong>hello@gmail.com</strong></a>
+					</div>
+				</div>
+				
+				<div class="col-md-4 col-sm-4 padd-0">
+					<div class="data-flex padd-0">
+						<ul class="social-share">
+							<li><a href="#"><i class="fa fa-facebook theme-cl"></i></a></li>
+							<li><a href="#"><i class="fa fa-google-plus theme-cl"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter theme-cl"></i></a></li>
+							<li><a href="#"><i class="fa fa-linkedin theme-cl"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				
+			</div>
+		</section>
+		<!-- =================== Before Footer ====================== -->
 
-                <div class="row">
-                    <div class="col-lg-3  col-md-6 col-sm-6">
-                        <div class="single-footer-widget">
-                            <h6>About Agency</h6>
-                            <p>
-                                The world has become so fast paced that people don’t want to stand by reading a page of information, they would much rather look at a presentation and understand the message. It has come to a point 
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="single-footer-widget">
-                            <h6>Navigation Links</h6>
-                            <div class="row">
-                                <div class="col">
-                                    <ul>
-                                        <li><a href="{{ url('/') }}">Home</a></li>
-                                        <li><a href="{{ url('/about') }}">About</a></li>
-                                        <li><a href="#">Book Flight</a></li>
-                                        <li><a href="{{ url('/contact') }}">Contact Us</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col">
-                                    <ul>
-                                        <li><a href="#">Team</a></li>
-                                        <li><a href="#">Pricing</a></li>
-                                        <li><a href="#">Blog</a></li>
-                                        <li><a href="#">Contact</a></li>
-                                    </ul>
-                                </div>										
-                            </div>							
-                        </div>
-                    </div>							
-                    <div class="col-lg-3  col-md-6 col-sm-6">
-                        <div class="single-footer-widget">
-                            <h6>Newsletter</h6>
-                            <p>
-                                For business professionals caught between high OEM price and mediocre print and graphic output.									
-                            </p>								
-                            <div id="mc_embed_signup">
-                                <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscription relative">
-                                    <div class="input-group d-flex flex-row">
-                                        <input name="EMAIL" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '" required="" type="email">
-                                        <button class="btn bb-btn"><span class="lnr lnr-location"></span></button>		
-                                    </div>									
-                                    <div class="mt-10 info"></div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3  col-md-6 col-sm-6">
-                        <div class="single-footer-widget mail-chimp">
-                            <h6 class="mb-20">InstaFeed</h6>
-                            <ul class="instafeed d-flex flex-wrap">
-                                <li><img src="{{ asset('landing/img/i1.jpg') }}" alt=""></li>
-                                <li><img src="{{ asset('landing/img/i2.jpg') }}" alt=""></li>
-                                <li><img src="{{ asset('landing/img/i3.jpg') }}" alt=""></li>
-                                <li><img src="{{ asset('landing/img/i4.jpg') }}" alt=""></li>
-                                <li><img src="{{ asset('landing/img/i5.jpg') }}" alt=""></li>
-                                <li><img src="{{ asset('landing/img/i6.jpg') }}" alt=""></li>
-                                <li><img src="{{ asset('landing/img/i7.jpg') }}" alt=""></li>
-                                <li><img src="{{ asset('landing/img/i8.jpg') }}" alt=""></li>
-                            </ul>
-                        </div>
-                    </div>						
-                </div>
+        <!-- ================= footer start ========================= -->
+        <footer class="footer dark-bg">
+			<div class="container">
+				
+				<!-- Row Start -->
+				<div class="row">
+				
+					<div class="col-md-8 col-sm-8">
+						<div class="row">
+							<div class="col-md-4 col-sm-4">
+								<h4>Featured Destinations</h4>
+								<ul>
+									<li><a href="destination-grid.html">Destination Grid</a></li>
+									<li><a href="destination-list.html">Destination List</a></li>
+									<li><a href="destination-grid-sidebar.html">Destination Grid Sidebar</a></li>
+									<li><a href="destination-list-sidebar.html">Destination List Sidebar</a></li>
+									<li><a href="destination-detail.html">Destination Detail</a></li>
+									<li><a href="restaurant-grid.html">Restaurant Grid</a></li>
+								</ul>
+							</div>
+							<div class="col-md-4 col-sm-4">
+								<h4>Featured Tours</h4>
+								<ul>
+									<li><a href="tour-grid.html">Tour Grid</a></li>
+									<li><a href="tour-list.html">Tour List</a></li>
+									<li><a href="tour-grid-sidebar.html">Tour Grid Sidebar</a></li>
+									<li><a href="tour-list-sidebar.html">tour List Sidebar</a></li>
+									<li><a href="tour-detail.html">Tour Detail</a></li>
+									<li><a href="http://themezhub.com/">Restaurant Grid</a></li>
+								</ul>
+							</div>
+							<div class="col-md-4 col-sm-4">
+								<h4>Featured Hotels</h4>
+								<ul>
+									<li><a href="hotel-grid.html">Hotel Grid</a></li>
+									<li><a href="hotel-list.html">Hotel List</a></li>
+									<li><a href="hotel-grid-sidebar.html">Hotel Grid Sidebar</a></li>
+									<li><a href="hotel-list-sidebar.html">Hotel List Sidebar</a></li>
+									<li><a href="hotel-detail.html">Hotel Detail</a></li>
+									<li><a href="restaurant-detail.html">Restaurant Detail</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-4 col-sm-4">
+						<h4>Subscribe Now</h4>
+						<!-- Newsletter -->
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Enter Email">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default"><i class="fa fa-location-arrow font-20"></i></button>
+							</span>
+						</div>
+						
+						<!-- Social Box -->
+						<div class="f-social-box">
+							<ul>
+								<li><a href="#"><i class="fa fa-facebook facebook-cl"></i></a></li>
+								<li><a href="#"><i class="fa fa-google google-plus-cl"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter twitter-cl"></i></a></li>
+								<li><a href="#"><i class="fa fa-pinterest pinterest-cl"></i></a></li>
+								<li><a href="#"><i class="fa fa-instagram instagram-cl"></i></a></li>
+							</ul>
+						</div>
+						
+						<!-- App Links -->
+						<div class="f-app-box">
+							<ul>
+								<li><a href="#"><i class="fa fa-apple"></i>App Store</a></li>
+								<li><a href="#"><i class="fa fa-android"></i>Play Store</a></li>
+							</ul>
+						</div>
+						
+					</div>
+					
+				</div>
+				
+				<!-- Row Start -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="copyright text-center">
+							<p><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></p>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</footer>
+		
+		<!-- Sign Up Window Code -->
+		<div class="modal fade" id="signin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content" id="myModalLabel1">
+					<div class="modal-body">
+						<div class="text-center"><img src="{{ asset('assets/img/logo.png') }}" class="img-responsive" alt=""></div>
+						
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs nav-advance theme-bg" role="tablist">
+							<li class="nav-item active">
+								<a class="nav-link" data-toggle="tab" href="#employer" role="tab">
+								<i class="ti-user"></i> Employer</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#candidate" role="tab">
+								<i class="ti-user"></i> Candidate</a>
+							</li>
+						</ul>
+						<!-- Nav tabs -->
+							
+						<!-- Tab panels -->
+						<div class="tab-content">
+						
+							<!-- Employer Panel 1-->
+							<div class="tab-pane fade in show active" id="employer" role="tabpanel">
+								<form>
+									
+									<div class="form-group">
+										<label>User Name</label>
+										<input type="text" class="form-control" placeholder="User Name">
+									</div>
+									
+									<div class="form-group">
+										<label>Password</label>
+										<input type="password" class="form-control" placeholder="*********">
+									</div>
+									
+									<div class="form-group">
+										<span class="custom-checkbox">
+											<input type="checkbox" id="4">
+											<label for="4"></label>Remember me
+										</span>
+										<a href="#" title="Forget" class="fl-right">Forgot Password?</a>
+									</div>
+									<div class="form-group text-center">
+										<button type="button" class="btn theme-btn full-width btn-m">LogIn </button>
+									</div>
+									
+								</form>
+								
+								<div class="log-option"><span>OR</span></div>
+								
+								<div class="row mrg-bot-20">
+									<div class="col-md-6">
+										<a href="#" title="" class="fb-log-btn log-btn"><i class="fa fa-facebook"></i>Sign In With Facebook</a>
+									</div>
+									<div class="col-md-6">
+										<a href="#" title="" class="gplus-log-btn log-btn"><i class="fa fa-google-plus"></i>Sign In With Google+</a>
+									</div>
+								</div>
+					
+							</div>
+							<!--/.Panel 1-->
+							
+							<!-- Candidate Panel 2-->
+							<div class="tab-pane fade" id="candidate" role="tabpanel">
+								<form>
+									
+									<div class="form-group">
+										<label>User Name</label>
+										<input type="text" class="form-control" placeholder="User Name">
+									</div>
+									
+									<div class="form-group">
+										<label>Password</label>
+										<input type="password" class="form-control" placeholder="*********">
+									</div>
+									
+									<div class="form-group">
+										<span class="custom-checkbox">
+											<input type="checkbox" id="4">
+											<label for="4"></label>Remember me
+										</span>
+										<a href="#" title="Forget" class="fl-right">Forgot Password?</a>
+									</div>
+									<div class="form-group text-center">
+										<button type="button" class="btn theme-btn full-width btn-m">LogIn </button>
+									</div>
+									
+								</form>
+								
+								<div class="log-option"><span>OR</span></div>
+								
+								<div class="row mrg-bot-20">
+									<div class="col-md-6">
+										<a href="#" title="" class="fb-log-btn log-btn"><i class="fa fa-facebook"></i>Sign In With Facebook</a>
+									</div>
+									<div class="col-md-6">
+										<a href="#" title="" class="gplus-log-btn log-btn"><i class="fa fa-google-plus"></i>Sign In With Google+</a>
+									</div>
+								</div>
+								
+							</div>
+							<!--/.Panel 2-->
+							
+						</div>
+						<!-- Tab panels -->
+					</div>
+				</div>
+			</div>
+		</div>   
+		<!-- End Sign Up Window -->
+		 
+		<!-- =================== START JAVASCRIPT ================== -->
+		<script src="{{ asset('assets/plugins/js/jquery.min.js') }}"></script>
+		<script src="{{ asset('assets/plugins/js/bootstrap.min.js') }}"></script>
+		<script src="{{ asset('assets/plugins/js/viewportchecker.js') }}"></script>
+		<script src="{{ asset('assets/plugins/js/bootsnav.js') }}"></script>
+		<script src="{{ asset('assets/plugins/js/slick.min.js') }}"></script>
+		<script src="{{ asset('assets/plugins/js/jquery.nice-select.min.js') }}"></script>
+		<script src="{{ asset('assets/plugins/js/jquery.fancybox.min.js') }}"></script>
+		<script src="{{ asset('assets/plugins/js/jquery.downCount.js') }}"></script>
+		<script src="{{ asset('assets/plugins/js/freshslider.1.0.0.js') }}"></script>
+		<script src="{{ asset('assets/plugins/js/moment.min.js') }}"></script>
+		<script src="{{ asset('assets/plugins/js/daterangepicker.js') }}"></script>
+		<script src="{{ asset('assets/plugins/js/wysihtml5-0.3.0.js') }}"></script>
+		<script src="{{ asset('assets/plugins/js/bootstrap-wysihtml5.js') }}"></script>
+		<script src="{{ asset('assets/plugins/js/sweetalert.min.js') }}"></script>
+		
+		<!-- Dashboard Js -->
+		<script src="{{ asset('assets/plugins/js/jquery.slimscroll.min.js') }}"></script>
+		<script src="{{ asset('assets/plugins/js/jquery.metisMenu.js') }}"></script>
+		<script src="{{ asset('assets/plugins/js/jquery.easing.min.js') }}"></script>
+        <script src="{{ asset('assets/js/jQuery.style.switcher.js') }}"></script>
+ 
+		<!-- Custom Js -->
+		<script src="{{ asset('assets/js/custom.js') }}"></script>
+		
+		<script>
+			$(function() {
+			  $('input[name="check-in-out"]').daterangepicker({
+			  autoUpdateInput: false,
+				opens: 'left'
+			  }, function(start, end, label) {
+				console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+			  });
+			});
+		</script>
+		
+		<script>
+			$('#flight-book').daterangepicker({
+				"singleDatePicker": true,
+				"timePicker": true,
+				"startDate": "07/06/2018",
+				"endDate": "07/12/2018"
+			}, function(start, end, label) {
+			  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+			});
+		</script>
+		<script>
+			$('#book-date').daterangepicker({
+				"singleDatePicker": true,
+				"timePicker": true,
+				"startDate": "07/06/2018",
+				"endDate": "07/12/2018"
+			}, function(start, end, label) {
+			  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+			});
+		</script>
+		
+		<script>
+			function openRightMenu() {
+				document.getElementById("rightMenu").style.display = "block";
+			}
+			function closeRightMenu() {
+				document.getElementById("rightMenu").style.display = "none";
+			}
+		</script>
 
-                <div class="row footer-bottom d-flex justify-content-between align-items-center">
-                    <p class="col-lg-8 col-sm-12 footer-text m-0">
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
-                    <div class="col-lg-4 col-sm-12 footer-social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                        <a href="#"><i class="fa fa-behance"></i></a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- End footer Area -->	
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#styleOptions').styleSwitcher();
+			});
+		</script>
 
-        <script src="{{ asset('landing/js/vendor/jquery-2.2.4.min.js') }}"></script>
-        <script src="{{ asset('landing/js/popper.min.js') }}"></script>
-        <script src="{{ asset('landing/js/vendor/bootstrap.min.js') }}"></script>			
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>		
-        <script src="{{ asset('landing/js/jquery-ui.js') }}"></script>					
-        <script src="{{ asset('landing/js/easing.min.js') }}"></script>			
-        <script src="{{ asset('landing/js/hoverIntent.js') }}"></script>
-        <script src="{{ asset('landing/js/superfish.min.js') }}"></script>	
-        <script src="{{ asset('landing/js/jquery.ajaxchimp.min.js') }}"></script>
-        <script src="{{ asset('landing/js/jquery.magnific-popup.min.js') }}"></script>						
-        <script src="{{ asset('landing/js/jquery.nice-select.min.js') }}"></script>					
-        <script src="{{ asset('landing/js/owl.carousel.min.js') }}"></script>
-        <script src="{{ asset('landing/js/sweetalert.min.js') }}"></script>						
-        <script src="{{ asset('landing/js/mail-script.js') }}"></script>	
-        <script src="{{ asset('landing/js/main.js') }}"></script>
+        <!-- External scripts -->
 
         <!-- Security js-->
         <script>
@@ -236,5 +455,7 @@
                 // Use onkeypress="return onlyAlphabeticalKey(event)" on the input field
             }
         </script>
+
     </body>
+
 </html>

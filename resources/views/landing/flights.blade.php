@@ -5,122 +5,118 @@
 @endsection
 
 @section('content')
-<!-- start banner Area -->
-<section class="relative about-banner">	
-	<div class="overlay overlay-bg"></div>
-	<div class="container">				
-		<div class="row d-flex align-items-center justify-content-center">
-			<div class="about-content col-lg-12">
-				<h1 class="text-white">
-					Flights		
-				</h1>	
-				<p class="text-white link-nav"><a href="{{ url('/') }}">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="javascript:void(0);"> Flights</a></p>
-			</div>	
-		</div>
-	</div>
-</section>
-<!-- End banner Area -->				  
+<!-- ====================== Page Title ================= -->	
+<x-landing-title title="Flights" current_page="Flights"/>
+<!-- ====================== Page Title ================= -->
+<div class="clearfix"></div>
 
-<!-- Start filter flights Area -->
-<section class="other-issue-area section-gap">
+<!-- ====================== Filter/Search Flight ================= -->
+<section>
 	<div class="container">
-        <div class="row">
-            <div class="title mb-5">
-                <h1> Filter Flights</h1>
-				<p class="mt-2">Search by origin, destination and departure date</p>
-            </div>
-			<div class="col-12 mb-4">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="heading">
+					<h1>Filter Flights</h1>
+					<span class="theme-cl">Search by origin, destination and departure date</span>
+				</div>
+			</div>
+		</div>	
+		<div class="row">
+			<div class="form-div">
                 <form action="{{ url('/flights') }}" method="POST">
                     @csrf
                     <div class="row">
-                      <div class="col-3">
+                      <div class="form-group">
                         <input type="text" name="origin" class="form-control" placeholder="Origin" maxlength="100">
                       </div>
-                      <div class="col-3">
+                      <div class="form-group">
                         <input type="text" name="destination" class="form-control" placeholder="Destination" maxlength="100">
                       </div>
-                      <div class="col-3">
+                      <div class="form-group">
                         <input type="date" name="departure_date" class="form-control" placeholder="Departure Time">
                       </div>
-                      <div class="col-3">
-                        <button class="primary-btn text-uppercase">Search</button>
+                      <div class="form-group">
+                        <button type="submit" class="btn theme-btn cl-white seub-btn">Search</button>
                       </div>
                     </div>
-                  </form>
-            </div>
-        </div>
-	</div>	
+                </form>
+			</div>
+		</div>	
+	</div>
 </section>
-<!-- End filter flights Area -->
+<!-- ====================== Filter/Search Flight ================= -->
+<div class="clearfix"></div>
 
-<!-- Start flights Area -->
-<section class="other-issue-area section-gap">
+<!-- ====================== Flights ================= -->
+<section>
 	<div class="container">
-		<div class="row d-flex justify-content-center">
-			<div class="menu-content pb-70 col-lg-9">
-				<div class="title text-center">
-					<h1 class="mb-10">
-                        Available Flights
-                    </h1>
+        <div class="row">
+			<div class="col-md-12">
+				<div class="heading">
+					<h1>Available Flights</h1>
+					<span class="theme-cl">Search by origin, destination and departure date</span>
 				</div>
 			</div>
-		</div>					
+		</div>				
 		<div class="row">
 			<div class="col-12">
-				<div class="progress-table-wrap">
-					<div class="progress-table">
-						<div class="table-head">
-							<div class="visit">Flight ID</div>
-							<div class="visit">From</div>
-							<div class="visit">To</div>
-							<div class="visit">Departure Time</div>
-							<div class="visit">Arrival Time</div>
-							<div class="visit">Actions</div>
-						</div>
-						@if(count($flights) > 0)
-							@foreach($flights as $flight)
-							<div class="table-row">
-								<div class="visit">{{ $flight->flight_id }}</div>
-								<div class="visit">{{ $flight->origin->city.'/'.$flight->origin->country }}</div>
-								<div class="visit">{{ $flight->destination->city.'/'.$flight->destination->country }}</div>
-								<div class="visit">{{ Date('d M, Y H:i A', strtotime($flight->departure_time)) }}</div>
-								<div class="visit">{{ Date('d M, Y H:i A', strtotime($flight->arrival_time)) }}</div>
-								<div class="visit"><a href="{{ route('flight', ['id' => $flight->id]) }}" class="primary-btn text-uppercase">View</a></div>
-							</div>
-							@endforeach
-							<nav class="blog-pagination justify-content-center d-flex">
-		                        <ul class="pagination">
-		                            <li class="page-item">
-		                                <a href="#" class="page-link" aria-label="Previous">
-		                                    <span aria-hidden="true">
-		                                        <span class="lnr lnr-chevron-left"></span>
-		                                    </span>
-		                                </a>
-		                            </li>
-		                            <li class="page-item"><a href="#" class="page-link">01</a></li>
-		                            <li class="page-item active"><a href="#" class="page-link">02</a></li>
-		                            <li class="page-item"><a href="#" class="page-link">03</a></li>
-		                            <li class="page-item"><a href="#" class="page-link">04</a></li>
-		                            <li class="page-item"><a href="#" class="page-link">09</a></li>
-		                            <li class="page-item">
-		                                <a href="#" class="page-link" aria-label="Next">
-		                                    <span aria-hidden="true">
-		                                        <span class="lnr lnr-chevron-right"></span>
-		                                    </span>
-		                                </a>
-		                            </li>
-		                        </ul>
-		                    </nav>
-						@else
-							<div class="table-row">
-								<div class="visit">No Flights</div>
-							</div>
-						@endif
-					</div>
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+						  <tr>
+							<th scopre="col">Flight ID</th>
+							<th scopre="col">From</th>
+							<th scopre="col">To</th>
+							<th scopre="col">Departure Time</th>
+							<th scopre="col">Arrival Time</th>
+							<th scopre="col">Actions</th>
+						  </tr>
+						</thead>
+						<tbody>
+							@if(count($flights) > 0)
+								@foreach($flights as $flight)
+									<tr>
+										<td>{{ $flight->flight_id }}</td>
+										<td>{{ $flight->origin->city.'/'.$flight->origin->country }}</td>
+										<td>{{ $flight->destination->city.'/'.$flight->destination->country }}</td>
+										<td>{{ Date('d M, Y H:i A', strtotime($flight->departure_time)) }}</td>
+										<td>{{ Date('d M, Y H:i A', strtotime($flight->arrival_time)) }}</td>
+										<td><a href="{{ route('flight', ['id' => $flight->id]) }}" class="btn theme-btn cl-white seub-btn">View Flight</a></td>
+									</tr>
+								@endforeach
+							@else
+								<tr>
+									<td>No Flights</td>
+								</tr>
+							@endif
+						</tbody>
+					</table>
+				</div>
+				<div class="bs-example">
+					<ul class="pagination">
+						<li class="page-item">
+						  <a class="page-link" href="#" aria-label="Previous">
+							<span class="ti-arrow-left"></span>
+							<span class="sr-only">Previous</span>
+						  </a>
+						</li>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item active"><a class="page-link" href="#">3</a></li>
+						<li class="page-item"><a class="page-link" href="#">4</a></li>
+						<li class="page-item"><a class="page-link" href="#">5</a></li>
+						<li class="page-item">
+						  <a class="page-link" href="#" aria-label="Next">
+							<span class="ti-arrow-right"></span>
+							<span class="sr-only">Next</span>
+						  </a>
+						</li>
+					</ul>
 				</div>
 			</div>																	
 		</div>
     </div>
 </section>
-<!-- End flights Area -->
+<!-- ====================== Flights ================= -->
+<div class="clearfix"></div>
 @endsection

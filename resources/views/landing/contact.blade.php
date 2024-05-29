@@ -5,105 +5,108 @@
 @endsection
 
 @section('content')
-<!-- start banner Area -->
-<section class="relative about-banner">	
-	<div class="overlay overlay-bg"></div>
-	<div class="container">				
-		<div class="row d-flex align-items-center justify-content-center">
-			<div class="about-content col-lg-12">
-				<h1 class="text-white">
-					Contact Us				
-				</h1>	
-				<p class="text-white link-nav"><a href="{{ url('/') }}">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="{{ url('/contact') }}"> Contact Us</a></p>
-			</div>	
-		</div>
-	</div>
-</section>
-<!-- End banner Area -->				  
+<!-- ====================== Page Title ================= -->	
+<x-landing-title title="Contact Us" current_page="Contact"/>
+<!-- ====================== Page Title ================= -->
+<div class="clearfix"></div>
 
-<!-- Start contact-page Area -->
-<section class="contact-page-area section-gap">
+<!-- =========== Start All Hotel In Grid View =================== -->
+<section class="gray-bg">
 	<div class="container">
 		<div class="row">
-			<div class="map-wrap" style="width:100%; height: 445px;" id="map"></div>
-			<div class="col-lg-4 d-flex flex-column address-wrap">
-				<div class="single-contact-address d-flex flex-row">
-					<div class="icon">
-						<span class="lnr lnr-home"></span>
-					</div>
-					<div class="contact-details">
-						<h5>Binghamton, New York</h5>
-						<p>
-							4343 Hinkle Deegan Lake Road
-						</p>
+			
+			<div class="col-md-5 col-sm-5">
+				<div class="form-box">
+					<i class="c-icon ti-email theme-cl"></i>
+					<div class="c-detail">
+						<strong>Email On:</strong>
+						<p>{{ $company->email }}</p>
 					</div>
 				</div>
-				<div class="single-contact-address d-flex flex-row">
-					<div class="icon">
-						<span class="lnr lnr-phone-handset"></span>
-					</div>
-					<div class="contact-details">
-						<h5>{{ $company->phone }}</h5>
-						<p>Mon to Fri 9am to 6 pm</p>
+				
+				<div class="form-box">
+					<i class="c-icon ti-headphone-alt theme-cl"></i>
+					<div class="c-detail">
+						<strong>Call Us:</strong>
+						<p>{{ $company->phone }}</p>
 					</div>
 				</div>
-				<div class="single-contact-address d-flex flex-row">
-					<div class="icon">
-						<span class="lnr lnr-envelope"></span>
+				
+				<div class="form-box">
+					<i class="c-icon ti-map-alt theme-cl"></i>
+					<div class="c-detail">
+						<strong>Location:</strong>
+						<p>{{ $company->address }}</p>
 					</div>
-					<div class="contact-details">
-						<h5>{{ $company->email }}</h5>
-						<p>Send us your query anytime!</p>
-					</div>
-				</div>														
+				</div>
+				
 			</div>
-			<div class="col-lg-8">
-				<form class="form-area contact-form text-right" action="{{ url('/contact') }}" method="POST">
-					@csrf
-					<div class="row">	
-						<div class="col-lg-6 form-group">
-							<div class="mb-20">
-								<input type="text" name="name" maxlength="100" class="common-input form-control" placeholder="Enter your name*" required>
+			
+			<div class="col-md-7 col-sm-7">
+				<div class="form-box">
+					<form class="c-form" action="{{ url('/contact') }}" method="POST">
+						@csrf
+
+						@if(session()->has('message'))
+							<div class="alert-msg" style="text-align: right;">{{ session('message') }}</div>
+						@endif
+					
+						<div class="row">
+							<div class="col-sm-6">
+								<label>Name<sup class="cl-danger">*</sup></label>
+								<input type="text" name="name" class="form-control" value="{{ old('name') }}" maxlength="100" required>
 								@error('name')
 								<div class="alert-msg text-danger" style="text-align: left;">{{ $message }}</div>
 								@enderror
 							</div>
-							<div class="mb-20">
-								<input type="email" name="email" maxlength="100" class="common-input form-control" placeholder="Enter email*" required>
+							<div class="col-sm-6">
+								<label>Email<sup class="cl-danger">*</sup></label>
+								<input type="email" name="email" class="form-control" value="{{ old('email') }}" maxlength="100" required>
 								@error('email')
 								<div class="alert-msg text-danger" style="text-align: left;">{{ $message }}</div>
 								@enderror
 							</div>
-							<div class="mb-20">
-								<input type="text" name="phone" maxlength="30" class="common-input form-control" placeholder="Enter mobile number">
+						</div>
+						
+						<div class="row">
+							<div class="col-sm-6">
+								<label>Phone<sup class="cl-danger">*</sup></label>
+								<input type="text" name="phone" class="form-control" value="{{ old('phone') }}" maxlength="20" required>
 								@error('phone')
 								<div class="alert-msg text-danger" style="text-align: left;">{{ $message }}</div>
 								@enderror
 							</div>
-							<div class="mb-20">
-								<input type="text" name="subject" maxlength="160" class="common-input form-control" placeholder="Enter subject*" required>
+							<div class="col-sm-6">
+								<label>Subject<sup class="cl-danger">*</sup></label>
+								<input type="text" name="subject" class="form-control" value="{{ old('subject') }}" maxlength="160" required>
 								@error('subject')
 								<div class="alert-msg text-danger" style="text-align: left;">{{ $message }}</div>
 								@enderror
 							</div>
 						</div>
-						<div class="col-lg-6 form-group">
-							<textarea class="common-textarea form-control" name="message" placeholder="Enter Messege*" maxlength="5000" required></textarea>				
-							@error('message')
-							<div class="alert-msg text-danger" style="text-align: left;">{{ $message }}</div>
-							@enderror
+						
+						<div class="row">
+							<div class="col-sm-12">
+								<label>Message<sup class="cl-danger">*</sup></label>
+								<textarea name="message" class="form-control height-150" maxlength="5000" required>{{ old('message') }}</textarea>
+								@error('message')
+								<div class="alert-msg text-danger" style="text-align: left;">{{ $message }}</div>
+								@enderror
+							</div>
 						</div>
-						<div class="col-lg-12">
-							@if(session()->has('message'))
-							<div class="alert-msg" style="text-align: right;">{{ session('message') }}</div>
-							@endif
-							<button class="genric-btn primary" style="float: right;">Send Message</button>											
+						
+						<div class="row">
+							<div class="col-sm-12">
+								<button type="button" class="btn theme-btn btn-arrow">Submit Request</button>
+							</div>
 						</div>
-					</div>
-				</form>	
+						
+					</form>
+				</div>
 			</div>
+			
 		</div>
-	</div>	
+	</div>
 </section>
-<!-- End contact-page Area -->
+<!-- =========== End All Hotel In Grid View =================== -->
 @endsection
