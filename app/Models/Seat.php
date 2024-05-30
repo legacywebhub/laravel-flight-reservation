@@ -31,9 +31,9 @@ class Seat extends Model
         return $this->belongsTo(Flight::class, 'flight_id');
     }
 
-    // Define the relationship to seat bookings
-    public function seatbookings()
+    // Define the relationship to seat booking
+    public function seatbooking()
     {
-        return $this->hasMany(SeatBooking::class, 'seat_id');
+        return $this->hasOne(SeatBooking::class, 'seat_id');
     }
 }

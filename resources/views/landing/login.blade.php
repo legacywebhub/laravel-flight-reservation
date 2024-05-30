@@ -1,65 +1,63 @@
 @extends('landing.layout') 
 
 @section('title')
-{{ $company->name }} | Sign In
+{{ $company->name }} | Login
 @endsection
 
 @section('content')
-<!-- start banner Area -->
-<section class="relative about-banner">	
-	<div class="overlay overlay-bg"></div>
-	<div class="container">				
-		<div class="row d-flex align-items-center justify-content-center">
-			<div class="about-content col-lg-12">
-				<h1 class="text-white">
-					Login			
-				</h1>	
-				<p class="text-white link-nav"><a href="{{ url('/') }}">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="{{ url('/login') }}">Sign in</a></p>
-			</div>	
+<!-- ====================== Page Title ================= -->	
+<x-landing-title title="Login" current_page="Login"/>
+<!-- ====================== Page Title ================= -->
+<div class="clearfix"></div>
+
+<!-- =========== Start All Hotel In Grid View =================== -->
+<section class="gray-bg">
+	<div class="container">
+		<div class="row d-flex">
+			
+			<div class="col-12 col-md-9" style="width: 80vw;">
+				<div class="form-box">
+					<h4>Sign In</h4><hr>
+					<form class="reg-form" action="{{ url('/login') }}" method="POST" style="padding: 0px 20px;">
+						@csrf
+
+						@if(session()->has('message'))
+							<div class="mt-20 mb-20 text-danger">{{ session('message') }}</div>
+						@endif
+					
+						<div class="row">
+							<div class="col-12">
+								<label>Email<sup class="cl-danger">*</sup></label>
+								<input type="email" name="email" class="form-control" value="{{ old('email') }}" maxlength="100" required>
+								@error('email')
+								<div class="mrg-top-10 text-danger">{{ $message }}</div>
+								@enderror
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-12">
+								<label>Password<sup class="cl-danger">*</sup></label>
+								<input type="password" name="password" class="form-control" value="{{ old('password') }}" maxlength="100" required>
+								@error('password')
+								<div class="mrg-top-10 text-danger" style="text-align: left;">{{ $message }}</div>
+								@enderror
+							</div>
+						</div>
+						
+						<div class="row mrg-top-20">
+							<button class="btn theme-btn btn-arrow">Login</button>
+						</div>
+						
+						<div class="row mt-50 mb-20">
+							You don't have an account? Sign up <a href="{{ url('/register') }}">here</a>
+						</div>
+					</form>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 </section>
-<!-- End banner Area -->				  
-
-<!-- Start login-page Area -->
-<section class="contact-page-area section-gap">
-	<div class="container">
-        <div class="row d-flex justify-content-center">
-			<div class="menu-content pb-70 col-lg-9">
-				<div class="title text-center">
-					<h1 class="mb-10">Sign In</h1>
-					<p>We all live in an age that belongs to the young at heart. Life that is.</p>
-				</div>
-			</div>
-		</div>	
-		<div class="row d-flex justify-content-center">
-            <form action="{{ url('/login') }}" method="POST">
-                @csrf
-                @if(session()->has('message'))
-                	<div class="alert-msg" style="text-align: center;">{{ session('message') }}</div>
-                @endif
-                <div class="form-group">
-                    <label for="email">Email address <span class="text-danger">*</span></label>
-                    <input type="email" name="email" class="form-control" maxlength="100" id="email" required>
-					@error('email')
-                    <p class="alert-msg text-danger" style="text-align: left;">{{ $message }}</p>
-                    @enderror
-				</div>
-                <div class="form-group">
-                    <label for="password">Password <span class="text-danger">*</span></label>
-                    <input type="password" name="password" class="form-control" id="password" maxlength="100" required>
-					@error('password')
-                    <p class="alert-msg text-danger" style="text-align: left;">{{ $message }}</p>
-                    @enderror
-				</div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="remember">
-                    <label class="form-check-label" for="remember">Remember me</label>
-                </div>
-                <button class="genric-btn primary d-block">Submit</button>
-            </form>
-		</div>
-	</div>	
-</section>
-<!-- End login-page Area -->
+<!-- =========== End All Hotel In Grid View =================== -->
 @endsection

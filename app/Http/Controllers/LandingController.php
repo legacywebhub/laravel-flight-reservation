@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use App\Models\Seat;
 use App\Models\User;
 use App\Models\Flight;
-use App\Models\Booking;
 use App\Models\Message;
 use App\Models\Payment;
 use App\Models\Setting;
@@ -101,8 +100,8 @@ class LandingController extends Controller
         ]);
     }
 
-    // Save booking information
-    public function saveBooking(Request $request)
+    // Checkout booking
+    public function checkout(Request $request)
     {
         // Validating post request
         $data = $request->validate([
@@ -118,45 +117,40 @@ class LandingController extends Controller
             'age' => 'required_if:is_anonymous,true'
         ]);
 
-        // Booking
-        $booking = new Booking;
-        $booking->booking_id = Functions::generateBookingID();
-        $booking->amount = $data['amount'];
-        $booking->status = 'purchased';
-        $booking->date = Carbon::now()->format('Y-m-d H:i:s');
-        // Checking if authenticated user
-        if (auth()->check()) {
-            $booking->user_id = auth()->id();
-            $booking->name = auth()->name;
-            $booking->email = auth()->email;
-            $booking->phone = auth()->phone;
-            $booking->address = auth()->address;
-            $booking->gender = auth()->gender;
-            $booking->age = auth()->age;
-        } else {
-            $booking->name = $data['name'];
-            $booking->email = $data['email'];
-            $booking->phone = $data['phone'];
-            $booking->address = $data['address'];
-            $booking->gender = $data['gender'];
-            $booking->age = $data['age'];
-        }
-        $booking->save();
-
         // Payment
         $payment = new Payment;
-        $payment->booking_id = $booking->id;
         $payment->reference_id = $data['reference_id'];
         $payment->amount = $data['amount'];
         $payment->payment_date = Carbon::now()->format('Y-m-d H:i:s');
-        $payment->payment_method = 'card';
+        $payment->payment_method = 'paypal';
         $payment->payment_status = 'successful';
         $payment->save();
 
         // Seat Booking (Pivot table)
         $seat_booking = new SeatBooking;
-        $seat_booking->booking_id = $booking->id;
+        $seat_booking->booking_id = Functions::generateBookingID();
+        $seat_booking->payment_id = $payment->id;
         $seat_booking->seat_id = $data['seat_id'];
+        $seat_booking->amount = $data['amount'];
+        $seat_booking->status = 'purchased';
+        $seat_booking->date = Carbon::now()->format('Y-m-d H:i:s');
+        // Checking if authenticated user
+        if (auth()->check()) {
+            $seat_booking->user_id = Auth::user()->id;
+            $seat_booking->name = Auth::user()->name;
+            $seat_booking->email = Auth::user()->email;
+            $seat_booking->phone = Auth::user()->phone;
+            $seat_booking->address = Auth::user()->address;
+            $seat_booking->gender = Auth::user()->gender;
+            $seat_booking->age = Auth::user()->age;
+        } else {
+            $seat_booking->name = $data['name'];
+            $seat_booking->email = $data['email'];
+            $seat_booking->phone = $data['phone'];
+            $seat_booking->address = $data['address'];
+            $seat_booking->gender = $data['gender'];
+            $seat_booking->age = $data['age'];
+        }
         $seat_booking->save();
 
         // Updating seat status
@@ -166,26 +160,23 @@ class LandingController extends Controller
 
         // Return JSON response
         return response()->json([
-            'status' => "success", 
-            'message' => "Booking was successfully placed", 
-            'invoice_url' => route('invoice', ['booking_id' => $booking->booking_id])
+            'status' => "success",
+            'message' => "Booking was successfully placed",
+            'invoice_url' => route('invoice', ['booking_id' => $seat_booking->booking_id])
         ]);
     }
 
     // Invoice page
     public function invoice($booking_id)
     {
-        // Fetching booking
-        $booking = Booking::where('booking_id', $booking_id)->first();
         // Fetching seat booking
-        $seat_booking = SeatBooking::where('booking_id', $booking->id)->first();
+        $seat_booking = SeatBooking::where('booking_id', $booking_id)->first();
         // Fetching seat
         $seat = $seat_booking->seat;
 
         // Redirecting user if seat booking not found
         if (empty($seat_booking) || is_null($seat) || $seat->status == 'available') {
-            return redirect()->route('flights')
-                                ->with('message', "Invalid booking ID");
+            return redirect()->route('flights')->with('message', "Invalid booking ID");
         }
 
         return view('landing.invoice', [
@@ -198,6 +189,22 @@ class LandingController extends Controller
     public function about()
     {
         return view('landing.about', [
+            'company'=> Setting::latest()->first(),
+        ]);
+    }
+
+    // Pricing page
+    public function pricing()
+    {
+        return view('landing.pricing', [
+            'company'=> Setting::latest()->first(),
+        ]);
+    }
+
+    // FAQ page
+    public function faq()
+    {
+        return view('landing.faq', [
             'company'=> Setting::latest()->first(),
         ]);
     }

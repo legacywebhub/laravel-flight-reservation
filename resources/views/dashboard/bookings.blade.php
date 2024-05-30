@@ -1,7 +1,7 @@
 @extends('dashboard.layout')
 
 @section('title')
-{{ $company->name }} | Flights
+{{ $company->name }} | Bookings
 @endsection
 
 @section('content')
@@ -9,30 +9,20 @@
     <div class="row mrg-0 mrg-top-20">
         <div class="tr-single-box">
             <div class="tr-single-header">
-                <h3 class="dashboard-title">Flights</h3>
+                <h3 class="dashboard-title">My Bookings</h3>
             </div>
             <div class="tr-single-body">
                 <!-- row -->
-                <div class="row">
-                    <div class="col-9">
-                        <form action="{{ url('/flights') }}" method="POST">
-                            @csrf
-                            <p>Search origin, destination and departure date</p>
-                            <div class="form-group">
-                                <input type="text" name="origin" class="form-control" placeholder="Origin" maxlength="100">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="destination" class="form-control" placeholder="Destination" maxlength="100">
-                            </div>
-                            <div class="form-group">
-                                <input type="date" name="departure_date" class="form-control" placeholder="Departure Time">
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn theme-btn cl-white seub-btn">Search</button>
-                            </div>
-                        </form>
-                    </div>
-                    
+                <div class="row mrg-bot-15">
+                    <form action="{{ route('bookings') }}">
+                        @csrf
+                        <div class="col-md-4 col-sm-7">
+                            <input type="text" name="search" class="form-control height-50" maxlength="30" placeholder="Search booking ID">
+                        </div>
+                        <div class="col-md-6 col-sm-5">
+                            <input class="btn theme-btn height-50 width-150">
+                        </div>
+                    </form>
                 </div>
                 <!-- /row -->
                 
@@ -41,36 +31,47 @@
                     <div class="col-12">
                         <div class="tr-single-box">
                             <div class="tr-single-header">
-                                <h4 class="mb-0">Available Flights</h4>
+                                <h4 class="mb-0">My Bookings</h4>
                             </div>
                             <div class="tr-single-body">
-                                <div class="table-responsive">
+                                <!-- row -->
+                                <div class="row mrg-bot-15">
+                                    <form action="{{ route('dashboard.bookings') }}" method="get">
+                                        <div class="col-md-4 col-sm-7">
+                                            <input type="text" name="search" class="form-control height-50" placeholder="Search booking ID" maxlength="30" required>
+                                        </div>
+                                        <div class="col-md-6 col-sm-5">
+                                            <input class="btn theme-btn height-50 width-150">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="table-responsive mrg-30">
                                     <table class="table table-striped">
                                         <thead>
                                           <tr>
+                                            <th scopre="col">Date & Time</th>
+                                            <th scopre="col">Booking ID</th>
                                             <th scopre="col">Flight ID</th>
-                                            <th scopre="col">From</th>
-                                            <th scopre="col">To</th>
-                                            <th scopre="col">Departure Time</th>
-                                            <th scopre="col">Arrival Time</th>
+                                            <th scopre="col">Seat Number</th>
+                                            <th scopre="col">Amount</th>
                                             <th scopre="col">Actions</th>
                                           </tr>
                                         </thead>
                                         <tbody>
-                                            @if(count($flights) > 0)
-                                                @foreach($flights as $flight)
+                                            @if(count($seat_bookings) > 0)
+                                                @foreach($seat_bookings as $booking)
                                                     <tr>
-                                                        <td>{{ $flight->flight_id }}</td>
-                                                        <td>{{ $flight->origin->city.'/'.$flight->origin->country }}</td>
-                                                        <td>{{ $flight->destination->city.'/'.$flight->destination->country }}</td>
-                                                        <td>{{ Date('d M, Y H:i A', strtotime($flight->departure_time)) }}</td>
-                                                        <td>{{ Date('d M, Y H:i A', strtotime($flight->arrival_time)) }}</td>
-                                                        <td><a href="{{ route('dashboard.flight', ['id' => $flight->id]) }}" class="btn theme-btn cl-white seub-btn">View Flight</a></td>
+                                                        <td>{{ Date('d M, Y H:i A', strtotime($booking->date))  }}</td>
+                                                        <td>{{ $booking->booking_id }}</td>
+                                                        <td>{{ $booking->seat->flight_id }}</td>
+                                                        <td>{{ $booking->seat->seat_number }}</td>
+                                                        <td>${{ $booking->amount }}</td>
+                                                        <td><a href="{{ route('dashboard.invoice', ['booking_id' => $booking->$booking_id]) }}" class="btn theme-btn cl-white seub-btn">View Invoice</a></td>
                                                     </tr>
                                                 @endforeach
                                             @else
                                                 <tr>
-                                                    <td>No Flights</td>
+                                                    <td>No Bookings Yet</td>
                                                 </tr>
                                             @endif
                                         </tbody>

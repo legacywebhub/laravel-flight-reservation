@@ -13,8 +13,18 @@ return new class extends Migration
     {
         Schema::create('seat_bookings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('booking_id')->onDelete('RESTRICT');
-            $table->foreignId('seat_id')->onDelete('CASCADE');
+            $table->string('booking_id', 60)->unique();
+            $table->foreignId('seat_id')->unique()->onDelete('RESTRICT');
+            $table->foreignId('payment_id')->unique()->onDelete('RESTRICT');
+            $table->foreignId('user_id')->onDelete('RESTRICT')->nullable();
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->unsignedInteger('age')->nullable();
+            $table->string('gender')->nullable();
+            $table->decimal('amount', 10, 2);
+            $table->enum('status', ['null', 'reserved', 'purchased', 'cancelled'])->default('reserved');
             $table->timestamp('date')->useCurrent();
         });
     }

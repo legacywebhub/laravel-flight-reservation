@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
         Airline::factory(5)->create();
         Airport::factory(10)->create();
-        Seat::factory(1000)->create();
+        Seat::factory(500)->create();
         
         // Creating a user admin
         User::create([

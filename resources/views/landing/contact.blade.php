@@ -97,7 +97,7 @@
 						
 						<div class="row">
 							<div class="col-sm-12">
-								<button type="button" class="btn theme-btn btn-arrow">Submit Request</button>
+								<button class="btn theme-btn btn-arrow">Submit Request</button>
 							</div>
 						</div>
 						

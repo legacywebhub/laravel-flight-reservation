@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\SeatBooking;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Payment extends Model
 {
@@ -17,7 +18,6 @@ class Payment extends Model
 
     // Mass fillable fields
     protected $fillable = [
-        'booking_id',
         'reference_id',
         'amount',
         'payment_date',
@@ -25,8 +25,9 @@ class Payment extends Model
         'payment_status',
     ];
 
-    // Define relationship to payment
-    public function booking() {
-        return $this->belongsTo(Booking::class, 'booking_id');
+    // Define the relationship to seat booking
+    public function seatbooking()
+    {
+        return $this->hasOne(SeatBooking::class, 'booking_id');
     }
 }

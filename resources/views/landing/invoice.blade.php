@@ -5,11 +5,6 @@
 @endsection
 
 @section('content')
-<style>
-    .mr-10 {margin-right: 10px;}
-    .mr-20 {margin-right: 20px;}
-    .mr-30 {margin-right: 30px;}
-</style>
 <!-- ====================== Page Title ================= -->	
 <x-landing-title title="Invoice" current_page="Invoice"/>
 <!-- ====================== Page Title ================= -->

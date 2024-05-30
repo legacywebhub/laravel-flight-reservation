@@ -16,7 +16,27 @@
 		<link id="jssDefault" rel="stylesheet" href="{{ asset('assets/css/skins/default.css') }}">
 		
 		<style>
-			.form-div {
+			.mr-10 {margin-right: 10px;}
+			.mr-20 {margin-right: 20px;}
+			.mr-30 {margin-right: 30px;}
+			.mr-40 {margin-right: 40px;}
+			.mr-50 {margin-right: 50px;}
+			.ml-10 {margin-left: 10px;}
+			.ml-20 {margin-left: 20px;}
+			.ml-30 {margin-left: 30px;}
+			.ml-40 {margin-left: 40px;}
+			.ml-50 {margin-left: 50px;}
+			.mt-10 {margin-top: 10px;}
+			.mt-20 {margin-top: 20px;}
+			.mt-30 {margin-top: 30px;}
+			.mt-40 {margin-top: 40px;}
+			.mt-50 {margin-top: 50px;}
+			.mb-10 {margin-bottom: 10px;}
+			.mb-20 {margin-bottom: 20px;}
+			.mb-30 {margin-bottom: 30px;}
+			.mb-40 {margin-bottom: 40px;}
+			.mb-50 {margin-bottom: 50px;}
+			.form-div, .d-flex {
 				display: flex;
 				justify-content: center;
 				align-items: center;
@@ -56,6 +76,10 @@
 						</li>
 
 						<li>
+							<a href="{{ route('pricing') }}">Pricing</a>
+						</li>
+
+						<li>
 							<a href="{{ route('flights') }}">Flights</a>
 						</li>
 
@@ -66,11 +90,9 @@
 								<li><a href="home-2.html">Our Services</a></li>
 								<li><a href="home-3.html">Faqs</a></li>
 								<li><a href="{{ route('contact') }}">Contact Us</a></li>
+								<li><a href="{{ route('login') }}">Login</a></li>
+								<li><a href="{{ route('register') }}">Register</a></li>
 							</ul>
-						</li>
-						
-						<li>
-							<a href="hire-guider.html">Find Guide</a>
 						</li>
 						
 					</ul>
@@ -100,14 +122,14 @@
 				
 				<div class="col-md-3 col-sm-3 br-1 mbb-1">
 					<div class="data-flex text-center">
-					53 Boulevard Victor Hugo 44200 Nantes, France
+						{{ $company->address }}
 					</div>
 				</div>
 				
 				<div class="col-md-3 col-sm-3 br-1 mbb-1">
 					<div class="data-flex text-center">
-						<span class="d-block mrg-bot-0">06 52 52 20 30</span>
-						<a href="#" class="theme-cl"><strong>hello@gmail.com</strong></a>
+						<span class="d-block mrg-bot-0">{{ $company->phone }}</span>
+						<a href="#" class="theme-cl"><strong>{{ $company->email }}</strong></a>
 					</div>
 				</div>
 				
@@ -226,12 +248,10 @@
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs nav-advance theme-bg" role="tablist">
 							<li class="nav-item active">
-								<a class="nav-link" data-toggle="tab" href="#employer" role="tab">
-								<i class="ti-user"></i> Employer</a>
+								<a class="nav-link" data-toggle="tab" href="#login" role="tab">Login</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#candidate" role="tab">
-								<i class="ti-user"></i> Candidate</a>
+								<a class="nav-link" data-toggle="tab" href="#register" role="tab">Register</a>
 							</li>
 						</ul>
 						<!-- Nav tabs -->
@@ -240,17 +260,28 @@
 						<div class="tab-content">
 						
 							<!-- Employer Panel 1-->
-							<div class="tab-pane fade in show active" id="employer" role="tabpanel">
-								<form>
-									
+							<div class="tab-pane fade in show active" id="login" role="tabpanel">
+								<form action="{{ url('/login') }}" method="POST">
+									@csrf
+
+									@if(session()->has('message'))
+										<div class="mt-20 mb-20 text-danger text-center">{{ session('message') }}</div>
+									@endif
+
 									<div class="form-group">
-										<label>User Name</label>
-										<input type="text" class="form-control" placeholder="User Name">
+										<label>Email</label>
+										<input type="email" name="email" class="form-control" maxlength="100" required>
+										@error('email')
+										<div class="mrg-top-10 text-danger">{{ $message }}</div>
+										@enderror
 									</div>
 									
 									<div class="form-group">
 										<label>Password</label>
-										<input type="password" class="form-control" placeholder="*********">
+										<input type="password" name="password" class="form-control" maxlength="100" required>
+										@error('password')
+										<div class="mrg-top-10 text-danger">{{ $message }}</div>
+										@enderror
 									</div>
 									
 									<div class="form-group">
@@ -261,7 +292,7 @@
 										<a href="#" title="Forget" class="fl-right">Forgot Password?</a>
 									</div>
 									<div class="form-group text-center">
-										<button type="button" class="btn theme-btn full-width btn-m">LogIn </button>
+										<button class="btn theme-btn full-width btn-m">Login </button>
 									</div>
 									
 								</form>
@@ -281,28 +312,75 @@
 							<!--/.Panel 1-->
 							
 							<!-- Candidate Panel 2-->
-							<div class="tab-pane fade" id="candidate" role="tabpanel">
-								<form>
-									
+							<div class="tab-pane fade" id="register" role="tabpanel">
+								<form class="reg-form" action="{{ url('/register') }}" method="POST">
+									@csrf
+
+									@if(session()->has('message'))
+									<div class="mt-20 mb-20 text-danger text-center">{{ session('message') }}</div>
+									@endif
+
 									<div class="form-group">
-										<label>User Name</label>
-										<input type="text" class="form-control" placeholder="User Name">
+										<label>Full Name <span class="text-danger">*</span></label>
+										<input type="text" name="name" class="form-control" minlength="5" maxlength="100" required>
+										@error('name')
+										<div class="mrg-top-10 text-danger">{{ $message }}</div>
+										@enderror
 									</div>
-									
 									<div class="form-group">
-										<label>Password</label>
-										<input type="password" class="form-control" placeholder="*********">
+										<label>Email <span class="text-danger">*</span></label>
+										<input type="email" name="email" class="form-control" maxlength="100" required>
+										@error('email')
+										<div class="mrg-top-10 text-danger">{{ $message }}</div>
+										@enderror
 									</div>
-									
 									<div class="form-group">
-										<span class="custom-checkbox">
-											<input type="checkbox" id="4">
-											<label for="4"></label>Remember me
-										</span>
-										<a href="#" title="Forget" class="fl-right">Forgot Password?</a>
+										<label>Phone <span class="text-danger">*</span></label>
+										<input type="text" name="phone" class="form-control" minlength="7" maxlength="20" required>
+										@error('phone')
+										<div class="mrg-top-10 text-danger">{{ $message }}</div>
+										@enderror
 									</div>
-									<div class="form-group text-center">
-										<button type="button" class="btn theme-btn full-width btn-m">LogIn </button>
+									<div class="form-group">
+										<label>Address <span class="text-danger">*</span></label>
+										<input type="text" name="address" class="form-control" minlength="5" maxlength="160" required>
+										@error('address')
+										<div class="mrg-top-10 text-danger">{{ $message }}</div>
+										@enderror
+									</div>
+									<div class="form-group">
+										<label>Age <span class="text-danger">*</span></label>
+										<input type="text" name="age" class="form-control" maxlength="3" onkeypress="return onlyNumberKey(event)" required>
+										@error('age')
+										<div class="mrg-top-10 text-danger">{{ $message }}</div>
+										@enderror
+									</div>
+									<div class="form-group">
+										<label>Gender <span class="text-danger">*</span></label>
+										<select class="wide form-control br-1" name="gender" required>
+											<option value=""></option>
+											<option value="male">Male</option>
+											<option value="female">Female</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label>Password <span class="text-danger">*</span></label>
+										<input type="password" name="password" class="form-control" minlength="5" maxlength="100" required>
+										@error('password')
+										<div class="mrg-top-10 text-danger">{{ $message }}</div>
+										@enderror
+									</div>
+									<div class="form-group">
+										<label>Confirm Password <span class="text-danger">*</span></label>
+										<input type="password" name="password_confirmation" class="form-control" minlength="5" maxlength="100" required>
+										@error('password_confirmation')
+										<div class="mrg-top-10 text-danger">{{ $message }}</div>
+										@enderror
+									</div>
+									<input type="hidden" name="timezone" class="form-control">
+
+									<div class="form-group text-center mrg-top-20">
+										<button class="btn theme-btn full-width btn-m">Register</button>
 									</div>
 									
 								</form>
@@ -403,12 +481,21 @@
 
         <!-- External scripts -->
 
+		<!-- Register Js -->
+		<script>
+			let regForm = document.forms["reg-form"];
+		
+			// Inserting timezone of user
+			regForm["timezone"].value = Intl.DateTimeFormat().resolvedOptions().timeZone
+		  </script>
+
         <!-- Security js-->
         <script>
             if (window.history.replaceState){
                 window.history.replaceState(null, null, window.location.href);
             }
         </script>
+
         <!-- Copy texts js -->
         <script>
             function copyText(arg) {
@@ -430,6 +517,7 @@
                 });
             }
         </script>
+
         <!-- Return only number keystrokes -->
         <script>
             // This functions only allows input fields to accept numbers
@@ -442,7 +530,9 @@
                 // use onkeypress="return onlyNumberKey(event)" on the input field
             }
         </script>
-        <script>
+
+        <!-- Return only aphabet keystrokes -->
+		<script>
             // This functions enforce input fields to only accept alphabet keystrokes
             function onlyAlphabeticalKey(evt) {
                 // Only ASCII character in that range allowed
