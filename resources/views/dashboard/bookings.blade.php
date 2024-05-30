@@ -14,20 +14,20 @@
             <div class="tr-single-body">
                 <!-- row -->
                 <div class="row mrg-bot-15">
-                    <form action="{{ route('bookings') }}">
+                    <form action="{{ route('dashboard.bookings') }}">
                         @csrf
                         <div class="col-md-4 col-sm-7">
                             <input type="text" name="search" class="form-control height-50" maxlength="30" placeholder="Search booking ID">
                         </div>
                         <div class="col-md-6 col-sm-5">
-                            <input class="btn theme-btn height-50 width-150">
+                            <button class="btn theme-btn height-50 width-150">Search</button>
                         </div>
                     </form>
                 </div>
                 <!-- /row -->
                 
                 <!-- row -->
-                <div class="row mrg-top-30">
+                <div class="row mrg-top-40">
                     <div class="col-12">
                         <div class="tr-single-box">
                             <div class="tr-single-header">
@@ -35,16 +35,6 @@
                             </div>
                             <div class="tr-single-body">
                                 <!-- row -->
-                                <div class="row mrg-bot-15">
-                                    <form action="{{ route('dashboard.bookings') }}" method="get">
-                                        <div class="col-md-4 col-sm-7">
-                                            <input type="text" name="search" class="form-control height-50" placeholder="Search booking ID" maxlength="30" required>
-                                        </div>
-                                        <div class="col-md-6 col-sm-5">
-                                            <input class="btn theme-btn height-50 width-150">
-                                        </div>
-                                    </form>
-                                </div>
                                 <div class="table-responsive mrg-30">
                                     <table class="table table-striped">
                                         <thead>
@@ -58,15 +48,15 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                            @if(count($seat_bookings) > 0)
-                                                @foreach($seat_bookings as $booking)
+                                            @if(count($bookings) > 0)
+                                                @foreach($bookings as $booking)
                                                     <tr>
                                                         <td>{{ Date('d M, Y H:i A', strtotime($booking->date))  }}</td>
                                                         <td>{{ $booking->booking_id }}</td>
                                                         <td>{{ $booking->seat->flight_id }}</td>
                                                         <td>{{ $booking->seat->seat_number }}</td>
                                                         <td>${{ $booking->amount }}</td>
-                                                        <td><a href="{{ route('dashboard.invoice', ['booking_id' => $booking->$booking_id]) }}" class="btn theme-btn cl-white seub-btn">View Invoice</a></td>
+                                                        <td><a href="{{ route('dashboard.invoice', ['booking_id' => $booking->booking_id]) }}" class="btn theme-btn cl-white seub-btn">View Invoice</a></td>
                                                     </tr>
                                                 @endforeach
                                             @else

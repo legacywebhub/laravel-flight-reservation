@@ -74,9 +74,9 @@ Route::get('user/dashboard', [UserDashboardController::class, 'dashboard'])
 Route::get('user/flights', [UserDashboardController::class, 'flights'])
     ->middleware('auth')
     ->name('dashboard.flights');
-Route::post('user/flights', [UserDashboardController::class, 'searchFight'])
+Route::post('user/flights', [UserDashboardController::class, 'searchFlight'])
     ->middleware('auth')
-    ->name('dashboard.search_flight');
+    ->name('dashboard.flights');
 Route::get('user/flight/{id}', [UserDashboardController::class, 'flight'])
     ->middleware('auth')
     ->name('dashboard.flight');

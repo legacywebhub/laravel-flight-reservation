@@ -15,7 +15,7 @@
                 <!-- row -->
                 <div class="row">
                     <div class="col-9">
-                        <form action="{{ url('/flights') }}" method="POST">
+                        <form action="{{ route('dashboard.flights') }}" method="POST">
                             @csrf
                             <p>Search origin, destination and departure date</p>
                             <div class="form-group">

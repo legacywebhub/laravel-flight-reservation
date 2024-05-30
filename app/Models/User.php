@@ -3,8 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\Booking;
 use App\Models\Message;
+use App\Models\SeatBooking;
 use App\Models\Notification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -55,10 +55,10 @@ class User extends Authenticatable
         ];
     }
 
-    // Define relationship to bookings
-    public function bookings()
+    // Define relationship to seat bookings
+    public function seat_bookings()
     {
-        return $this->hasMany(Booking::class, 'user_id');
+        return $this->hasMany(SeatBooking::class, 'user_id');
     }
 
     // Define relationship to messages

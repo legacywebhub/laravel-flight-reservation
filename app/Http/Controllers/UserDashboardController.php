@@ -90,7 +90,7 @@ class UserDashboardController extends Controller
 
         $flights = $query->get();
 
-        return view('landing.flights', [
+        return view('dashboard.flights', [
             'company'=> Setting::latest()->first(), 'flights' => $flights
         ]);
     }
@@ -110,9 +110,9 @@ class UserDashboardController extends Controller
     // Bookings for user page 
     public function bookings()
     {
-        return view('dashboard.flights', [
+        return view('dashboard.bookings', [
             'company'=> Setting::latest()->first(),
-            'bookings'=> Auth::user()->bookings->paginate(2)
+            'bookings'=> Auth::user()->seat_bookings
         ]);
     }
 
