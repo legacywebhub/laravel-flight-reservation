@@ -1,8 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BotController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\UserDashboardController;
+
+
+
+// Bot routes
+Route::post('/bot', [BotController::class, 'handle'])
+    ->name('bot');
+
 
 // Landing page routes
 Route::get('/', [LandingController::class, 'home'])

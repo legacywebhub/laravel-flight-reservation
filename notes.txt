@@ -1,5 +1,1 @@
-php artisan db:seed --class=FlightSeeder
-
-# Paypal Info
-Client ID:  AaM8VGk3wYozIz74DljGW2nwh-fa8foCVGGC-rcmNApRDQB8esB1heimnLEc3KVatPTot6fEe5iO7xTe
-Secret Key: ELlEwcahZoM1p71wV56WBHq8yoKdXDyTkf0WeQ8BhnZCC38oeWQnzNRhMSL9fwny08AbwLhwA3FgKwCq
+php artisan db:seed --class=BotResponseSeeder

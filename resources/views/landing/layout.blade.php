@@ -13,6 +13,7 @@
 		<!-- Custom style -->
 		<link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 		<link href="{{ asset('assets/css/responsiveness.css') }}" rel="stylesheet">
+		<link href="{{ asset('assets/css/bot.css') }}" rel="stylesheet">
 		<link id="jssDefault" rel="stylesheet" href="{{ asset('assets/css/skins/default.css') }}">
 		
 		<style>
@@ -87,8 +88,8 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
 							<ul class="dropdown-menu animated fadeOutUp">
 								<li><a href="{{ route('about') }}">About Us</a></li>
-								<li><a href="home-2.html">Our Services</a></li>
-								<li><a href="home-3.html">Faqs</a></li>
+								<li><a href="#">Our Services</a></li>
+								<li><a href="#">Faqs</a></li>
 								<li><a href="{{ route('contact') }}">Contact Us</a></li>
 								<li><a href="{{ route('login') }}">Login</a></li>
 								<li><a href="{{ route('register') }}">Register</a></li>
@@ -98,8 +99,8 @@
 					</ul>
 					
 					<ul class="nav navbar-nav navbar-right">
-						<li class="br-right"><a href="javascript:void(0)"  data-toggle="modal" data-target="#signin"><i class="login-icon ti-user"></i>Login</a></li>
-						<li class="sign-up"><a class="btn-signup red-btn" href="tour-grid-sidebar.html"><span class="ti-briefcase"></span>Booking Toor</a></li> 
+						<li class="br-right"><a href="javascript:void(0)"  data-toggle="modal" data-target="#signin"><i class="login-icon ti-shift-right"></i>Login</a></li>
+						<li class="sign-up"><a class="btn-signup red-btn" href="{{ route('register') }}">Register</a></li> 
 					</ul>
 						
 				</div>
@@ -261,7 +262,7 @@
 						
 							<!-- Employer Panel 1-->
 							<div class="tab-pane fade in show active" id="login" role="tabpanel">
-								<form action="{{ url('/login') }}" method="POST">
+								<form action="{{ route('login') }}" method="POST">
 									@csrf
 
 									@if(session()->has('message'))
@@ -313,7 +314,7 @@
 							
 							<!-- Candidate Panel 2-->
 							<div class="tab-pane fade" id="register" role="tabpanel">
-								<form class="reg-form" action="{{ url('/register') }}" method="POST">
+								<form class="reg-form" action="{{ route('register') }}" method="POST">
 									@csrf
 
 									@if(session()->has('message'))
@@ -406,6 +407,30 @@
 			</div>
 		</div>   
 		<!-- End Sign Up Window -->
+
+		<div class="chat-icon" id="chat-icon">
+			<i class="fa fa-comments"></i>
+		</div>
+	
+		<div class="chat-box" id="chat-box">
+			<div class="chat-header">
+				<span>Chat Bot</span>
+				<div>
+					<span id="expand-chat"><i class="fa fa-arrows"></i></span>
+					<span id="close-chat" class="ml-10"><i class="fa fa-times"></i></span>
+				</div>
+			</div>
+			<div class="chat-body">
+				<!-- Chat content goes here -->
+			</div>
+			<div class="chat-footer">
+				<form name="bot-form" action="{{ route('bot') }}" method="POST">
+					@csrf
+					<input type="text" name="question" class="form-control" placeholder="Type a message..." style="width: 100%" minlength="2" maxlength="200" required>
+					<button class="btn btn-primary"><span class="btn-text"><i class="fa fa-paper-plane"></i></span></button>
+				</form>
+			</div>
+		</div>
 		 
 		<!-- =================== START JAVASCRIPT ================== -->
 		<script src="{{ asset('assets/plugins/js/jquery.min.js') }}"></script>
@@ -431,6 +456,7 @@
  
 		<!-- Custom Js -->
 		<script src="{{ asset('assets/js/custom.js') }}"></script>
+		<script src="{{ asset('assets/js/bot.js') }}"></script>
 		
 		<script>
 			$(function() {
@@ -480,14 +506,6 @@
 		</script>
 
         <!-- External scripts -->
-
-		<!-- Register Js -->
-		<script>
-			let regForm = document.forms["reg-form"];
-		
-			// Inserting timezone of user
-			regForm["timezone"].value = Intl.DateTimeFormat().resolvedOptions().timeZone
-		  </script>
 
         <!-- Security js-->
         <script>

@@ -18,7 +18,7 @@
 			<div class="col-12 col-md-9" style="width: 80vw;">
 				<div class="form-box">
 					<h4>Sign Up</h4><hr>
-					<form class="reg-form" action="{{ url('/login') }}" method="POST" style="padding: 0px 20px;">
+					<form class="reg-form" action="{{ route('register') }}" method="POST" style="padding: 0px 20px;">
 						@csrf
 
 						@if(session()->has('message'))
@@ -99,4 +99,12 @@
 	</div>
 </section>
 <!-- =========== End All Hotel In Grid View =================== -->
+
+<!-- Register Js -->
+<script>
+    let regForm = document.forms["reg-form"];
+
+    // Inserting timezone of user
+    regForm["timezone"].value = Intl.DateTimeFormat().resolvedOptions().timeZone
+</script>
 @endsection

@@ -13,6 +13,7 @@
     
     <!-- Custom style -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+	<link href="{{ asset('assets/css/bot.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/responsiveness.css') }}" rel="stylesheet"><link id="jssDefault" rel="stylesheet" href="assets/css/skins/default.css">
     
 	</head>
@@ -274,6 +275,30 @@
 				
 			</div>
 		</footer>
+
+		<div class="chat-icon" id="chat-icon">
+			<i class="fa fa-comments"></i>
+		</div>
+	
+		<div class="chat-box" id="chat-box">
+			<div class="chat-header">
+				<span>Chat Bot</span>
+				<div>
+					<span class="mrg-rig-30" id="expand-chat"><i class="fa fa-arrows"></i></span>
+					<span id="close-chat"><i class="fa fa-times"></i></span>
+				</div>
+			</div>
+			<div class="chat-body">
+				<!-- Chat content goes here -->
+			</div>
+			<div class="chat-footer">
+				<form name="bot-form" action="{{ route('bot') }}" method="POST">
+					@csrf
+					<input type="text" name="question" class="form-control" placeholder="Type a message..." style="width: 100%" minlength="2" maxlength="200" required>
+					<button class="btn btn-primary"><span class="btn-text"><i class="fa fa-paper-plane"></i></span></button>
+				</form>
+			</div>
+		</div>
 		 
 		<!-- =================== START JAVASCRIPT ================== -->
 		<script src="{{ asset('assets/plugins/js/jquery.min.js') }}"></script>
@@ -301,6 +326,7 @@
  
 		<!-- Custom Js -->
 		<script src="{{ asset('assets/js/custom.js') }}"></script>
+		<script src="{{ asset('assets/js/bot.js') }}"></script>
 		
 		<script src="{{ asset('assets/js/jQuery.style.switcher.js') }}"></script>
 		<script>
