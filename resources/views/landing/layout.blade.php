@@ -37,6 +37,12 @@
 			.mb-30 {margin-bottom: 30px;}
 			.mb-40 {margin-bottom: 40px;}
 			.mb-50 {margin-bottom: 50px;}
+			.text-info{color:#01b2ac;}
+			.text-primary{color:#1194f7;}
+			.text-danger{color:#f21136}
+			.text-warning{color:#ff9800}
+			.text-success{color:#0fb76b}
+			.text-purple{color:#c580ff}
 			.form-div, .d-flex {
 				display: flex;
 				justify-content: center;
@@ -88,11 +94,9 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
 							<ul class="dropdown-menu animated fadeOutUp">
 								<li><a href="{{ route('about') }}">About Us</a></li>
-								<li><a href="#">Our Services</a></li>
-								<li><a href="#">Faqs</a></li>
+								<li><a href="{{ route('services') }}">Our Services</a></li>
+								<li><a href="{{ route('faq') }}">Faqs</a></li>
 								<li><a href="{{ route('contact') }}">Contact Us</a></li>
-								<li><a href="{{ route('login') }}">Login</a></li>
-								<li><a href="{{ route('register') }}">Register</a></li>
 							</ul>
 						</li>
 						

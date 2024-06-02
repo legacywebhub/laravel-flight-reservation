@@ -15,7 +15,6 @@
                 <!-- row -->
                 <div class="row mrg-bot-15">
                     <form action="{{ route('dashboard.bookings') }}">
-                        @csrf
                         <div class="col-md-4 col-sm-7">
                             <input type="text" name="search" class="form-control height-50" maxlength="30" placeholder="Search booking ID">
                         </div>
@@ -67,26 +66,47 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="bs-example">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                          <a class="page-link" href="#" aria-label="Previous">
-                                            <span class="ti-arrow-left"></span>
-                                            <span class="sr-only">Previous</span>
-                                          </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item">
-                                          <a class="page-link" href="#" aria-label="Next">
-                                            <span class="ti-arrow-right"></span>
-                                            <span class="sr-only">Next</span>
-                                          </a>
-                                        </li>
-                                    </ul>
+                                <div style="margin: 30px 30px; display: flex; justify-content:space-between; align-items:center;">
+                                    <div>
+                                        Showing Page <b>{{ $bookings->currentPage() }}</b> of <b>{{ $bookings->lastPage() }}</b>
+                                    </div>
+                                    <div class="bs-example">
+                                        <ul class="pagination">
+                                            @if ($bookings->onFirstPage())
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript:void(0);" aria-label="Previous">
+                                                        <span class="ti-arrow-left"></span>
+                                                        <span class="sr-only">Previous</span>
+                                                    </a>
+                                                </li>
+                                            @else
+                                                <li class="page-item">
+                                                    <a class="page-link" href="{{ $bookings->previousPageUrl() }}" aria-label="Previous">
+                                                        <span class="ti-arrow-left"></span>
+                                                        <span class="sr-only">Previous</span>
+                                                    </a>
+                                                </li>
+                                            @endif
+                    
+                                            <li class="page-item active"><a class="page-link" href="javascript:void(0);">{{ $bookings->currentPage() }}</a></li>
+                    
+                                            @if ($bookings->hasMorePages())
+                                                <li class="page-item">
+                                                    <a class="page-link" href="{{ $bookings->nextPageUrl() }}" aria-label="Next">
+                                                        <span class="ti-arrow-right"></span>
+                                                        <span class="sr-only">Next</span>
+                                                    </a>
+                                                </li>
+                                            @else
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript:void(0);" aria-label="Next">
+                                                        <span class="ti-arrow-right"></span>
+                                                        <span class="sr-only">Next</span>
+                                                    </a>
+                                                </li>
+                                            @endif
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>

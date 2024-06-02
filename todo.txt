@@ -1,1 +1,0 @@
-# Remeber to add the constraint() method on database table foreign key columns

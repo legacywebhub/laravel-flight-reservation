@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
         Airline::factory(5)->create();
         Airport::factory(10)->create();
+        Flight::factory(10)->create();
         Seat::factory(500)->create();
         
         // Creating a user admin
@@ -39,7 +40,7 @@ class DatabaseSeeder extends Seeder
 
         // Creating a default site setting
         Setting::create([
-            'name' => "Laravel-Fly Airways",
+            'name' => "Laravel Flights",
             'email' => "info@laravelfly.com",
             'phone' => "+234 916 075 5152",
             'address' => "30 Laravel-Fly Road, Awka, Nigeria"
@@ -47,8 +48,7 @@ class DatabaseSeeder extends Seeder
         
         // Calling other seeders
         $this->call([
-            FlightSeeder::class,
-            // Other seeders
+            BotResponseSeeder::class,
         ]);
     }
 }

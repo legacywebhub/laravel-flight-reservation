@@ -76,27 +76,50 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="bs-example">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                          <a class="page-link" href="#" aria-label="Previous">
-                                            <span class="ti-arrow-left"></span>
-                                            <span class="sr-only">Previous</span>
-                                          </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item">
-                                          <a class="page-link" href="#" aria-label="Next">
-                                            <span class="ti-arrow-right"></span>
-                                            <span class="sr-only">Next</span>
-                                          </a>
-                                        </li>
-                                    </ul>
+                                @if(count($flights) > 0)
+                                <div style="margin: 30px 30px; display: flex; justify-content:space-between; align-items:center;">
+                                    <div>
+                                        Showing Page <b>{{ $flights->currentPage() }}</b> of <b>{{ $flights->lastPage() }}</b>
+                                    </div>
+                                    <div class="bs-example">
+                                        <ul class="pagination">
+                                            @if ($flights->onFirstPage())
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript:void(0);" aria-label="Previous">
+                                                        <span class="ti-arrow-left"></span>
+                                                        <span class="sr-only">Previous</span>
+                                                    </a>
+                                                </li>
+                                            @else
+                                                <li class="page-item">
+                                                    <a class="page-link" href="{{ $flights->previousPageUrl() }}" aria-label="Previous">
+                                                        <span class="ti-arrow-left"></span>
+                                                        <span class="sr-only">Previous</span>
+                                                    </a>
+                                                </li>
+                                            @endif
+                    
+                                            <li class="page-item active"><a class="page-link" href="javascript:void(0);">{{ $flights->currentPage() }}</a></li>
+                    
+                                            @if ($flights->hasMorePages())
+                                                <li class="page-item">
+                                                    <a class="page-link" href="{{ $flights->nextPageUrl() }}" aria-label="Next">
+                                                        <span class="ti-arrow-right"></span>
+                                                        <span class="sr-only">Next</span>
+                                                    </a>
+                                                </li>
+                                            @else
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript:void(0);" aria-label="Next">
+                                                        <span class="ti-arrow-right"></span>
+                                                        <span class="sr-only">Next</span>
+                                                    </a>
+                                                </li>
+                                            @endif
+                                        </ul>
+                                    </div>
                                 </div>
+                                @endif
                             </div>
                         </div>
                     </div>

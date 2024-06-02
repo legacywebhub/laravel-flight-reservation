@@ -15,7 +15,14 @@
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/bot.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/responsiveness.css') }}" rel="stylesheet"><link id="jssDefault" rel="stylesheet" href="assets/css/skins/default.css">
-    
+    <style>
+		.text-info{color:#01b2ac;}
+		.text-primary{color:#1194f7;}
+		.text-danger{color:#f21136}
+		.text-warning{color:#ff9800}
+		.text-success{color:#0fb76b}
+		.text-purple{color:#c580ff}
+	</style>
 	</head>
 	
 	<body>

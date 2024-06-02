@@ -20,7 +20,7 @@
                                 @foreach($notifications as $notification)
                                 <li>
                                     <div class="message-avatar">
-                                        <img src="assets/img/user-1.jpg" alt="">
+                                        <img src="{{ asset('assets/img/user-1.jpg') }}" alt="">
                                     </div>
                                     <div class="message-body">
                                         <div class="message-body-heading">

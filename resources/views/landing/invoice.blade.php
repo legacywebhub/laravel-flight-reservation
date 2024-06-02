@@ -32,12 +32,12 @@
                                 
                                 <div class="row mrg-0">
                                     <div class="col-md-6">
-                                        <div id="logo"><img src="assets/img/logo.png" class="img-responsive" alt=""></div>
+                                        <div id="logo"><img src="{{ asset('assets/img/logo.png') }}" class="img-responsive" alt=""></div>
                                     </div>
 
                                     <div class="col-md-6">	
                                         <p id="invoice-info">
-                                            <strong>Booking ID:</strong> #{{ $seat_booking->booking->booking_id }} <br>
+                                            <strong>Booking ID:</strong> #{{ $seat_booking->booking_id }} <br>
                                             <strong>Issued:</strong> {{ Date('d M, Y H:i A', strtotime($seat_booking->date)) }} <br>
                                         </p>
                                     </div>
@@ -54,18 +54,18 @@
                                         <div class="row">
                                           <div class="col-lg-7 col-md-7 col-sm-7">
                                             <h4>Billed To: </h4>
-                                            <h5>{{ $seat_booking->booking->name }}</h5>
+                                            <h5>{{ $seat_booking->name }}</h5>
                                             <p>
-                                                {{ $seat_booking->booking->email }}<br>
+                                                {{ $seat_booking->email }}<br>
                                                 
-                                                {{ $seat_booking->booking->phone }}<br>
+                                                {{ $seat_booking->phone }}<br>
                                                 
-                                                {{ $seat_booking->booking->address }}<br>
+                                                {{ $seat_booking->address }}<br>
                                             </p>
                                           </div>
                                           <div class="col-lg-5 col-md-5 col-sm-5">
                                             <h4>Booking Info:</h4>
-                                            <strong class="mr-10">Booking ID:</strong>{{ $seat_booking->booking->booking_id }}<br>
+                                            <strong class="mr-10">Booking ID:</strong>{{ $seat_booking->booking_id }}<br>
                                             <strong class="mr-10">Flight ID:</strong>{{ $seat_booking->seat->flight->flight_id }}<br>
                                             <strong class="mr-10">Seat ID:</strong>{{ $seat_booking->seat->id }}<br>
                                             <strong class="mr-10">Seat Number:</strong>{{ $seat_booking->seat->seat_number }}<br>
@@ -76,16 +76,16 @@
                                         </div>
                                         <div class="col-12">
                                             <h4>Payment Info:</h4>
-                                            <strong class="mr-10">Reference ID:</strong>{{ $seat_booking->booking->payment->reference_id }}<br>
-                                            <strong class="mr-10">Amount:</strong>${{ $seat_booking->booking->payment->amount }}<br>
-                                            <strong class="mr-10">Payment Method:</strong>{{ $seat_booking->booking->payment->payment_method }}<br>
-                                            <strong class="mr-10">Payment Status:</strong>{{ $seat_booking->booking->payment->payment_status }}<br>
-                                            <strong class="mr-10">Payment Date:</strong>{{ Date('d M, Y H:i A', strtotime($seat_booking->booking->payment->payment_date)) }}
+                                            <strong class="mr-10">Reference ID:</strong>{{ $seat_booking->payment->reference_id }}<br>
+                                            <strong class="mr-10">Amount:</strong>${{ $seat_booking->payment->amount }}<br>
+                                            <strong class="mr-10">Payment Method:</strong>{{ $seat_booking->payment->payment_method }}<br>
+                                            <strong class="mr-10">Payment Status:</strong>{{ $seat_booking->payment->payment_status }}<br>
+                                            <strong class="mr-10">Payment Date:</strong>{{ Date('d M, Y H:i A', strtotime($seat_booking->payment->payment_date)) }}
                                         </div>
                                     </div>
                                     <hr>
                                     
-                                    <div class="col-lg-12 col-md-12 col-sm-12"  style="margin-top: 50px;">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 mt-50">
                                         <strong>COST SUMMARY</strong>
                                         <div class="invoice-table">
                                             <div class="table-responsive">
@@ -103,39 +103,41 @@
                                                         <tr>
                                                             <td>1</td>
                                                             <td>Flight Ticket</td>
-                                                            <td>${{ $seat_booking->booking->payment->amount }}</td>
+                                                            <td>${{ $seat_booking->payment->amount }}</td>
                                                             <td>1</td>
-                                                            <td>${{ $seat_booking->booking->payment->amount }}</td>
+                                                            <td>${{ $seat_booking->payment->amount }}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                             <hr>
                                             <div>
-                                                <h5>Subtotal : ${{ 0.9 * $seat_booking->booking->payment->amount }} </h5>
+                                                <h5>Subtotal : ${{ 0.9 * $seat_booking->payment->amount }} </h5>
                                             </div>
                                             <hr>
                                             <div>
-                                                <h5>Tax : ${{ 0.1 * $seat_booking->booking->payment->amount }}</h5>
+                                                <h5>Tax : ${{ 0.1 * $seat_booking->payment->amount }}</h5>
                                             </div>
                                             <hr>
                                             <div>
-                                                <h4>Total : {{ $seat_booking->booking->payment->amount }} USD </h4>
+                                                <h4>Total : ${{ $seat_booking->payment->amount }} </h4>
                                             </div>
                                         </div>
                                     </div>
 
+                                    @if($seat_booking->seat->status == 'booked')
                                     <div class="col-lg-12 mrg-top-30">
                                         <p>Dear Customer,</p>
                         
                                         <p>Thank you for booking your flight with us. Please proceed to the airport and present your booking ID for ticket collection:</p>
                         
-                                        <p>Booking ID: {{ $seat_booking->booking->booking_id }}</p>
+                                        <p>Booking ID: {{ $seat_booking->booking_id }}</p>
                         
                                         <p>Safe travels!</p>
                         
                                         <p>Best regards,<br>{{ $company->name }}</p>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

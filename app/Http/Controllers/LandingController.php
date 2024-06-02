@@ -16,26 +16,32 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+
 class LandingController extends Controller
 {
-    
     // Home/index page
     public function home()
     {
         return view('landing.home', [
             'company'=> Setting::latest()->first(),
-            'upcoming_flights'=> Flight::where('status', 'available')->latest()->limit(10)->get()
+            'upcoming_flights'=> Flight::where('departure_time', '>=', Carbon::now())
+                                        ->where('status', 'available')->latest()->limit(10)->get()
         ]);
     }
+
 
     // Show available flights
     public function flights()
     {
         return view('landing.flights', [
             'company'=> Setting::latest()->first(),
-            'flights'=> Flight::where('status', 'available')->latest()->get()
+            'flights'=> Flight::where('departure_time', '>=', Carbon::now())
+                        ->where('status', 'available')
+                        ->latest()
+                        ->paginate(10)
         ]);
     }
+
 
     // Search flights
     public function searchFlight(Request $request)
@@ -64,12 +70,13 @@ class LandingController extends Controller
             $query->whereDate('arrival_time', $request->arrival_date);
         }
 
-        $flights = $query->get();
+        $flights = $query->paginate(10);
 
         return view('landing.flights', [
             'company'=> Setting::latest()->first(), 'flights' => $flights
         ]);
     }
+
 
     // Flight page
     public function flight($id) 
@@ -82,6 +89,7 @@ class LandingController extends Controller
             'flight'=> $flight, 'seats' => $seats
         ]);
     }
+
 
     // Show seat booking
     public function bookFlight($id)
@@ -99,6 +107,7 @@ class LandingController extends Controller
             'seat'=> $seat
         ]);
     }
+
 
     // Checkout booking
     public function checkout(Request $request)
@@ -158,6 +167,20 @@ class LandingController extends Controller
         $seat->status = 'booked';
         $seat->save();
 
+        // Checking if all flight seats have been booked
+        // And updating flight status accordingly
+        // We need just to check one available seat record
+        // And if non, flight has completely been booked
+        $any_available_seats = Seat::where('flight_id', $seat->flight_id)
+                                    ->where('status', 'available')
+                                    ->first();
+        // If no available seat
+        if (is_null($any_available_seats) || empty($any_available_seats)) {
+            $flight = $seat->flight;
+            $flight->status = 'booked';
+            $flight->save();
+        }
+        
         // Return JSON response
         return response()->json([
             'status' => "success",
@@ -165,6 +188,7 @@ class LandingController extends Controller
             'invoice_url' => route('invoice', ['booking_id' => $seat_booking->booking_id])
         ]);
     }
+
 
     // Invoice page
     public function invoice($booking_id)
@@ -185,6 +209,7 @@ class LandingController extends Controller
         ]);
     }
 
+
     // About page
     public function about()
     {
@@ -192,6 +217,7 @@ class LandingController extends Controller
             'company'=> Setting::latest()->first(),
         ]);
     }
+
 
     // Pricing page
     public function pricing()
@@ -201,6 +227,16 @@ class LandingController extends Controller
         ]);
     }
 
+
+    // Pricing page
+    public function services()
+    {
+        return view('landing.services', [
+            'company'=> Setting::latest()->first(),
+        ]);
+    }
+
+
     // FAQ page
     public function faq()
     {
@@ -208,6 +244,7 @@ class LandingController extends Controller
             'company'=> Setting::latest()->first(),
         ]);
     }
+
 
     // Show contact page
     public function contact()
@@ -217,19 +254,25 @@ class LandingController extends Controller
         ]);
     }
 
+
     // Submit contact form
     public function saveMessage(Request $request)
     {
-        $request->validate([
+        // Validating form fields
+        $formFields = $request->validate([
             'name'=> 'required|min:5|max:100',
             'email'=> 'required|email|max:100',
-            'subject'=> 'required|max:160',
+            'subject'=> 'required|max:500',
             'message'=> 'required|max:5000'
         ]);
-
-        Message::create($request->all());
-        return back()->with('message', 'Message sent successfully!');
+        // Saving to database
+        Message::create($formFields);
+        // Redirecting to contact page
+        return back()
+                ->with('message', 'Message sent successfully!')
+                ->with('message_type', 'success');
     }
+
 
     // Show register form
     public function register() 
@@ -238,6 +281,7 @@ class LandingController extends Controller
             'company'=> Setting::latest()->first(),
         ]);
     }
+
 
     // Submit registeration form
     public function registerUser(Request $request) 
@@ -260,8 +304,11 @@ class LandingController extends Controller
         User::create($formFields);
 
         // Redirecting user to login page
-        return redirect('/login')->with('message', 'You have been succesfully registered and can now login!');
+        return redirect('/login')
+                ->with('message', 'You have been succesfully registered and can now login!')
+                ->with('message_type', 'success');
     }
+
 
     // Show login form
     public function login() 
@@ -270,6 +317,7 @@ class LandingController extends Controller
             'company'=> Setting::latest()->first(),
         ]);
     }
+
 
     // Authenticate user
     public function authenticateUser(Request $request) 

@@ -12,6 +12,7 @@ use App\Models\SeatBooking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class UserDashboardController extends Controller
 {
     // Logout User
@@ -25,6 +26,7 @@ class UserDashboardController extends Controller
         return redirect('/')->with('message', 'You have been logged out!');
     }
 
+
     // User notifications
     public function notifications()
     {
@@ -34,25 +36,30 @@ class UserDashboardController extends Controller
         ]);
     }
 
+
     // User dashboard
     public function dashboard()
     {
         return view('dashboard.dashboard', [
             'company'=> Setting::latest()->first(),
-            'flights'=> Flight::where('departure_time', '<=', Carbon::now()->addWeek())
-                        ->where('status', 'available')->get()
+            'upcoming_flights'=> Flight::where('departure_time', '>=', Carbon::now())
+                                ->where('status', 'available')->limit(10)->get(),
+            'notifications'=> Auth::user()->notifications
         ]);
     }
+
 
     // Show flights
     public function flights(Request $request)
     {
         if ($request->range) {
             $timeframe = Carbon::now()->addDays($request->range);
-            $flights = Flight::where('departure_time', '<=', $timeframe)
+            $flights = Flight::where('departure_time', '>=', Carbon::now())
+                                ->where('departure_time', '<=', $timeframe)
                                ->where('status', 'available');
         } else {
-            $flights = Flight::where('status', 'available');
+            $flights = Flight::where('departure_time', '>=', Carbon::now())
+                                ->where('status', 'available');
         }
 
         return view('dashboard.flights', [
@@ -60,6 +67,7 @@ class UserDashboardController extends Controller
             'flights'=> $flights->paginate(20)
         ]);
     }
+
 
     // Search or filter flights
     public function searchFlight(Request $request)
@@ -88,12 +96,13 @@ class UserDashboardController extends Controller
             $query->whereDate('arrival_time', $request->arrival_date);
         }
 
-        $flights = $query->get();
+        $flights = $query->paginate(10);
 
         return view('dashboard.flights', [
             'company'=> Setting::latest()->first(), 'flights' => $flights
         ]);
     }
+
 
     // Flight page
     public function flight($id) 
@@ -107,14 +116,27 @@ class UserDashboardController extends Controller
         ]);
     }
 
+
     // Bookings for user page 
-    public function bookings()
+    public function bookings(Request $request)
     {
+        // if booking ID was searched
+        if ($request->query('search')) {
+            $search = $request->query('search');
+            $bookings = SeatBooking::where('booking_id', '=', $search)
+                        ->where('user_id', '=', Auth::user()->id);
+        } else {
+            $bookings = SeatBooking::where('user_id', '=', Auth::user()->id);
+            // Ignored because it hightlights an undefinedMethod error
+            // $bookings = Auth::user()->seat_bookings();
+        }
+
         return view('dashboard.bookings', [
             'company'=> Setting::latest()->first(),
-            'bookings'=> Auth::user()->seat_bookings
+            'bookings'=> $bookings->paginate(10)
         ]);
     }
+
 
     // Book a flight seat 
     public function bookFlight($id)
@@ -132,6 +154,7 @@ class UserDashboardController extends Controller
             'seat'=> $seat
         ]);
     }
+
 
     // Checkout booking
     public function checkout(Request $request)
@@ -181,6 +204,20 @@ class UserDashboardController extends Controller
         $seat->status = 'booked';
         $seat->save();
 
+        // Checking if all flight seats have been booked
+        // And updating flight status accordingly
+        // We need just to check one available seat record
+        // And if non, flight has completely been booked
+        $any_available_seats = Seat::where('flight_id', $seat->flight_id)
+                                    ->where('status', 'available')
+                                    ->first();
+        // If no available seat
+        if (is_null($any_available_seats) || empty($any_available_seats)) {
+            $flight = $seat->flight;
+            $flight->status = 'booked';
+            $flight->save();
+        }
+
         // Return JSON response
         return response()->json([
             'status' => "success", 
@@ -188,6 +225,7 @@ class UserDashboardController extends Controller
             'invoice_url' => route('dashboard.invoice', ['booking_id' => $seat_booking->booking_id])
         ]);
     }
+
 
     // Invoice page
     public function invoice($booking_id)
@@ -208,6 +246,7 @@ class UserDashboardController extends Controller
         ]);
     }
 
+
     // Profile page
     public function profile()
     {
@@ -216,4 +255,12 @@ class UserDashboardController extends Controller
         ]);
     }
 
+
+    // Edit Profile page
+    public function editProfile(Request $request)
+    {
+        return view('dashboard.profile', [
+            'company' => Setting::latest()->first(),
+        ]);
+    }
 }

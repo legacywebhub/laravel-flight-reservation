@@ -34,63 +34,15 @@
 					<div class="tab" role="tabpanel">
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs" role="tablist">
-							<li role="presentation" class="active"><a href="#Tour" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-globe"></i>Tour</a></li>
-							<li role="presentation"><a href="#Hotel" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-hotel"></i>Hotel</a></li>
-							<li role="presentation"><a href="#Flight" aria-controls="messages" role="tab" data-toggle="tab"><i class="fa fa-fighter-jet"></i>Flight</a></li>
-							<li role="presentation"><a href="#Restaurant" aria-controls="messages" role="tab" data-toggle="tab"><i class="fa fa-coffee"></i>Restaurent</a></li>
+							{{-- <li role="presentation"><a href="#Hotel" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-hotel"></i>Hotel</a></li> --}}
+							<li role="presentation" class="active"><a href="#Flight" aria-controls="messages" role="tab" data-toggle="tab"><i class="fa fa-fighter-jet"></i>Flight</a></li>
 						</ul>
 						<!-- Tab panes -->
 					</div>
 				</div>
 				<div class="tab-content tabs">
 
-					<!-- Tour Book Form -->
-					<div role="tabpanel" class="tab-pane fade in active" id="Tour">
-						<form>
-							<fieldset class="home-form-1">
-							
-								<div class="col-md-3 col-sm-3 padd-0">
-									<input type="text" class="form-control br-1" placeholder="City, Country">
-								</div>
-								
-								<div class="col-md-3 col-sm-3 padd-0">
-									<input type="text" name="book-date" id="book-date" class="form-control br-1" value="When...">
-								</div>
-									
-								<div class="col-md-2 col-sm-2 padd-0">
-									<div class="sl-box">
-										<select class="wide form-control br-1">
-											<option data-display="Adults">Adults</option>
-											<option value="1">01</option>
-											<option value="2">02</option>
-											<option value="3">03</option>
-											<option value="4">04</option>
-										</select>
-									</div>
-								</div>
-									
-								<div class="col-md-2 col-sm-2 padd-0">
-									<div class="sl-box">
-										<select class="wide form-control br-1">
-											<option data-display="Children">Children</option>
-											<option value="1">01</option>
-											<option value="2">02</option>
-											<option value="3">03</option>
-											<option value="4">04</option>
-										</select>
-									</div>
-								</div>
-								
-									
-								<div class="col-md-2 col-sm-2 padd-0">
-									<button type="submit" class="btn theme-btn cl-white seub-btn">FIND JOB</button>
-								</div>
-									
-							</fieldset>
-						</form>
-					</div>
-					
-					<!-- Hotel Book Form -->
+					{{-- <!-- Hotel Book Form -->
 					<div role="tabpanel" class="tab-pane fade in" id="Hotel">
 						<form>
 							<fieldset class="home-form-1">
@@ -131,103 +83,37 @@
 									
 							</fieldset>
 						</form>
-					</div>
+					</div> --}}
 					
 					<!-- Flight Book Form -->
-					<div role="tabpanel" class="tab-pane fade in" id="Flight">
-						<form>
+					<div role="tabpanel" class="tab-pane fade in active" id="Flight">
+						<form action="{{ route('flights') }}" method="POST">
+							@csrf
 							<fieldset class="home-form-1">
 							
 								<div class="col-md-2 col-sm-2 padd-0">
-									<input type="text" class="form-control br-1" placeholder="Leaving From..">
+									<input type="text" name="origin" class="form-control br-1" placeholder="Leaving From..">
 								</div>
 								
 								<div class="col-md-2 col-sm-2 padd-0">
-									<input type="text" class="form-control br-1" value="Going To..">
+									<input type="text" name="destination" class="form-control br-1" placeholder="Going To..">
 								</div>
 								
 								<div class="col-md-2 col-sm-2 padd-0">
-									<input type="text" name="flight-book" id="flight-book" class="form-control br-1" value="When..">
+									<input type="date" name="departure_date" class="form-control br-1" value="When..">
+								</div>
+
+								<div class="col-md-2 col-sm-2 padd-0">
+									<input type="date" name="arrival_date" class="form-control br-1" value="When..">
 								</div>
 									
 								<div class="col-md-2 col-sm-2 padd-0">
-									<div class="sl-box">
-										<select class="wide form-control br-1">
-											<option data-display="Adults">Adults</option>
-											<option value="1">01</option>
-											<option value="2">02</option>
-											<option value="3">03</option>
-											<option value="4">04</option>
-										</select>
-									</div>
-								</div>
-									
-								<div class="col-md-2 col-sm-2 padd-0">
-									<div class="sl-box">
-										<select class="wide form-control br-1">
-											<option data-display="Children">Children</option>
-											<option value="1">01</option>
-											<option value="2">02</option>
-											<option value="3">03</option>
-											<option value="4">04</option>
-										</select>
-									</div>
-								</div>
-								
-									
-								<div class="col-md-2 col-sm-2 padd-0">
-									<button type="submit" class="btn theme-btn cl-white seub-btn">FIND JOB</button>
+									<button class="btn theme-btn cl-white seub-btn">SEARCH</button>
 								</div>
 									
 							</fieldset>
 						</form>
 					</div>
-					
-					<!-- Restaurant Book Form -->
-					<div role="tabpanel" class="tab-pane fade in" id="Restaurant">
-						<form>
-							<fieldset class="home-form-1">
-							
-								<div class="col-md-3 col-sm-3 padd-0">
-									<input type="text" class="form-control br-1" placeholder="City, Country">
-								</div>
-								
-								<div class="col-md-2 col-sm-2 padd-0">
-									<div class="sl-box">
-										<select class="wide form-control br-1">
-											<option data-display="Person">Person</option>
-											<option value="1">01</option>
-											<option value="2">02</option>
-											<option value="3">03</option>
-											<option value="4">04</option>
-										</select>
-									</div>
-								</div>
-								
-								<div class="col-md-2 col-sm-2 padd-0">
-									<div class="sl-box">
-										<select class="wide form-control br-1">
-											<option data-display="Children">Children</option>
-											<option value="1">01</option>
-											<option value="2">02</option>
-											<option value="3">03</option>
-											<option value="4">04</option>
-										</select>
-									</div>
-								</div>
-									
-								<div class="col-md-3 col-sm-3 padd-0">
-									<input type="text" name="check-in-out" class="form-control br-1" value="Check In & Out">
-								</div>
-									
-								<div class="col-md-2 col-sm-2 padd-0">
-									<button type="submit" class="btn theme-btn cl-white seub-btn">FIND Hotel</button>
-								</div>
-									
-							</fieldset>
-						</form>
-					</div>
-					
 				</div>
 				
 			</div>

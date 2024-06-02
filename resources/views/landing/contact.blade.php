@@ -48,7 +48,11 @@
 						@csrf
 
 						@if(session()->has('message'))
-							<div class="alert-msg" style="text-align: right;">{{ session('message') }}</div>
+							@if(session('message_type') == 'success')
+								<div class="text-center mrg-top-20 mrg-bot-20 text-success">{{ session('message') }}</div>
+							@else
+								<div class="text-center mrg-top-20 mrg-bot-20 text-danger">{{ session('message') }}</div>
+							@endif
 						@endif
 					
 						<div class="row">

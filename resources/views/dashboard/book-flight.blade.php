@@ -96,7 +96,7 @@
           <div class="col-md-3">
             <div class="tr-single-box">
               <div class="tr-single-header">
-                <h4><i class="ti-credit-card"></i>Payment Methode</h4>
+                <h4><i class="ti-credit-card"></i>Payment Methods</h4>
               </div>
               <div class="tr-single-body">
                 <!-- Paypal Option -->
