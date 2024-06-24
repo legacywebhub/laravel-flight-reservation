@@ -15,28 +15,27 @@ class FlightSeeder extends Seeder
     public function run(): void
     {
         // Creating large record of flights using factories
-        $flights = Flight::factory(10)->create();
-
-        // for each flight create seats
-        foreach ($flights as $flight) {
-            $this->createSeats($flight);
-        }
+        Flight::factory(10)->create()->each(function ($flight) {
+            $this->createFlightSeats($flight);
+        });
     }
 
     
     // Function to create flight seats
-    public function createSeats(Flight $flight)
+    public function createFlightSeats($flight)
     {
+        //dd($flight);  // Debugging purpose
+        
         // Define the seat classes and the number of seats in each class
         $seatClasses = [
-            'economy' => floor(0.70 * $flight->available_seat),
-            'premium economy' => floor(0.10 * $flight->available_seat),
-            'business' => floor(0.15 * $flight->available_seat),
-            'first class' => floor(0.05 * $flight->available_seat),
+            'economy' => floor(0.70 * $flight->available_seats),
+            'premium economy' => floor(0.10 * $flight->available_seats),
+            'business' => floor(0.15 * $flight->available_seats),
+            'first class' => floor(0.05 * $flight->available_seats),
         ];
 
         foreach ($seatClasses as $class => $count) {
-            // Determining seat price based on price
+            // Determining seat price based on class
             if ($class == 'economy') {
                 $price = $flight->economy_price;
             } else if ($class == 'premium economy') {
@@ -58,5 +57,6 @@ class FlightSeeder extends Seeder
                 ]);
             }
         }
+        
     }
 }

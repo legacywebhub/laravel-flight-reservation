@@ -4,11 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Flight;
 use App\Models\Airline;
 use App\Models\Airport;
 use App\Models\Setting;
-use App\Models\Seat;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,14 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Mass creating table records
-        User::factory(10)->create();
-        Airline::factory(5)->create();
-        Airport::factory(10)->create();
-        Flight::factory(10)->create();
-        Seat::factory(500)->create();
-        
-        // Creating a user admin
+        // Creating a defined user admin
         User::create([
             'name' => 'Admin Admin',
             'email' => 'admin@gmail.com',
@@ -41,14 +32,20 @@ class DatabaseSeeder extends Seeder
         // Creating a default site setting
         Setting::create([
             'name' => "Laravel Flights",
-            'email' => "info@laravelfly.com",
+            'email' => "info@laravelflights.com",
             'phone' => "+234 916 075 5152",
             'address' => "30 Laravel-Fly Road, Awka, Nigeria"
         ]);
+
+        // Mass creating table records
+        User::factory(10)->create();
+        Airline::factory(10)->create();
+        Airport::factory(10)->create();
         
         // Calling other seeders
         $this->call([
             BotResponseSeeder::class,
+            FlightSeeder::class
         ]);
     }
 }

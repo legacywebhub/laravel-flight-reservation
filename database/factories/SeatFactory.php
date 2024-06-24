@@ -21,15 +21,15 @@ class SeatFactory extends Factory
         $price = 500;
 
         if ($class == 'premium economy') {
-            $price = 500 + 200;
+            $price += 200;
         } else if ($class == 'business') {
-            $price = 500 + 300;
+            $price += 500;
         } else if ($class == 'first class') {
-            $price = 500 + 500;
+            $price += 1000;
         }
 
         return [
-            'flight_id' => rand(1, 10),
+            'flight_id' => rand(1, 10),  // Dynamic flight ids for the different generated seats
             'seat_number' => strtoupper(substr($class, 0, 1)) . rand(1, 500), // Example: E1, E2, ..., B1, B2, ...
             'seat_class' => $class,
             'price' => $price,
