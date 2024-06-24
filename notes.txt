@@ -10,8 +10,13 @@ Testing helps us identify problem in portions of our code. By running simple com
 or unit of code is working or not
 
 # phpunit.xml configuration
+colors="true"
 verbose="true"
 stopOnFailure="true"
 ./vendor/bin/phpunit
 
 php artisan test
+php artisan test --filter=SampleTest
+php artisan test Tests/Unit/SampleTest.php
+vendor/bin/phpunit --filter SampleTest
+vendor/bin/phpunit Tests/Unit/SampleTest.php

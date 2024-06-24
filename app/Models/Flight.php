@@ -70,12 +70,12 @@ class Flight extends Model
     // Function to create flight seats
     protected function createSeats()
     {
-        // Define the seat classes and the number of seats in each class
+        // Defining seat classes and the number of seats in each class
         $seatClasses = [
-            'economy' => floor(0.70 * $this->available_seat),
-            'premium economy' => floor(0.10 * $this->available_seat),
-            'business' => floor(0.15 * $this->available_seat),
-            'first class' => floor(0.05 * $this->available_seat),
+            'economy' => floor(0.70 * $this->available_seats),
+            'premium economy' => floor(0.10 * $this->available_seats),
+            'business' => floor(0.15 * $this->available_seats),
+            'first class' => floor(0.05 * $this->available_seats),
         ];
 
         foreach ($seatClasses as $class => $count) {

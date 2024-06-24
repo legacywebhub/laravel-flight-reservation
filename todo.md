@@ -1,8 +1,10 @@
 # TO-DOs
 
+* Emailing feature
+* Queueing system to remind users of their flight 
 * User image uploads during registeration
 * Admin Panel using Filament & Installation
-* Testing - Unit & Feature
+* Testing - Unit & Feature    - done
 * Dependent seeding feature
 * Bot upgrade
 * Customer service chat using WebRTC
